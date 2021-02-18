@@ -40,6 +40,42 @@ html, body {
     font-size: 5em;
 }
 
+.slide {
+    display: none;
+    -webkit-animation-name: fade;       /* The fade effect is from: https://www.w3schools.com/howto/howto_js_slideshow.asp*/
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .3} 
+    to {opacity: 1}
+}
+  
+@keyframes fade {
+    from {opacity: .3} 
+    to {opacity: 1}
+}
+
+.slide_dot {
+    text-align: center;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: silver;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.dot_on {
+    background-color: grey;
+}
+
 .schedule {
     position: absolute;
     top: 550px;
