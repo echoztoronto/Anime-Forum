@@ -48,6 +48,11 @@ html, body {
     animation-duration: 1.5s;
 }
 
+.slide img {
+    width: 100%;
+    height: 400px;
+}
+
 @-webkit-keyframes fade {
     from {opacity: .3} 
     to {opacity: 1}
