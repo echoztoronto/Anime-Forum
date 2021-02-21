@@ -3,6 +3,13 @@ html, body {
     height: 100%;
 }
 
+.navbar {
+    width: 100%;
+    height: 50px;
+    background: rgb(2,0,36);
+    background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
+}
+
 .navbar-page {
     float: left;
 }
@@ -18,12 +25,12 @@ html, body {
     text-align: center;
     display: inline-block;
     padding: 10px 20px 10px 20px;
-    background-color: deepskyblue;
     margin: 0 0 0 0;
 }
 
 .navbar div div a {
-    color: black;
+    font-family:fantasy;
+    color: rgb(49, 49, 49);
     font-size: 20px;
     text-decoration: none;
     white-space: nowrap;

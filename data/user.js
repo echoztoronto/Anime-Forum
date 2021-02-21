@@ -34,7 +34,7 @@ var user_profiles = [
         birthday: "1900.01.01",
         address: "Toronto",
         gender: "Male",
-        interest: "anime and games",
+        interest: "anime and games"
     },
     {
         userID: "admin", 
@@ -48,7 +48,21 @@ var user_profiles = [
         birthday: "secret",
         address: "Skyrim",
         gender: "Futa",
-        interest: "be an admin",    
+        interest: "be an admin"   
+    },
+    {
+        userID: "kano",
+        displayName: "KanoChan",
+        type:"normal",
+        exp: 100,
+        level: 2,
+        gold: 20,
+        profileBanner: 100,
+        profilePic: 100,
+        birthday: "Dec.24",
+        address: "Japan",
+        gender: "Female",
+        interest: "singing"
     }
 ];
 
