@@ -1,3 +1,7 @@
+if(window.location.hash) {
+    hashChange();
+}
+
 function hashChange() {
     let x = location.hash;
     let uID = x.substring(1);
