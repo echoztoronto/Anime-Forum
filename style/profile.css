@@ -74,7 +74,6 @@
     font-family: cursive;
     font-size: 1.3em;
     color: rgb(255, 255, 255);
-    
 }
 
 .posts-container {
@@ -102,7 +101,7 @@
     font-family:Arial, Helvetica, sans-serif;
     font-size: 1.5em;
     border-left: solid 1px gray;
-    border-radius: solid 1px gray;
+    border-right: solid 1px gray;
 }
 
 
