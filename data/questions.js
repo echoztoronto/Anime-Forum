@@ -78,13 +78,21 @@ var answers = [
     {
         ID: 4,
         questionID: 2,
+        answerer: "asdfgh",
+        content: "CODE GEASS, DEATH NOTE, HUNTER X HUNTER </br> yea I'm an old anime fan hah",
+        likeCount: 54,
+        status: "",
+    },
+    {
+        ID: 5,
+        questionID: 2,
         answerer: "Crosswrm",
         content: "I remember some discussions about Dragon Ball Super when it was airing, and some producers said it could take 6+ months to make an episode",
         likeCount: 6,
         status: "",
     },
     {
-        ID: 5,
+        ID: 6,
         questionID: 2,
         answerer: "aniMayor",
         content: "From what I got from shirobako, I'd say that it'd take a few months",
@@ -92,10 +100,10 @@ var answers = [
         status: "",
     },
     {
-        ID: 6,
+        ID: 7,
         questionID: 3,
         answerer: "Liszt",
-        content: "See if any of these anime interest you: 1. Death Parade 2. Danganronpa: The Animation 3.The Money and Soul of Possibility 4.The Fruit of Grisaia,",
+        content: "See if any of these anime interest you:<br/> 1. Death Parade 2. Danganronpa: The Animation 3.The Money and Soul of Possibility 4.The Fruit of Grisaia,",
         likeCount: 11,
         status: "",
         answerer: "onepiecelover",
@@ -103,15 +111,6 @@ var answers = [
         likeCount: 168,
         status: "",
     },
-    {
-        ID: 4,
-        questionID: 2,
-        answerer: "asdfgh",
-        content: "CODE GEASS, DEATH NOTE, HUNTER X HUNTER </br> yea I'm an old anime fan hah",
-        likeCount: 54,
-        status: "",
-    },
-  
     {
         //add more
     }
