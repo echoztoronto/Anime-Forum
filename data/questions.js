@@ -58,6 +58,32 @@ var questions = [
         reward: 10,
         levelLimit: 5
         //add more
+    },
+    {
+        ID: 5,
+        summary: "why one punch man season 2 is bad?",
+        description: "I love One Punch Man. but I noticed that the season two is too lame..why one punch man season 2 is that bad?",
+        likeCount: 10,
+        replyCount: 2,
+        status: "Resolved",
+        asker: "Allie",
+        lastAnswerer: "Jason",
+        reward: 5,
+        levelLimit: 5
+        //add more
+    },
+    {
+        ID: 6,
+        summary: "why one punch man is so strong?",
+        description: "Why one punch man is so strong? He is just a human.",
+        likeCount: 5,
+        replyCount: 1,
+        status: "Resolved",
+        asker: "Lee",
+        lastAnswerer: "Coco",
+        reward: 5,
+        levelLimit: 0
+        //add more
     }
 
 ];
@@ -132,6 +158,36 @@ var answers = [
         likeCount: 5,
         status: "",
     },
+    {   
+        ID: 9,
+        questionID: 5,
+        answerer: "James",
+        content: "Yes, I wonderee why too.",
+        likeCount: 6,
+        status: "",
+    },
+    {   
+        ID: 10,
+        questionID: 5,
+        answerer: "Jason",
+        content: "The biggest reason why the animation sucked was due to the lack of production time. When you get less time to work on stuff, you have to cut around corners. This is why most of the stuff from One Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.",
+        likeCount: 16,
+        status: "Accepted",
+    },
+
+    {   
+        ID: 11,
+        questionID: 6,
+        answerer: "Coco",
+        content: "Saitama got so strong because he broke his limiter. The limiter, limits what is possible for someone until their growth eventually hits a wall and they are no longer capable of reaching new heights. Basically a man could be able to lift 1000 lbs and that would be his limit.",
+        likeCount: 10,
+        status: "Accepted",
+    },
+    
+
+
+
+
     {
         //add more
     }
