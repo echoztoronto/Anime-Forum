@@ -53,7 +53,7 @@ var questions = [
         likeCount: 12,
         replyCount: 1,
         status: "Resolved",
-        asker: "Tim",
+        asker: "timf",
         lastAnswerer: "Zoe",
         reward: 10,
         levelLimit: 5
@@ -66,7 +66,7 @@ var questions = [
         likeCount: 10,
         replyCount: 2,
         status: "Resolved",
-        asker: "Allie",
+        asker: "alliez",
         lastAnswerer: "Jason",
         reward: 5,
         levelLimit: 5
@@ -153,7 +153,7 @@ var answers = [
     {   
         ID: 8,
         questionID: 4,
-        answerer: "Zoe",
+        answerer: "zoegoodgood",
         content: "The manga itself is still being released and will be releasing by the end of 2019 so episodes will be releasing by 2020 until a new manga episode of 2020 releases. This cycle will keep on going until Gosho Ayoma says so.",
         likeCount: 5,
         status: "",
@@ -161,7 +161,7 @@ var answers = [
     {   
         ID: 9,
         questionID: 5,
-        answerer: "James",
+        answerer: "james_h",
         content: "Yes, I wonderee why too.",
         likeCount: 6,
         status: "",
@@ -169,7 +169,7 @@ var answers = [
     {   
         ID: 10,
         questionID: 5,
-        answerer: "Jason",
+        answerer: "jason_z",
         content: "The biggest reason why the animation sucked was due to the lack of production time. When you get less time to work on stuff, you have to cut around corners. This is why most of the stuff from One Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.",
         likeCount: 16,
         status: "Accepted",
@@ -178,7 +178,7 @@ var answers = [
     {   
         ID: 11,
         questionID: 6,
-        answerer: "Coco",
+        answerer: "coco1998",
         content: "Saitama got so strong because he broke his limiter. The limiter, limits what is possible for someone until their growth eventually hits a wall and they are no longer capable of reaching new heights. Basically a man could be able to lift 1000 lbs and that would be his limit.",
         likeCount: 10,
         status: "Accepted",
