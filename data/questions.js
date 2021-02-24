@@ -45,6 +45,19 @@ var questions = [
         reward: 0,
         levelLimit: 0
         //add more
+    },
+    {
+        ID: 4,
+        summary: "Is Detective Conan ever going to end?",
+        description: "Hello, I am a huge fan of Case Closed. Is Detective Conan ever going to end?",
+        likeCount: 12,
+        replyCount: 1,
+        status: "Resolved",
+        asker: "Tim",
+        lastAnswerer: "Zoe",
+        reward: 10,
+        levelLimit: 5
+        //add more
     }
 
 ];
@@ -109,6 +122,14 @@ var answers = [
         answerer: "onepiecelover",
         content: "one piece, one piece and one piece",
         likeCount: 168,
+        status: "",
+    },
+    {   
+        ID: 8,
+        questionID: 4,
+        answerer: "Zoe",
+        content: "The manga itself is still being released and will be releasing by the end of 2019 so episodes will be releasing by 2020 until a new manga episode of 2020 releases. This cycle will keep on going until Gosho Ayoma says so.",
+        likeCount: 5,
         status: "",
     },
     {
