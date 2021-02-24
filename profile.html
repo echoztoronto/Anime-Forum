@@ -10,8 +10,16 @@
     </head>
     <body onhashchange="hashChange()">
         <div class="navbar">
-            hold for navbar
-        </div>
+            <div class="navbar-left">
+                <div><a href="index.html"> Home </a></div>
+                <div><a href="forum.html"> Q&amp;A Forum </a></div>
+            </div>
+            <div class="navbar-right">
+                <img src="images/default_profile.jpg" id="nav_user_profile">
+                <span id="nav_username">Username</span>
+                <div><a href="index.html"> Logout </a></div>
+            </div>
+	    </div>
 
         <div class="profile-container">
             <div class="banner">
@@ -31,9 +39,9 @@
 
             <div class="posts-container">
                 <div class="post-selector"> 
-                    <div onclick="asked_question()">  Asked Questions </div>
-                    <div onclick="answered_question()"> Answered Questions   </div>
-                    <div onclick="accepted_answer()"> Accepted Answers  </div>
+                    <div id="asked_q" onclick="asked_question()">  Asked Questions </div>
+                    <div id="answered_q" onclick="answered_question()"> Answered Questions   </div>
+                    <div id="accepted_a" onclick="accepted_answer()"> Accepted Answers  </div>
                 </div> 
                 <div id="post-list">
                 </div>
