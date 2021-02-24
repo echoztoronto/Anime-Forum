@@ -24,15 +24,29 @@ function hashChange() {
     }
 }
 
+// onclick events for post selector buttons
 function asked_question() {
+    reset_post_list_style();
+    document.getElementById("asked_q").style = "background-color:rgb(246, 234, 179);"
     document.getElementById("post-list").innerHTML = "Gonna display asked questions here";
 }
 
 function answered_question() {
+    reset_post_list_style();
+    document.getElementById("answered_q").style = "background-color:rgb(246, 234, 179);"
     document.getElementById("post-list").innerHTML = "Gonna display answered questions here";
 
 }
 
 function accepted_answer() {
+    reset_post_list_style();
+    document.getElementById("accepted_a").style = "background-color:rgb(246, 234, 179);"
     document.getElementById("post-list").innerHTML = "Gonna display accepted answers here";
+}
+
+// set all three selector div to default colors
+function reset_post_list_style() {  
+    document.getElementById("asked_q").style = "color:#000;background-color:#FFF;"
+    document.getElementById("answered_q").style = "color:#000;background-color:#FFF;"
+    document.getElementById("accepted_a").style = "color:#000;background-color:#FFF;"
 }

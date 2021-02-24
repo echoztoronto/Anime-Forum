@@ -63,6 +63,20 @@ var user_profiles = [
         address: "Japan",
         gender: "Female",
         interest: "singing"
+    },
+    {
+        userID: "noob",
+        displayName: "NOOB",
+        type:"normal",
+        exp: 1,
+        level: 1,
+        gold: 0,
+        profileBanner: 1,
+        profilePic: 2,
+        birthday: "July.25",
+        address: "OwO",
+        gender: "Male",
+        interest: "answering questions"
     }
 ];
 

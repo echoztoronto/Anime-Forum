@@ -1,3 +1,47 @@
+.navbar-left {
+    float: left;
+}
+
+.navbar-right {
+    float: right;
+}
+
+.navbar div div{
+    width: 10%;
+    min-width: 100px;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px 10px 20px;
+    margin: 0 0 0 0;
+    
+}
+
+.navbar div div a {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#nav_username {
+    vertical-align: middle;
+    margin-right: 20px;
+    font-family: cursive;
+    color: rgb(49, 49, 49);
+    font-size: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#nav_user_profile {
+    border-radius: 50%;
+    width: 40px;
+    vertical-align: middle;
+    margin-top: 0px;
+    margin-right: 5px;
+}
+
 .profile-container {
     display: absolute;
     padding-top: 100px;
@@ -89,23 +133,24 @@
     margin-top: 0;
     height: auto;
     border-bottom: solid 2px gray;
+    display: flex;
 }
 
 .post-selector div {
     margin: 0 0 0 0;
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 15px;
     padding-bottom: 15px;
     display: inline-block;
-    width: 33%;
+    width: calc(100%/3);
     text-align: center;
     font-family:Arial, Helvetica, sans-serif;
     font-size: 1.5em;
-    border-left: solid 1px gray;
-    border-right: solid 1px gray;
+    border: solid black 1px;
 }
 
 
 .post-selector div:hover {
-    color:#FFF;
-    background-color:#000;
+    background-color:rgb(246, 234, 179);
 }

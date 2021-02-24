@@ -9,7 +9,7 @@ var questions = [
         likeCount: 12,
         replyCount: 2,
         status: "Resolved",
-        asker: "LoveOnePiece",
+        asker: "onepiecelover",
         lastAnswerer: "asdfgh",
         reward: 0,
         levelLimit: 0
@@ -23,6 +23,13 @@ var questions = [
         status: "Resolved",
         asker: "20years-lonely",
         lastAnswerer: "aniMayor",
+        summary: "What would be the top three anime?",
+        description: "imo one piece, naruto and bleach ^_^",
+        likeCount: 233,
+        replyCount: 5,
+        status: "Ongoing",
+        asker: "user",
+        lastAnswerer: "",
         reward: 0,
         levelLimit: 0
     },
@@ -37,7 +44,9 @@ var questions = [
         lastAnswerer: "Liszt",
         reward: 0,
         levelLimit: 0
+        //add more
     }
+
 ];
 
 // 
@@ -89,6 +98,22 @@ var answers = [
         content: "See if any of these anime interest you: 1. Death Parade 2. Danganronpa: The Animation 3.The Money and Soul of Possibility 4.The Fruit of Grisaia,",
         likeCount: 11,
         status: "",
+        answerer: "onepiecelover",
+        content: "one piece, one piece and one piece",
+        likeCount: 168,
+        status: "",
+    },
+    {
+        ID: 4,
+        questionID: 2,
+        answerer: "asdfgh",
+        content: "CODE GEASS, DEATH NOTE, HUNTER X HUNTER </br> yea I'm an old anime fan hah",
+        likeCount: 54,
+        status: "",
+    },
+  
+    {
+        //add more
     }
 ];
 
