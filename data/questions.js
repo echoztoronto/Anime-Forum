@@ -15,7 +15,28 @@ var questions = [
         levelLimit: 0
     },
     {
-        //add more
+        ID: 2,
+        summary: "How long does it take for a single Anime episode to be made?",
+        description: "",
+        likeCount: 71,
+        replyCount: 3,
+        status: "Resolved",
+        asker: "20years-lonely",
+        lastAnswerer: "aniMayor",
+        reward: 0,
+        levelLimit: 0
+    },
+    {
+        ID: 3,
+        summary: "Classroom of elite similar?",
+        description: "Hello I was a huge fan of classroom of elite and wanted to know if their r any similar animes maybe give a few cause there is a chance I already saw some similar. Thanks.",
+        likeCount: 13,
+        replyCount: 1,
+        status: "Resolved",
+        asker: "Zoomer",
+        lastAnswerer: "Liszt",
+        reward: 0,
+        levelLimit: 0
     }
 ];
 
@@ -38,7 +59,36 @@ var answers = [
         status: "",
     },
     {
-        //add more
+        ID: 3,
+        questionID: 2,
+        answerer: "steven",
+        content: "It takes around 8-12 months to make an episode but animators work simultaneously on other episodes as well. Usually, they complete only 3-4 episodes before the release of the season and completes the other episodes as the season moves on.",
+        likeCount: 90,
+        status: "Accepted",
+    },
+    {
+        ID: 4,
+        questionID: 2,
+        answerer: "Crosswrm",
+        content: "I remember some discussions about Dragon Ball Super when it was airing, and some producers said it could take 6+ months to make an episode",
+        likeCount: 6,
+        status: "",
+    },
+    {
+        ID: 5,
+        questionID: 2,
+        answerer: "aniMayor",
+        content: "From what I got from shirobako, I'd say that it'd take a few months",
+        likeCount: 50,
+        status: "",
+    },
+    {
+        ID: 6,
+        questionID: 3,
+        answerer: "Liszt",
+        content: "See if any of these anime interest you: 1. Death Parade 2. Danganronpa: The Animation 3.The Money and Soul of Possibility 4.The Fruit of Grisaia,",
+        likeCount: 11,
+        status: "",
     }
 ];
 

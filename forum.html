@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/main.css">
-    <link rel="stylesheet" href="style/question_page.css">
+    <!-- <link rel="stylesheet" href="style/question_page.css"> -->
+    <link rel="stylesheet" href="style/forum.css">
     <title>Forum Page</title>
 </head>
 <body>
@@ -19,19 +20,34 @@
     </div>
 
     <div id="questionHeader">
-		<ul class='questionheader-left'>
-			<!-- Style the list element: Label and number -->
-			<li>Page Number<br><span class="questionHeaderNumber">< &nbsp 1 &nbsp 2 &nbsp 3 &nbsp 4 &nbsp  5 &nbsp 6 &nbsp ... &nbsplast &nbsp></span></li>
-		</ul>
 		<ul class='questionheader-right'>
 			<!-- Style the list element: Label and number -->
 			<li>Sort By<br><span class="questionHeaderNumber">Time | Most Liked</span></li>
 		</ul>
 	</div>
 
-    <div id="question_posts">
+    <div id="questionPosts">
         <div id="question_post_title">Question Posts</div>
+        <!-- <div id="like_count">Like Count</div>
+        <div id="reply_count">Reply Count</div>  -->
+    </div>
 
+    <div id="post_navbar">
+        <div id="post_navbar_left">
+            <span id="like_count">Like Count</span>
+            <span class="separator"></span>
+            <span id="reply_count">Reply Count</span>
+            <span class="separator"></span>
+            <span id="status">Status</span>
+            <span class="separator"></span>
+            <span id="summary">Question Summary</span>
+        </div>
+        <div id="post_navbar_right">
+            <span class="separator"></span>
+            <span>Question Asker</span>
+            <span class="separator"></span>
+            <span>Last Replied User</span>
+        </div>
     </div>
 </body>
 </html>
