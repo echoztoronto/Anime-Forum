@@ -119,6 +119,13 @@ a {
     min-height: 250px;
 }
 
+.post-profile-answer {
+    width: 500px;
+	display: inline-block;
+    background-color:rgb(245, 233, 199);
+    min-height: 250px;
+}
+
 .post-profile-icon {
     text-align: center;
 	border-radius: 50%;

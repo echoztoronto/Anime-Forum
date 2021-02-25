@@ -76,7 +76,7 @@ function insert_answer_posts(answer_list) {
         element.className = "post-container";
         element.id = "answer-post-"+i;
         document.getElementById("question-container").appendChild(element);
-        element.innerHTML = " <div class='post-profile'><img class='post-profile-icon' id='answerer-icon-"
+        element.innerHTML = " <div class='post-profile-answer'><img class='post-profile-icon' id='answerer-icon-"
             + i + "' src='//:0'/><div class='post-profile-info'><div class='display-name' id='answerer-name-"
             + i + "'> </div> <div class='user-level' id='answerer-level-"
             + i + "'> </div></div></div><div class='post-content'><div class='post-description' id='answer-description-"
