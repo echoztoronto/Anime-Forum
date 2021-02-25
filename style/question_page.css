@@ -256,3 +256,48 @@ padding: 0px;
 	position: absolute;
 	border: 3px solid white;
 }
+
+#user-level{
+    font-size: 100%;
+    color:grey;
+
+}
+
+#display-name{
+
+    font-size: 100%;
+    color:black;
+}
+
+#question_asker{
+
+    font-size: 100%;
+    color:black;
+}
+
+#question_answerer{
+
+    font-size: 100%;
+    color:black;
+}
+#question_rewards{
+    font-size: 100%;
+    color:grey;
+}
+
+#question_status{
+    font-size: 100%;
+    color:grey;
+    
+}
+
+#answer_like{
+    font-size: 100%;
+    color:grey;
+    
+}
+#answer_accept{
+    font-size: 100%;
+    color:grey;
+    
+}
