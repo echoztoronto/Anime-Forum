@@ -78,6 +78,7 @@
     left: calc(12% + 200px);
     position: absolute;
     font-family: cursive;
+    background-color: rgba(255, 255, 255, 0.349);
 }
 
 #display-name {
@@ -86,7 +87,7 @@
     position: absolute;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 2em;
-    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-width: 0.7px;
     -webkit-text-stroke-color: rgb(255, 255, 255);
 }
 
@@ -95,6 +96,7 @@
     left: calc(12% + 200px);
     position: absolute;
     font-family: cursive;
+    background-color: rgba(255, 255, 255, 0.349);
 }
 
 
@@ -153,4 +155,5 @@
 
 .post-selector div:hover {
     background-color:rgb(246, 234, 179);
+    cursor:pointer;
 }

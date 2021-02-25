@@ -5,7 +5,7 @@ var questions = [
     {
         ID: 1,
         summary: "What devil fruit did Sabo eat?",
-        description: "",
+        description: "Sorry guys I'm just too lazy to Google it lol",
         likeCount: 12,
         replyCount: 2,
         status: "Resolved",
@@ -27,7 +27,7 @@ var questions = [
         description: "imo one piece, naruto and bleach ^_^",
         likeCount: 233,
         replyCount: 5,
-        status: "Ongoing",
+        accepted: "Ongoing",
         asker: "user",
         lastAnswerer: "",
         reward: 0,
@@ -40,7 +40,7 @@ var questions = [
         likeCount: 13,
         replyCount: 1,
         status: "Resolved",
-        asker: "Zoomer",
+        asker: "coco1998",
         lastAnswerer: "Liszt",
         reward: 0,
         levelLimit: 0
@@ -79,7 +79,7 @@ var questions = [
         likeCount: 5,
         replyCount: 1,
         status: "Resolved",
-        asker: "Lee",
+        asker: "lee",
         lastAnswerer: "Coco",
         reward: 5,
         levelLimit: 0
@@ -96,7 +96,7 @@ var answers = [
         answerer: "asdfgh",
         content: "Mera Mera no Mi",
         likeCount: 6,
-        status: "Accepted",
+        accepted: true,
     },
     {   
         ID: 2,
@@ -104,51 +104,47 @@ var answers = [
         answerer: "noob",
         content: "who is Sabo?",
         likeCount: 0,
-        status: "",
+        accepted: false,
     },
     {
         ID: 3,
         questionID: 2,
-        answerer: "steven",
-        content: "It takes around 8-12 months to make an episode but animators work simultaneously on other episodes as well. Usually, they complete only 3-4 episodes before the release of the season and completes the other episodes as the season moves on.",
+        answerer: "onepiecelover",
+        content: "one piece, one piece and one piece.",
         likeCount: 90,
-        status: "Accepted",
+        accepted: true,
     },
     {
         ID: 4,
         questionID: 2,
         answerer: "asdfgh",
-        content: "CODE GEASS, DEATH NOTE, HUNTER X HUNTER </br> yea I'm an old anime fan hah",
+        content: "CODE GEASS, DEATH NOTE, HUNTER X HUNTER <br/> yea I'm an old anime fan hah",
         likeCount: 54,
-        status: "",
+        accepted: false,
     },
     {
         ID: 5,
         questionID: 2,
-        answerer: "Crosswrm",
+        answerer: "alliez",
         content: "I remember some discussions about Dragon Ball Super when it was airing, and some producers said it could take 6+ months to make an episode",
         likeCount: 6,
-        status: "",
+        accepted: false,
     },
     {
         ID: 6,
         questionID: 2,
-        answerer: "aniMayor",
+        answerer: "lee",
         content: "From what I got from shirobako, I'd say that it'd take a few months",
         likeCount: 50,
-        status: "",
+        accepted: false,
     },
     {
         ID: 7,
         questionID: 3,
-        answerer: "Liszt",
+        answerer: "jason_z",
         content: "See if any of these anime interest you:<br/> 1. Death Parade 2. Danganronpa: The Animation 3.The Money and Soul of Possibility 4.The Fruit of Grisaia,",
         likeCount: 11,
-        status: "",
-        answerer: "onepiecelover",
-        content: "one piece, one piece and one piece",
-        likeCount: 168,
-        status: "",
+        accepted: false,
     },
     {   
         ID: 8,
@@ -156,7 +152,7 @@ var answers = [
         answerer: "zoegoodgood",
         content: "The manga itself is still being released and will be releasing by the end of 2019 so episodes will be releasing by 2020 until a new manga episode of 2020 releases. This cycle will keep on going until Gosho Ayoma says so.",
         likeCount: 5,
-        status: "",
+        accepted: "",
     },
     {   
         ID: 9,
@@ -164,7 +160,7 @@ var answers = [
         answerer: "james_h",
         content: "Yes, I wonderee why too.",
         likeCount: 6,
-        status: "",
+        accepted: false,
     },
     {   
         ID: 10,
@@ -172,7 +168,7 @@ var answers = [
         answerer: "jason_z",
         content: "The biggest reason why the animation sucked was due to the lack of production time. When you get less time to work on stuff, you have to cut around corners. This is why most of the stuff from One Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.",
         likeCount: 16,
-        status: "Accepted",
+        accepted: true,
     },
 
     {   
@@ -181,7 +177,7 @@ var answers = [
         answerer: "coco1998",
         content: "Saitama got so strong because he broke his limiter. The limiter, limits what is possible for someone until their growth eventually hits a wall and they are no longer capable of reaching new heights. Basically a man could be able to lift 1000 lbs and that would be his limit.",
         likeCount: 10,
-        status: "Accepted",
+        accepted: true,
     },
     
 
@@ -207,14 +203,22 @@ function get_question(ID){
 function get_answer(ID){
     for (let i = 0; i < answers.length; i++){
         if (answers[i].ID == ID){
-            return get_answer[i];
+            return answers[i];
         }
     }
     return null;
 }
 
+// return a list of answer objects given question ID
+function get_answer_by_question(qID){
+    let answer_list = [];
+    for (let i = 0; i < answers.length; i++){
+        if (answers[i].questionID == qID){
+            answer_list.push(answers[i]);
+        }
+    }
+    return answer_list;
+}
 
-// other potential to-do functions:
-// sort questions by xx order
 
 
