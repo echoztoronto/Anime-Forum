@@ -86,7 +86,7 @@ var user_profiles = [
         level: 2,
         gold: 0,
         profileBanner: 1,
-        profilePic: 3,
+        profilePic: 12,
         birthday: "July.2",
         address: "5 St. Joseph Street",
         gender: "Female",

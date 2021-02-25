@@ -79,7 +79,7 @@ var questions = [
         likeCount: 5,
         replyCount: 1,
         status: "Resolved",
-        asker: "Lee",
+        asker: "lee",
         lastAnswerer: "Coco",
         reward: 5,
         levelLimit: 0
