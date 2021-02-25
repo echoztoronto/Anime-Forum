@@ -194,10 +194,24 @@ var answers = [
 ];
 
 // return the object given question ID
-//function get_question(ID) { }
+function get_question(ID){
+    for (let i = 0; i < questions.length; i++){
+        if (questions[i].ID == ID){
+            return questions[i];
+        }
+    }
+    return null;
+}
 
 // return the object given answer ID
-//function get_answer(ID) { }
+function get_answer(ID){
+    for (let i = 0; i < answers.length; i++){
+        if (answers[i].ID == ID){
+            return get_answer[i];
+        }
+    }
+    return null;
+}
 
 
 // other potential to-do functions:

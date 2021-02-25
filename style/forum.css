@@ -67,6 +67,8 @@
 
 .separator{
     border-left: 2px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #like_count {
@@ -76,4 +78,31 @@
 
 #reply_count {
     margin-left: 10px;
+}
+
+/*Question Container--------------------*/
+#question_block {
+    /* position: relative; */
+    margin-top: 100px;
+}
+
+.question_container{
+    border: 2px solid silver;
+    border-radius: 16px;
+    height: 80px;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.q_left{
+    float: left;
+    margin-left: 50px;
+    transform: translateY(170%);
+}
+
+.q_right{
+    float: right;
+    margin-right: 30px;
+    transform: translateY(170%);
 }
