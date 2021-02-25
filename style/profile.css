@@ -153,4 +153,5 @@
 
 .post-selector div:hover {
     background-color:rgb(246, 234, 179);
+    cursor:pointer;
 }
