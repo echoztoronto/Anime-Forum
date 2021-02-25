@@ -18,11 +18,7 @@ html, body {
     float: right;
 }
 
-.login{
-    padding: 10px 20px 10px 20px;
-}
-
-.navbar-page div {
+.navbar div div {
     width: 10%;
     min-width: 100px;
     height: 30px;
@@ -31,9 +27,6 @@ html, body {
     padding: 10px 20px 10px 20px;
     margin: 0 0 0 0;
 }
-
-
-
 
 .navbar div div a {
     font-family: cursive;
@@ -128,4 +121,3 @@ html, body {
     text-align: center;
     font-size: 5em;
 }
-
