@@ -49,7 +49,6 @@ function sort_by_like() {
     document.getElementById("sort-by-time").style = "text-decoration: none;"
 }
 
-
 // remove answer posts container
 function remove_answer_posts() {
     let over = false;

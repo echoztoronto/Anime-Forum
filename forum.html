@@ -6,6 +6,7 @@
     <!-- <link rel="stylesheet" href="style/question_page.css"> -->
     <link rel="stylesheet" href="style/forum.css">
     <script src="data/questions.js"></script>
+    <script src="style/question.js"></script>
     <title>Forum Page</title>
 </head>
 <body>
@@ -23,7 +24,10 @@
     <div id="questionHeader">
 		<ul class='questionheader-right'>
 			<!-- Style the list element: Label and number -->
-			<li>Sort By<br><span class="questionHeaderNumber">Time | Most Liked</span></li>
+			<li>Sort By</br>
+            <button id="sort_time_button">Time</span> 
+            <span class="separator"></span>
+            <button id="sort_like_button">Most Liked</span></li>
 		</ul>
 	</div>
 
