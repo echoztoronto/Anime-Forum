@@ -3,6 +3,7 @@ const sort_like_button = document.querySelector('#sort_like_button');
 
 sort_time_button.addEventListener('click', sort_by_time);
 sort_like_button.addEventListener('click', sort_by_like);
+window.addEventListener('load', sort_by_time);
 
 function sort_by_like(e){
     e.preventDefault();
@@ -27,7 +28,6 @@ function update_forum_page(questions) {
         c.className = "question_container";
         question_block.appendChild(c);
     }
-    console.log(question_block.children);
     container_list = question_block.children;
     for (let i = 0; i < questions.length; i++){
         container = container_list[i];
