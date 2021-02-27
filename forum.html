@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/main.css">
-    <!-- <link rel="stylesheet" href="style/question_page.css"> -->
     <link rel="stylesheet" href="style/forum.css">
     <script src="data/questions.js"></script>
     <script src="style/question.js"></script>
@@ -21,14 +20,17 @@
         </div>
     </div>
 
+    <div id="banner">
+        <img src="images/banner/12.png" id="banner_img">
+    </div>
+
     <div id="questionHeader">
-		<ul class='questionheader-right'>
-			<!-- Style the list element: Label and number -->
-			<li>Sort By</br>
-            <button id="sort_time_button">Time</span> 
+        <div id="sort_container">
+			<b>Sort By</b><br/>
+			<span id="sort_time">Time</span>
             <span class="separator"></span>
-            <button id="sort_like_button">Most Liked</span></li>
-		</ul>
+			<span id="sort_like">Most Liked</span>
+		</div>
 	</div>
 
     <div id="questionPosts">
