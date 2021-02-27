@@ -107,7 +107,7 @@ html, body {
 }
 
 
-.top-question {
+#top-question {
     position: absolute;
     top: 550px;
     left: 40%;
@@ -116,6 +116,16 @@ html, body {
     background-color: rgb(241, 234, 133);
     text-align: center;
     font-size: 5em;
+}
+
+#hot_title {
+    font-size: 30px;
+}
+
+.question_summary {
+    font-size: 24px;
+    text-align: left;
+    margin-top: 24px;
 }
 
 

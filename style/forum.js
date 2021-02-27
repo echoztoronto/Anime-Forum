@@ -28,7 +28,7 @@ function update_forum_page(questions) {
     let question_block = document.querySelector('#question_block');
     let container_to_add = questions.length - question_block.children.length;
     for (let i = 0; i < container_to_add; i++){
-        let c = document.createElement('div');
+        const c = document.createElement('div');
         c.className = "question_container";
         question_block.appendChild(c);
     }
