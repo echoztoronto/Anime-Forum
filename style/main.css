@@ -129,7 +129,7 @@ html, body {
 }
 
 
-.recent-question {
+#recent-question {
     position: absolute;
     top: 550px;
     left: 70%;

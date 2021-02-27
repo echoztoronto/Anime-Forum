@@ -14,3 +14,20 @@ function show_top_question(e){
         top_question.appendChild(c);
     }
 }
+
+window.addEventListener('load', show_recent_question);
+
+function show_recent_question(e){
+    e.preventDefault();
+    let questions_clone = JSON.parse(JSON.stringify(questions));    // clone the array
+    questions_clone.sort(function(a, b){
+        return a.ID - b.ID;
+    });
+    const top_question = document.querySelector('#recent-question');
+    for (let i = 0; i < 5; i++){        // top 5 
+        const c = document.createElement('div');
+        c.className = "question_summary";
+        c.innerHTML = `Top ${i + 1}: ${questions_clone[i].summary}`;
+        top_question.appendChild(c);
+    }
+}
