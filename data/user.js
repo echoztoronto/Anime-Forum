@@ -34,7 +34,9 @@ var user_profiles = [
         birthday: "1900.01.01",
         address: "Toronto",
         gender: "Male",
-        interest: "anime and games"
+        interest: "anime and games",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "admin", 
@@ -48,7 +50,9 @@ var user_profiles = [
         birthday: "secret",
         address: "Skyrim",
         gender: "Futa",
-        interest: "be an admin"   
+        interest: "be an admin",
+        num_answers: 0,
+        num_accepted: 0 
     },
     {
         userID: "kano",
@@ -62,7 +66,9 @@ var user_profiles = [
         birthday: "Dec.24",
         address: "Japan",
         gender: "Female",
-        interest: "singing"
+        interest: "singing",
+        num_answers: 2,
+        num_accepted: 1
     },
     {
         userID: "noob",
@@ -76,7 +82,9 @@ var user_profiles = [
         birthday: "July.25",
         address: "OwO",
         gender: "Male",
-        interest: "answering questions"
+        interest: "answering questions",
+        num_answers: 5,
+        num_accepted: 2
     },
     {
         userID: "coco1998",
@@ -90,7 +98,9 @@ var user_profiles = [
         birthday: "July.2",
         address: "5 St. Joseph Street",
         gender: "Female",
-        interest: "dancing"
+        interest: "dancing",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "jason_z",
@@ -104,7 +114,9 @@ var user_profiles = [
         birthday: "May.22",
         address: "1001 bay street",
         gender: "Male",
-        interest: "none"
+        interest: "none",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "james_h",
@@ -118,7 +130,9 @@ var user_profiles = [
         birthday: "March.22",
         address: "Youyi Street",
         gender: "Male",
-        interest: "Comics"
+        interest: "Comics",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "zoegoodgood",
@@ -132,7 +146,9 @@ var user_profiles = [
         birthday: "Dec.19",
         address: "4 Yonge Street",
         gender: "Female",
-        interest: "Computer engineering"
+        interest: "Computer engineering",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "lee",
@@ -146,7 +162,9 @@ var user_profiles = [
         birthday: "Nov.3",
         address: "Hongqi Street",
         gender: "Male",
-        interest: "Cooking"
+        interest: "Cooking",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "alliez",
@@ -160,7 +178,9 @@ var user_profiles = [
         birthday: "Apr.13",
         address: "297 Hongqi Street",
         gender: "Male",
-        interest: "Video game"
+        interest: "Video game",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "timf",
@@ -174,7 +194,9 @@ var user_profiles = [
         birthday: "May.23",
         address: "233 White Ave.",
         gender: "Male",
-        interest: "drawing"
+        interest: "drawing",
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "onepiecelover",
@@ -188,7 +210,9 @@ var user_profiles = [
         birthday: "Jan.2",
         address: "Thousand Sunny",
         gender: "Male",
-        interest: "One Piece"
+        interest: "One Piece",
+        num_answers: 1,
+        num_accepted: 0
     },
     {
         userID: "asdfgh",
@@ -202,7 +226,9 @@ var user_profiles = [
         birthday: "Unknown",
         address: "Unknown",
         gender: "Unknown",
-        interest: "Unknown"
+        interest: "Unknown",
+        num_answers: 0,
+        num_accepted: 0
     }
 ];
 
