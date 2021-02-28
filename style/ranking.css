@@ -1,0 +1,19 @@
+#ranking_block{
+    display: flex;
+    justify-content: space-between;
+    background-color: lightyellow;
+}
+
+#container_left{
+    margin-left: 100px;
+    width: 400px;
+    height: 600px;
+    border: 2px dashed red;
+}
+
+#container_right{
+    margin-right: 100px;
+    width: 400px;
+    height: 600px;
+    border: 2px dashed red;
+}
