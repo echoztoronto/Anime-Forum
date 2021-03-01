@@ -22,7 +22,7 @@ function show_users_most_accepted(e){
 }
 
 function update_ranking_page(users, table, flag){
-    for (let i = 0; i < 10; i++){   // show top 10 users
+    for (let i = 0; i < Math.min(10, users.length); i++){   // show top 10 users
         let row = table.insertRow(-1);
         let cell0 = row.insertCell(0);
         let cell1 = row.insertCell(1);

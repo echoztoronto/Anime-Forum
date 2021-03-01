@@ -7,7 +7,7 @@ function show_top_question(e){
         return b.likeCount + b.replyCount - a.likeCount - a.replyCount;
     });
     const top_question = document.querySelector('#top-question');
-    for (let i = 0; i < 5; i++){        // top 5 
+    for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
         const c = document.createElement('div');
         c.className = "question_summary";
         c.innerHTML = `Top ${i + 1}: <a href="question.html#${questions_clone[i].ID}">${questions_clone[i].summary}</a>`;
@@ -24,7 +24,7 @@ function show_recent_question(e){
         return a.ID - b.ID;
     });
     const top_question = document.querySelector('#recent-question');
-    for (let i = 0; i < 5; i++){        // top 5 
+    for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
         const c = document.createElement('div');
         c.className = "question_summary";
         c.innerHTML = `Top ${i + 1}:<a href="question.html#${questions_clone[i].ID}"> ${questions_clone[i].summary}</a>`;
