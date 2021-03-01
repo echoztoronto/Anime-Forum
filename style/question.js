@@ -38,6 +38,8 @@ function updatePage() {
         //add text editor if question is not resolved
         if(qObject.status != "Resolved") {
             document.getElementById("add-answer-btn").style = "visibility: visible;";
+        } else {
+            document.getElementById("add-answer-btn").style = "visibility: hidden;";
         }
 
     }
