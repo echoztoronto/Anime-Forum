@@ -19,7 +19,7 @@ var questions = [
         summary: "What are the top 3 anime?",
         description: "What are the top 3 anime?",
         likeCount: 71,
-        replyCount: 3,
+        replyCount: 4,
         status: "Ongoing",
         asker: "zoegoodgood",
         lastAnswerer: "aniMayor",
@@ -28,7 +28,7 @@ var questions = [
     },
     {
         ID: 3,
-        summary: "Classroom of elite similar?",
+        summary: "Similar animes to Classroom of Elite?",
         description: "Hello I was a huge fan of classroom of elite and wanted to know if their r any similar animes maybe give a few cause there is a chance I already saw some similar. Thanks.",
         likeCount: 13,
         replyCount: 1,
@@ -37,7 +37,6 @@ var questions = [
         lastAnswerer: "Liszt",
         reward: 0,
         levelLimit: 0
-        //add more
     },
     {
         ID: 4,
@@ -50,7 +49,6 @@ var questions = [
         lastAnswerer: "Zoe",
         reward: 10,
         levelLimit: 5
-        //add more
     },
     {
         ID: 5,
@@ -58,12 +56,11 @@ var questions = [
         description: "I love One Punch Man. but I noticed that the season two is too lame..why one punch man season 2 is that bad?",
         likeCount: 10,
         replyCount: 2,
-        status: "Resolved",
-        asker: "alliez",
+        status: "Ongoing",
+        asker: "kano",
         lastAnswerer: "Jason",
         reward: 5,
         levelLimit: 5
-        //add more
     },
     {
         ID: 6,
@@ -72,13 +69,23 @@ var questions = [
         likeCount: 5,
         replyCount: 1,
         status: "Resolved",
-        asker: "lee",
+        asker: "Johnathan-Daniel-Holmes",
         lastAnswerer: "Coco",
         reward: 5,
         levelLimit: 0
-        //add more
+    },
+    {
+        ID: 7,
+        summary: "Why is anime still treated as childish, despite being so famous and diverse?",
+        description: "<p>Anime is so famous and globally recognized that it’s unbelievable. But because of how it’s treated by the masses (in general), the industry’s smaller than it should be.Are people just being ignorant? Are big TV companies denying the existence of anime out of fear?</p> <p>Are people just being ignorant? Are big TV companies denying the existence of anime out of fear?</p>",
+        likeCount: 0,
+        replyCount: 0,
+        status: "Ongoing",
+        asker: "kano",
+        lastAnswerer: "",
+        reward: 0,
+        levelLimit: 0
     }
-
 ];
 
 // 
@@ -161,7 +168,7 @@ var answers = [
         answerer: "jason_z",
         content: "The biggest reason why the animation sucked was due to the lack of production time. When you get less time to work on stuff, you have to cut around corners. This is why most of the stuff from One Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.",
         likeCount: 16,
-        accepted: true,
+        accepted: false,
     },
 
     {   
@@ -171,15 +178,8 @@ var answers = [
         content: "Saitama got so strong because he broke his limiter. The limiter, limits what is possible for someone until their growth eventually hits a wall and they are no longer capable of reaching new heights. Basically a man could be able to lift 1000 lbs and that would be his limit.",
         likeCount: 10,
         accepted: true,
-    },
-    
-
-
-
-
-    {
-        //add more
     }
+    
 ];
 
 // return the object given question ID

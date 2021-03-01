@@ -24,7 +24,7 @@ var user_credentials = [
 var user_profiles = [
     {
         userID: "user", 
-        displayName: "Bob",
+        displayName: "Pikachu",
         type: "normal",
         exp: 100,
         level: 2,
@@ -78,7 +78,7 @@ var user_profiles = [
         level: 1,
         gold: 0,
         profileBanner: 8,
-        profilePic: 2,
+        profilePic: 15,
         birthday: "July.25",
         address: "OwO",
         gender: "Male",
@@ -107,7 +107,7 @@ var user_profiles = [
         displayName: "Jason",
         type:"normal",
         exp: 8,
-        level: 1,
+        level: 3,
         gold: 0,
         profileBanner: 5,
         profilePic: 4,

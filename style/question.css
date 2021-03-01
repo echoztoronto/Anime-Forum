@@ -248,6 +248,7 @@ a {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 15px;
     border: solid 1px;
+    background-color: white;
 }
 
 #editor-submit-btn:hover {
@@ -267,6 +268,7 @@ a {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 15px;
     border: solid 1px;
+    background-color: white;
 }
 
 #editor-cancel-btn:hover {

@@ -155,8 +155,8 @@ function add_self_answer(HTMLcontent) {
             </div>
         </div>`
 
-    // assume our user is kano
-    let aProfile = get_user_profile("kano");
+    // assume our user is user
+    let aProfile = get_user_profile("user");
     
     // update answerer info DOM
     document.getElementById("self-icon").src = "images/profilepic/" + aProfile.profilePic + ".jpg";
