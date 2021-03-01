@@ -43,7 +43,7 @@ function update_forum_page(questions) {
                 <span class="separator"></span>
                 <span class="q_status">${questions[i].status}</span>
                 <span class="separator"></span>
-                <span class="q_summary">${questions[i].summary}</span>
+                <span class="q_summary"><a href="question.html#${questions[i].ID}">${questions[i].summary}</a></span>
             </div>
             <div class="q_right">
                 <span class="separator"></span>
