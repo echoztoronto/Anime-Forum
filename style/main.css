@@ -18,7 +18,7 @@ html, body {
 }
 
 .navbar-block {
-    width: 150px;
+    width: 100px;
     min-width: 100px;
     height: 30px;
     text-align: center;
@@ -32,7 +32,7 @@ html, body {
 }
 
 .navbar-block-logged {
-    width: 250px;
+    width: 200px;
     min-width: 100px;
     height: 30px;
     display: inline-block;

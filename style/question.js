@@ -68,6 +68,11 @@ function remove_answer_posts() {
             i++;
         }
     }
+
+    //remove self answer
+    if(document.getElementById("self-post") != null) {
+        document.getElementById("self-post").remove();
+    } 
 }
 
 // insert answer posts by the order of given list
@@ -143,18 +148,16 @@ function add_self_answer(HTMLcontent) {
     element.id = "self-post";
     document.getElementById("question-container").appendChild(element);
     element.innerHTML = 
-        `<div class="post-container" id="self-post"> 
-            <div class="post-profile-answerer">
-                <img class="post-profile-icon" id="self-icon" src="//:0">
-                <div class="post-profile-info">
-                    <div class="display-name" id="self-name"> </div> 
-                    <div class="user-level" id="self-level"> </div>
-                </div>
+        `<div class="post-profile-answerer">
+            <img class="post-profile-icon" id="self-icon" src="//:0">
+            <div class="post-profile-info">
+                <div class="display-name" id="self-name"> </div> 
+                <div class="user-level" id="self-level"> </div>
             </div>
-            <div class="post-content">
-                <div class="post-description" id="self-answer-description">  </div>
-                <div class="accept-description" id="self-answer-accept"> </div>
-            </div>
+        </div>
+        <div class="post-content">
+            <div class="post-description" id="self-answer-description">  </div>
+            <div class="accept-description" id="self-answer-accept"> </div>
         </div>`
 
     // assume our user is user
