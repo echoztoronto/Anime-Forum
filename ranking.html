@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/ranking.css">
+    <script src="data/user.js"></script>
     <title>User Ranking</title>
 </head>
 <body>
@@ -23,10 +24,35 @@
 
     <div id="ranking_block">
         <div id="container_left">
-            Users with the most answers
+            <table class="styled_table" id="left_table">
+                <caption class="table_caption">Users with the most answers</caption>
+                <thead>
+                    <tr>
+                        <th>Num Answers</th>
+                        <th>Nickname</th>
+                        <th>Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
         </div>
         <div id="container_right">
-            Users with the most accepted
+            <table class="styled_table" id="right_table">
+                <caption class="table_caption">Users with the most accepted rate</caption>
+                <thead>
+                    <tr>
+                        <th>Accpeted Rate</th>
+                        <th>Nickname</th>
+                        <th>Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <script src="style/ranking.js"></script>
 </body>
