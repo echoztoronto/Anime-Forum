@@ -135,8 +135,8 @@ var user_profiles = [
         interest: "Computer engineering"
     },
     {
-        userID: "lee",
-        displayName: "Harry Lee",
+        userID: "Johnathan-Daniel-Holmes",
+        displayName: "Johnathan Daniel Holmes",
         type:"normal",
         exp: 10,
         level: 2,
@@ -149,8 +149,8 @@ var user_profiles = [
         interest: "Cooking"
     },
     {
-        userID: "alliez",
-        displayName: "Aliali",
+        userID: "Severine-Riise",
+        displayName: "Severine Riise",
         type:"normal",
         exp: 10,
         level: 3,
