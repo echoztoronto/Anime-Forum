@@ -10,16 +10,18 @@
     </head>
     <body onhashchange="hashChange()">
         <div class="navbar">
-            <div class="navbar-left">
-                <div><a href="index.html"> Home </a></div>
-                <div><a href="forum.html"> Q&amp;A Forum </a></div>
+            <div class="navbar-page">
+                <div class="navbar-block"><a href="index.html"> <b> Home </b></a></div>
+                <div class="navbar-block"><a href="forum.html"> <b> Q&amp;A Forum </b></a></div>
             </div>
-            <div class="navbar-right">
-                <img src="images/default_profile.jpg" id="nav_user_profile">
-                <span id="nav_username">Username</span>
-                <div><a href="index.html"> Logout </a></div>
+            <div class="navbar-user">
+                <div class="navbar-block-logged">
+                    <img src="images/profilepic/100.jpg" id="nav_user_profile">
+                    <a id="nav_username" href="profile.html#kano"> Kano</a>
+                </div>
+                <div class="navbar-block"><a href="index.html"><b> Logout </b></a></div>
             </div>
-	    </div>
+        </div>
 
         <div class="profile-container">
             <div class="banner">

@@ -5,8 +5,7 @@ html, body {
 
 .navbar {
     width: 100%;
-    height: 50px;
-    background: rgb(2,0,36);
+    min-height: 50px;
     background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
 }
 
@@ -18,8 +17,8 @@ html, body {
     float: right;
 }
 
-.navbar div div {
-    width: 10%;
+.navbar-block {
+    width: 150px;
     min-width: 100px;
     height: 30px;
     text-align: center;
@@ -29,21 +28,54 @@ html, body {
     font-family: cursive;
     color: rgb(49, 49, 49);
     font-size: 20px;
+    vertical-align: top;
 }
 
-.navbar div div:hover {
+.navbar-block-logged {
+    width: 150px;
+    min-width: 100px;
+    height: 30px;
+    display: inline-block;
+    margin: 0 0 0 0;
+    vertical-align: top;
+}
+
+.navbar-block:hover {
     background-color: rgba(0, 0, 0, 0.287);
     cursor: pointer;
 }
 
-.navbar div div a {
-    font-family: cursive;
-    color: rgb(49, 49, 49);
+.navbar-block a {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(53, 53, 53);
     font-size: 20px;
     text-decoration: none;
     white-space: nowrap;
 }
 
+#nav_user_profile {
+    vertical-align: top;
+    border-radius: 50%;
+    width: 45px;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+#nav_username {
+    vertical-align: bottom;
+    height: 100px;
+    padding-top:10px;
+    margin-right: 20px;
+    color: rgb(49, 49, 49);
+    font-size: 23px;
+    white-space: nowrap;
+    text-decoration: none;
+    font-family:cursive;
+}
+
+#nav_username:hover {
+    text-decoration: underline;
+}
 
 .slideshow {
     position: absolute;

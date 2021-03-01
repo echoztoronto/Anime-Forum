@@ -35,6 +35,11 @@ function updatePage() {
             insert_answer_posts(answer_list);
         }
 
+        //add text editor if question is not resolved
+        if(qObject.status != "Resolved") {
+            document.getElementById("add-answer-btn").style = "visibility: visible;";
+        }
+
     }
 }
 
@@ -75,7 +80,7 @@ function insert_answer_posts(answer_list) {
         element.className = "post-container";
         element.id = "answer-post-"+i;
         document.getElementById("question-container").appendChild(element);
-        element.innerHTML = " <div class='post-profile-answer'><img class='post-profile-icon' id='answerer-icon-"
+        element.innerHTML = " <div class='post-profile-answerer'><img class='post-profile-icon' id='answerer-icon-"
             + i + "' src='//:0'/><div class='post-profile-info'><div class='display-name' id='answerer-name-"
             + i + "'> </div> <div class='user-level' id='answerer-level-"
             + i + "'> </div></div></div><div class='post-content'><div class='post-description' id='answer-description-"
@@ -96,4 +101,69 @@ function insert_answer_posts(answer_list) {
     }
 }
 
+// editor object
+let quill = new Quill('#editor', {
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        ['image']
+      ]
+    },
+    placeholder: 'Enter your answer here',
+    theme: 'snow'  
+});
 
+// onclick functino of "+" button
+function open_editor() {
+    document.getElementById("editor-window").style = "visibility: visible;";
+}
+
+// onclick functino of "Cancel" button
+function editor_cancel() {
+    document.getElementById("editor-window").style = "visibility: hidden;";
+}
+
+// onclick functino of "Submit" button
+function editor_submit() {
+
+    let quillHTML = quill.root.innerHTML;
+    add_self_answer(quillHTML);
+    document.getElementById("editor-window").style = "visibility: hidden;";
+    document.getElementById("add-answer-btn").style = "visibility: hidden;";
+}
+
+
+function add_self_answer(HTMLcontent) {
+    // create the DOM for answer post
+    let element = document.createElement("div");
+    element.className = "post-container";
+    element.id = "self-post";
+    document.getElementById("question-container").appendChild(element);
+    element.innerHTML = 
+        `<div class="post-container" id="self-post"> 
+            <div class="post-profile-answerer">
+                <img class="post-profile-icon" id="self-icon" src="//:0">
+                <div class="post-profile-info">
+                    <div class="display-name" id="self-name"> </div> 
+                    <div class="user-level" id="self-level"> </div>
+                </div>
+            </div>
+            <div class="post-content">
+                <div class="post-description" id="self-answer-description">  </div>
+                <div class="accept-description" id="self-answer-accept"> </div>
+            </div>
+        </div>`
+
+    // assume our user is kano
+    let aProfile = get_user_profile("kano");
+    
+    // update answerer info DOM
+    document.getElementById("self-icon").src = "images/profilepic/" + aProfile.profilePic + ".jpg";
+    document.getElementById("self-name").innerHTML = '<a href="profile.html#' + aProfile.userID 
+            + '" target="_blank">' +  aProfile.displayName + '</a>';
+    document.getElementById("self-level").innerHTML = "Level: " + aProfile.level;
+    
+    // update answer info DOM
+    document.getElementById("self-answer-description").innerHTML = HTMLcontent;
+}

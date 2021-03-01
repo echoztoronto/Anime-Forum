@@ -151,8 +151,8 @@ var user_profiles = [
         num_accepted: 0
     },
     {
-        userID: "lee",
-        displayName: "Harry Lee",
+        userID: "Johnathan-Daniel-Holmes",
+        displayName: "Johnathan Daniel Holmes",
         type:"normal",
         exp: 10,
         level: 2,
@@ -167,8 +167,8 @@ var user_profiles = [
         num_accepted: 0
     },
     {
-        userID: "alliez",
-        displayName: "Aliali",
+        userID: "Severine-Riise",
+        displayName: "Severine Riise",
         type:"normal",
         exp: 10,
         level: 3,
