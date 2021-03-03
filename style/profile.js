@@ -81,8 +81,10 @@ function insert_post_by_question_list(list) {
         document.getElementById("post-list").innerHTML = "This user currently has no relevant post."
     } else {
         for (let i = 0; i < list.length; i++) {
-            let post_element = document.createElement("div");
-            post_element.innerHTML = '<a target="_blank" href="question.html#' + list[i].ID + '">' + list[i].summary + '</a>';
+            let post_element = document.createElement("a");
+            post_element.href = "question.html#" + list[i].ID;
+            post_element.target = "_blank";
+            post_element.innerHTML =  list[i].summary + "<span style = 'color: green; margin-left: 10px;'> [" + list[i].status + "] </span>";
             post_element.className = "post-single";
             document.getElementById("post-list").appendChild(post_element);
         }
