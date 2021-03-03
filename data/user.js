@@ -5,7 +5,7 @@
 
 
 // login credentials
-var user_credentials = [
+const user_credentials = [
     {
         userID: "user", 
         password: "user",
@@ -21,7 +21,7 @@ var user_credentials = [
 
 
 // user profile info
-var user_profiles = [
+const user_profiles = [
     {
         userID: "user", 
         displayName: "Pikachu",

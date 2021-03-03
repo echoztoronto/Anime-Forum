@@ -1,7 +1,7 @@
 //this file contains the data and helper functions related to question posts
 
 // question posts info
-var questions = [
+const questions = [
     {
         ID: 1,
         summary: "What devil fruit did Sabo eat?",
@@ -89,7 +89,7 @@ var questions = [
 ];
 
 // 
-var answers = [
+const answers = [
     {
         ID: 1,
         questionID: 1,
@@ -152,7 +152,7 @@ var answers = [
         answerer: "zoegoodgood",
         content: "The manga itself is still being released and will be releasing by the end of 2019 so episodes will be releasing by 2020 until a new manga episode of 2020 releases. This cycle will keep on going until Gosho Ayoma says so.",
         likeCount: 5,
-        accepted: "",
+        accepted: true,
     },
     {   
         ID: 9,

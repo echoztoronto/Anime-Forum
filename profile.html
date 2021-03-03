@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="style/main.css">
         <link rel="stylesheet" href="style/profile.css">
         <script src="data/user.js"> </script>
+        <script src="data/post.js"> </script>
         <title>User Profile</title>
     </head>
     <body onhashchange="hashChange()">
@@ -39,14 +40,13 @@
                 <div id="interest">  </div>           
             </div>
 
-            <div class="posts-container">
+            <div class="posts-container" id="posts-container">
                 <div class="post-selector"> 
                     <div id="asked_q" onclick="asked_question()">  Asked Questions </div>
                     <div id="answered_q" onclick="answered_question()"> Answered Questions   </div>
-                    <div id="accepted_a" onclick="accepted_answer()"> Accepted Answers  </div>
+                    <div id="accepted_a" onclick="accepted_answer()"> Accepted Questions  </div>
                 </div> 
-                <div id="post-list">
-                </div>
+                
             </div>
 
         </div>

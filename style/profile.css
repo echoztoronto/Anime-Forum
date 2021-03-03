@@ -86,6 +86,13 @@
     border-color: rgb(158, 158, 158);
 }
 
+#post-list {
+    text-align: center;
+    font-size: 25px;
+    padding-top: 30px;
+    color: rgb(134, 40, 40);
+}
+
 
 .post-selector {
     margin-top: 0;
@@ -110,6 +117,29 @@
 
 
 .post-selector div:hover {
-    background-color:rgb(246, 234, 179);
+    background-color:rgb(255, 249, 222);
     cursor:pointer;
+}
+
+.post-single {
+    display:block;
+    margin: 20px 100px 20px 100px;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    border-radius: 15px;
+    border: solid black 1px;
+    transition: transform .5s; 
+}
+
+.post-single a {
+    color: black;
+    text-decoration: none;
+}
+
+.post-single:hover {
+    transform: scale(1.1); 
+    background-color: rgb(222, 234, 255);
+    cursor: pointer;
 }
