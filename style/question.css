@@ -120,13 +120,24 @@ a {
 
 }
 
-
+/*-----------like & dislike---------------*/
 .likeContainer{
     text-align: center;
     vertical-align: bottom;
     padding: 0px;
 }
 
+.angle_up{
+    width: 60px;
+    margin-left: 50px;
+    margin-top: 70px;
+}
+
+.angle_down{
+    width: 60px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
 
 
 .question-header {

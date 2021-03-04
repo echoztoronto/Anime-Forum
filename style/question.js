@@ -172,3 +172,34 @@ function add_self_answer(HTMLcontent) {
     // update answer info DOM
     document.getElementById("self-answer-description").innerHTML = HTMLcontent;
 }
+
+
+// like & dislike
+
+document.querySelectorAll('.angle_up').forEach(element => {
+    element.addEventListener('click', change_angle_up);
+    element.addEventListener('mouseover', function (event){
+        event.target.style.cursor = "pointer";
+    });
+});
+
+document.querySelectorAll('.angle_down').forEach(element => {
+    element.addEventListener('click', change_angle_down);
+    element.addEventListener('mouseover', function (event){
+        event.target.style.cursor = "pointer";
+    });
+});
+
+function change_angle_up(e){
+    e.preventDefault();
+    const image = e.target;
+    image.src = "images/arrow/arrow_up_after.png";      // change img src
+    image.parentElement.children[1].src = "images/arrow/arrow_down_before.png";     // revert the down arrow
+}
+
+function change_angle_down(e){
+    e.preventDefault();
+    const image = e.target;
+    image.src = "images/arrow/arrow_down_after.png";
+    image.parentElement.children[0].src = "images/arrow/arrow_up_before.png";   // revert the up arrow
+}
