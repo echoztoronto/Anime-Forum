@@ -131,16 +131,40 @@ html, body {
 .dot_on {
     background-color: grey;
 }
-
-.schedule {
+/*------------------------schedule part---------------*/
+#schedule {
     position: absolute;
     top: 450px;
     width: 50%;
-    min-height: 500px;
-    background-color: rgb(98, 98, 238);
+    min-height: 544px;
+    background-color: rgb(114, 231, 159);
     text-align: center;
     font-size: 5em;
 }
+
+#schedule_title {
+    font-size: 30px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: double;
+    text-shadow: 0 2px white, 0 3px #777;
+}
+.schedule_container {
+    margin-top: 24px;
+    font-size: 23px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.schedule_container_left {
+    float: left;
+}
+
+.schedule_container_right {
+    float: right;
+}
+
+/*---------Top/Recent Question Part---------------------------*/
 
 #top-question {
     position: absolute;
