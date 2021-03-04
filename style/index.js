@@ -31,3 +31,19 @@ function show_recent_question(e){
         top_question.appendChild(c);
     }
 }
+
+window.addEventListener('load', show_anime_schedule);
+
+function show_anime_schedule(e){
+    e.preventDefault();
+    const schedule = document.querySelector('#schedule');
+    const lst = schedule_dict["Mon"];       // we use Monday as example
+    for (let i = 0; i < Math.min(6, lst.length); i++){        // show at most 6 animes
+        const c = document.createElement('div');
+        c.className = "schedule_container";
+        c.innerHTML = `
+        <div class="schedule_container_left">${lst[i].name}</div>
+        <div class="schedule_container_right">${lst[i].time}</div><br>`;
+        schedule.appendChild(c);
+    }
+}
