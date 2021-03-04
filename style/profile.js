@@ -2,6 +2,8 @@ let user_question = [];
 let user_answer = [];
 let user_accept_answer = [];
 
+let is_self = false;
+
 if(window.location.hash) {
     hashChange();
 }
@@ -10,6 +12,12 @@ function hashChange() {
     let x = location.hash;
     let uID = x.substring(1);
     let uProfile = get_user_profile(uID);
+
+    if(uID == "user") {
+        is_self = ture;
+    } else {
+        is_self = false;
+    }
 
     if(uProfile != null) {
         // banner element
