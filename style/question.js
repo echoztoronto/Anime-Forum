@@ -178,10 +178,16 @@ function add_self_answer(HTMLcontent) {
 
 document.querySelectorAll('.angle_up').forEach(element => {
     element.addEventListener('click', change_angle_up);
+    element.addEventListener('mouseover', function (event){
+        event.target.style.cursor = "pointer";
+    });
 });
 
 document.querySelectorAll('.angle_down').forEach(element => {
     element.addEventListener('click', change_angle_down);
+    element.addEventListener('mouseover', function (event){
+        event.target.style.cursor = "pointer";
+    });
 });
 
 function change_angle_up(e){
