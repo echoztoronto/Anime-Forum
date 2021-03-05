@@ -18,7 +18,13 @@ function show_users_most_accepted(e){
     users_clone.sort(function(a, b){
         return (b.num_accepted / b.num_answers) - (a.num_accepted / a.num_answers);
     });
-    update_ranking_page(users_clone, table_right, 1);
+    let i = 0;
+    for (i = 0; i < users_clone.length; i++){    // ONLY display users have answered questions
+        if (users_clone[i].num_answers == 0){
+            break;
+        }
+    }
+    update_ranking_page(users_clone.slice(0, i), table_right, 1);
 }
 
 function update_ranking_page(users, table, flag){
@@ -32,7 +38,7 @@ function update_ranking_page(users, table, flag){
         }else{
             cell0.innerHTML = `${users[i].num_answers}`;
         }
-        cell1.innerHTML = `${users[i].displayName}`;
+        cell1.innerHTML = `<a href="profile.html#${users[i].userID}">${users[i].displayName}</a>`;
         cell2.innerHTML = `Lv.${users[i].level}`;
         if (i % 2){
             row.className += " odd_row";

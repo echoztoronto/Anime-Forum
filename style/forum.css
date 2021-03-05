@@ -20,79 +20,80 @@
     float: right;
     margin-right: 60px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 #sort_time:hover, #sort_like:hover {
     cursor:pointer;
 }
 
-/* Question Posts Menu-------------------------*/
+/* ---------Question Posts Menu-------------------------*/
 #questionPosts {
     position: relative;
     margin-top: 50px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-align: center;
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#post_navbar{
-    font-family: Arial, Helvetica, sans-serif;
-}
+/*----------Question Table--------------------*/
 
-#post_navbar_left {
-    float: left;
-}
-
-#post_navbar_right {
-    float: right;
-}
-
-.separator{
-    border-left: 2px solid black;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#like_count {
-    margin-left: 20px;
-    margin-right: 10px;
-}
-
-#reply_count {
-    margin-left: 10px;
-}
-
-/*Question Container--------------------*/
-#question_block {
-    /* position: relative; */
-    margin-top: 100px;
-}
-
-.question_container{
-    border: 2px solid silver;
-    border-radius: 16px;
-    height: 80px;
+#question_table{
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 22px;
     margin-top: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
 }
 
-.q_left{
-    float: left;
-    margin-left: 50px;
-    transform: translateY(170%);
+.c1{
+    width: 5%;
+    text-align: center;
+    padding-right: 1px;
+    font-size: 22px;
+    text-align: center;
+    white-space: nowrap;
+    background-color: lightyellow;
 }
 
-.q_right{
-    float: right;
-    margin-right: 30px;
-    transform: translateY(170%);
+.c2{
+    width: 5%;
+    text-align: center;
+    padding-right: 1px;
+    background-color: #fff8e7;
 }
 
+.c3{
+    width: 10%;
+    text-align: center;
+    padding-right: 2px;
+    background-color: #fff6df;
+}
 
+.c4{
+    width: auto;
+    background-color: #fff0cd;
+}
 
+.c5{
+    width: 14%;
+    text-align: center;
+    color: #58697b;
+    font-size: 0.923em;
+    background-color: #fff6df;
+}
+
+.c6{
+    width: 14%;
+    text-align: center;
+    color: #58697b;
+    font-size: 0.923em;
+    background-color: #fff0cd;
+}
+
+.tr{
+    height: 50px;
+}
 
 /*Add question + editor*/
 #add-question-btn {
