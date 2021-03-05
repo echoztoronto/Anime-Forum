@@ -25,31 +25,30 @@ function sort_by_time(e){
 }
 
 function update_forum_page(questions) {
-    let question_block = document.querySelector('#question_block');
-    question_block.innerHTML = "";  // remove all children
+    let question_table = document.querySelector('#question_table');
+    question_table.innerHTML = `
+        <tbody>
+            <tr class="tr">
+                <td class="c1">Like</td>
+                <td class="c2">Reply</td>
+                <td class="c3">Status</td>
+                <td class="c4">Summary</td>
+                <td class="c5">Asker</td>
+                <td class="c6">Last Answer</td>
+            </tr>
+        </tbody>`;      // add the header
     for (let i = 0; i < questions.length; i++){
-        const c = document.createElement('div');
-        c.className = "question_container";
-        question_block.appendChild(c);
-    }
-    container_list = question_block.children;
-    for (let i = 0; i < questions.length; i++){
-        container = container_list[i];
-        container.innerHTML = `
-            <div class="q_left">
-                <span class="q_like_count">${questions[i].likeCount}</span>
-                <span class="separator"></span>
-                <span class="q_reply_count">${questions[i].replyCount}</span>
-                <span class="separator"></span>
-                <span class="q_status">${questions[i].status}</span>
-                <span class="separator"></span>
-                <span class="q_summary"><a href="question.html#${questions[i].ID}">${questions[i].summary}</a></span>
-            </div>
-            <div class="q_right">
-                <span class="separator"></span>
-                <span class="q_asker">${questions[i].asker}</span>
-                <span class="separator"></span>
-                <span class="q_last_replied">${questions[i].lastAnswerer}</span>
-            </div>`;
+        let tb = document.createElement('TBODY');
+        tb.innerHTML = `
+            <tr class="tr">
+                <td class="c1">${questions[i].likeCount}</td>
+                <td class="c2">${questions[i].replyCount}</td>
+                <td class="c3">${questions[i].status}</td>
+                <td class="c4"><a href="question.html#${questions[i].ID}">${questions[i].summary}</a></td>
+                <td class="c5">${questions[i].asker}</td>
+                <td class="c6">${questions[i].lastAnswerer}</td>
+            </tr>
+        `;
+        question_table.appendChild(tb);
     }
 }

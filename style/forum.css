@@ -31,37 +31,10 @@
 #questionPosts {
     position: relative;
     margin-top: 50px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-align: center;
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-#post_navbar{
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#post_navbar_left {
-    float: left;
-}
-
-#post_navbar_right {
-    float: right;
-}
-
-.separator{
-    border-left: 2px solid black;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#like_count {
-    margin-left: 20px;
-    margin-right: 10px;
-}
-
-#reply_count {
-    margin-left: 10px;
 }
 
 /*Question Container--------------------*/
@@ -69,29 +42,6 @@
     /* position: relative; */
     margin-top: 100px;
 }
-
-.question_container{
-    border: 2px solid silver;
-    border-radius: 16px;
-    height: 80px;
-    margin-top: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-}
-
-.q_left{
-    float: left;
-    margin-left: 50px;
-    transform: translateY(170%);
-}
-
-.q_right{
-    float: right;
-    margin-right: 30px;
-    transform: translateY(170%);
-}
-
-
 
 
 /*Add question + editor*/
@@ -173,4 +123,72 @@
 #editor-cancel-btn:hover {
     background-color: rgb(223, 223, 223);
     cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+#question_table{
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 22px;
+}
+
+
+.c1{
+    width: 5%;
+    text-align: center;
+    padding-right: 1px;
+    font-size: 22px;
+    text-align: center;
+
+    white-space: nowrap;
+    background-color: lightyellow;
+}
+
+.c2{
+    width: 5%;
+    text-align: center;
+    padding-right: 1px;
+    background-color: rgb(233, 233, 221);
+}
+
+.c3{
+    width: 10%;
+    padding-right: 2px;
+}
+
+.c4{
+    width: auto;
+    word-wrap: break-word;
+word-break: break-all;
+background-color: linen;
+}
+
+.c5{
+    width: 14%;
+    text-align: center;
+color: #58697b;
+padding-left: 1px;
+padding-right: 1px;
+font-size: 0.923em;
+}
+
+.c6{
+    width: 14%;
+    text-align: center;
+color: #58697b;
+padding-left: 1px;
+padding-right: 1px;
+font-size: 0.923em;
+}
+
+.tr{
+    height: 50px;
 }
