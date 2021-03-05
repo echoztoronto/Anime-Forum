@@ -28,7 +28,7 @@ function update_forum_page(questions) {
     let question_table = document.querySelector('#question_table');
     question_table.innerHTML = `
         <tbody>
-            <tr class="tr">
+            <tr class="tr" id="question_table_title">
                 <td class="c1">Like</td>
                 <td class="c2">Reply</td>
                 <td class="c3">Status</td>

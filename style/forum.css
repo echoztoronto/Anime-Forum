@@ -46,6 +46,12 @@
     margin-top: 20px;
 }
 
+#question_table_title td{
+    color: black;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+
 .c1{
     width: 5%;
     text-align: center;
@@ -73,6 +79,17 @@
 .c4{
     width: auto;
     background-color: #fff0cd;
+    padding-left: 40px;
+}
+
+.c4 a{
+    font-family:cursive;
+    color:rgb(77, 77, 77);
+    text-decoration: none;
+}
+
+.c4 a:hover {
+    color: black;
 }
 
 .c5{
