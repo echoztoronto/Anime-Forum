@@ -40,6 +40,14 @@ function hashChange() {
 
         // by default, display asked question
         asked_question();
+
+    } else { //if there is no such user
+        let error_element = document.createElement("div");
+        error_element.id = "error-page";
+        error_element.innerHTML = `This user account does not exist
+                                    <br/> 
+                                    or it has been deleted`;
+        document.body.appendChild(error_element);
     }
 }
 

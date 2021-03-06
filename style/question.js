@@ -11,6 +11,11 @@ function updatePage() {
     let qObject = get_question(qID);
 
     if(qObject != null) {
+        //remove error page if it's there
+        if(document.getElementById("error_page") != null) {
+            document.getElementById("error_page").remove;
+        }
+
         //get asker info
         let uProfile =  get_user_profile(qObject.asker);
 
@@ -45,6 +50,11 @@ function updatePage() {
             document.getElementById("add-answer-btn").style = "visibility: hidden;";
         }
 
+    } else { //if there is no such question
+        let error_element = document.createElement("div");
+        error_element.id = "error-page";
+        error_element.innerHTML = `The question page you are trying to visit does not exist`;
+        document.body.appendChild(error_element);
     }
 }
 
