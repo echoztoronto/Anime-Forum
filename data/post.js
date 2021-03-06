@@ -12,7 +12,8 @@ const questions = [
         asker: "onepiecelover",
         lastAnswerer: "noob",
         reward: 0,
-        levelLimit: 0
+        levelLimit: 0,
+        tag: ["OnePiece"]
     },
     {
         ID: 2,
@@ -24,7 +25,8 @@ const questions = [
         asker: "zoegoodgood",
         lastAnswerer: "Johnathan-Daniel-Holmes",
         reward: 0,
-        levelLimit: 0
+        levelLimit: 0,
+        tag: ["top", "general"]
     },
     {
         ID: 3,
@@ -36,7 +38,8 @@ const questions = [
         asker: "coco1998",
         lastAnswerer: "jason_z",
         reward: 0,
-        levelLimit: 0
+        levelLimit: 0,
+        tag: ["Classroom of Elite"]
     },
     {
         ID: 4,
@@ -48,7 +51,8 @@ const questions = [
         asker: "timf",
         lastAnswerer: "zoegoodgood",
         reward: 10,
-        levelLimit: 5
+        levelLimit: 5,
+        tag: ["Conan"]
     },
     {
         ID: 5,
@@ -60,7 +64,8 @@ const questions = [
         asker: "kano",
         lastAnswerer: "jason_z",
         reward: 5,
-        levelLimit: 5
+        levelLimit: 5,
+        tag: ["PunchMan"]
     },
     {
         ID: 6,
@@ -72,7 +77,8 @@ const questions = [
         asker: "Johnathan-Daniel-Holmes",
         lastAnswerer: "coco1998",
         reward: 5,
-        levelLimit: 0
+        levelLimit: 0,
+        tag: ["PunchMan"]
     },
     {
         ID: 7,
@@ -84,7 +90,8 @@ const questions = [
         asker: "kano",
         lastAnswerer: "",
         reward: 0,
-        levelLimit: 0
+        levelLimit: 0,
+        tag: ["general"]
     }
 ];
 
