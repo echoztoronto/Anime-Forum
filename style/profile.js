@@ -20,6 +20,11 @@ function hashChange() {
     }
 
     if(uProfile != null) {
+        //remove error page if it's there
+        if(document.getElementById("error_page") != null) {
+            document.getElementById("error_page").remove;
+        }
+
         // banner element
         document.getElementById("user-id").innerHTML = "User ID: " + uProfile.userID;
         document.getElementById("display-name").innerHTML = uProfile.displayName;
