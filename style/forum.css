@@ -100,12 +100,26 @@
     background-color: #fff6df;
 }
 
+.c5 a{
+    color:rgb(40, 100, 168);
+    text-decoration: none;
+}
+
 .c6{
     width: 14%;
     text-align: center;
     color: #58697b;
     font-size: 0.923em;
     background-color: #fff0cd;
+}
+
+.c6 a {
+    color:rgb(52, 148, 28);
+    text-decoration: none;
+}
+
+.c5 a:hover, .c6 a:hover {
+    text-decoration: underline;
 }
 
 .tr{
@@ -124,7 +138,7 @@
     width: 100px;
     height: 100px;
     text-align: center;
-    visibility: hidden;
+    visibility: visible;
 }
 
 #add-question-btn:hover {
@@ -133,7 +147,7 @@
 }
 
 #editor-window {
-    background-color: rgba(255, 255, 255, 0.534);
+    background-color: rgba(255, 255, 255, 0.678);
     position: fixed;
     top: 0;
     left: 0;
@@ -142,18 +156,48 @@
     visibility: hidden;
 }
 
+#editor-message {
+    text-align: center;
+    position: fixed;
+    top: calc(50% - 300px);
+    left: calc(50% - 400px);
+    width: 800px;
+    font-size: 30px;
+    font-family:cursive;
+    height: 50px;
+}
+
 #editor-container {
     background-color: white;
     position: fixed;
     top: calc(50% - 250px);
     left: calc(50% - 400px);
     width: 800px;
-    height: 500px;
+    height: 430px;
+}
 
+#title-field {
+    width: 780px;
+    height: 50px;
+    font-size: 30px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+}
+
+#title-field:invalid {
+    border: 2px solid red;
+}
+
+#title-field::placeholder {
+    color: grey;
 }
 
 .ql-container {
     background-color: white;
+}
+
+.ql-editor {
+    font-size: 20px;
 }
 
 #editor-submit-btn {

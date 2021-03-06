@@ -4,6 +4,8 @@ const sort_like_button = document.querySelector('#sort_like');
 sort_time_button.addEventListener('click', sort_by_time);
 sort_like_button.addEventListener('click', sort_by_like);
 window.addEventListener('load', sort_by_time);
+let forum_quill = null;
+initiate_question_editor();
 
 function sort_by_like(e){
     e.preventDefault();
@@ -51,4 +53,51 @@ function update_forum_page(questions) {
         `;
         question_table.appendChild(tb);
     }
+}
+
+
+// start editor object
+function initiate_question_editor() {
+    forum_quill = new Quill('#editor', {
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['image']
+          ]
+        },
+        placeholder: 'Enter your question description here',
+        theme: 'snow'  
+    });
+}
+
+function editor_submit_question() {
+    let quillHTML = forum_quill.root.innerHTML;
+    let question_title = document.getElementById('title-field').value;
+    const message_element = document.getElementById('editor-message');
+    if(question_title.length < 10) {
+        message_element.style = "color: red;";
+        message_element.innerHTML = "Question title must be greater than 10 characters!";
+    } else {
+        add_new_question(question_title, quillHTML);
+        document.getElementById("editor-window").style = "visibility: hidden;";
+        message_element.style = "color: black;";
+        message_element.innerHTML = "Add a new question";
+        forum_quill.setContents([{ insert: '\n' }]);
+        document.getElementById('title-field').value = '';
+    }
+}
+
+function add_new_question(title, description) {
+    //TODO: push new question info to database
+
+    const table_element = document.getElementById("question_table");
+    let newRow = table_element.insertRow(1);
+    newRow.className = "tr";
+    newRow.innerHTML = `<td class="c1">0</td>
+                        <td class="c2">0</td>
+                        <td class="c3">Ongoing</td>
+                        <td class="c4"><a href="question.html#new">${title}</a></td>
+                        <td class="c5"><a href="profile.html#user">Pikachu</a></td>
+                        <td class="c6"></td>`;
 }

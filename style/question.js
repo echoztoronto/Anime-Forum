@@ -1,3 +1,5 @@
+let quill = null;
+
 if(window.location.hash) {
     updatePage();
 }
@@ -38,6 +40,7 @@ function updatePage() {
         //add text editor if question is not resolved
         if(qObject.status != "Resolved") {
             document.getElementById("add-answer-btn").style = "visibility: visible;";
+            initiate_answer_editor();
         } else {
             document.getElementById("add-answer-btn").style = "visibility: hidden;";
         }
@@ -108,18 +111,21 @@ function insert_answer_posts(answer_list) {
     }
 }
 
-// editor object
-let quill = new Quill('#editor', {
-    modules: {
-      toolbar: [
-        [{ header: [1, 2, false] }],
-        ['bold', 'italic', 'underline'],
-        ['image']
-      ]
-    },
-    placeholder: 'Enter your answer here',
-    theme: 'snow'  
-});
+// start editor object
+function initiate_answer_editor() {
+    quill = new Quill('#editor', {
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['image']
+          ]
+        },
+        placeholder: 'Enter your answer here',
+        theme: 'snow'  
+    });
+}
+
 
 // onclick functino of "+" button
 function open_editor() {
@@ -131,17 +137,27 @@ function editor_cancel() {
     document.getElementById("editor-window").style = "visibility: hidden;";
 }
 
-// onclick functino of "Submit" button
+// onclick function of "Submit" button
 function editor_submit() {
-
     let quillHTML = quill.root.innerHTML;
-    add_self_answer(quillHTML);
-    document.getElementById("editor-window").style = "visibility: hidden;";
-    document.getElementById("add-answer-btn").style = "visibility: hidden;";
+    const message_element = document.getElementById('editor-message');
+    if(quillHTML.length < 10) {
+        message_element.style = "color: red;";
+        message_element.innerHTML = "Your answer must be greater than 10 characters!";
+    } else {
+        add_self_answer(quillHTML);
+        document.getElementById("editor-window").style = "visibility: hidden;";
+        document.getElementById("add-answer-btn").style = "visibility: hidden;";
+        message_element.style = "color: black;";
+        message_element.innerHTML = "Add a new question";
+    }
+
 }
 
 
 function add_self_answer(HTMLcontent) {
+    //TODO: push new answer info to database
+
     // create the DOM for answer post
     let element = document.createElement("div");
     element.className = "post-container";

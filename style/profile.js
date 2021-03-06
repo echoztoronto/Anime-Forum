@@ -14,7 +14,7 @@ function hashChange() {
     let uProfile = get_user_profile(uID);
 
     if(uID == "user") {
-        is_self = ture;
+        is_self = true;
     } else {
         is_self = false;
     }

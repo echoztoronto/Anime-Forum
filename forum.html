@@ -44,15 +44,6 @@
     <table id="question_table">
     </table>
 
-    <div id="editor-window" >
-		<div id="editor-container"> 
-			<div id="editor"> </div>
-			<div id="editor-cancel-btn" onclick="editor_cancel()"> Cancel </div>
-			<div id="editor-submit-btn" onclick="editor_submit()"> Submit </div>
-		</div>
-	</div>
-
-
     <div class="footer">
         Powered By 
         <br/>
@@ -84,6 +75,18 @@
             </a>
         </div>   
     </div>
+
+    <div id="add-question-btn" onclick="open_editor()"> &#43; </div>
+
+    <div id="editor-window" >
+        <div id="editor-message"> Add a new question </div>
+		<div id="editor-container"> 
+            <input type="text" id="title-field" name="question_title"  minlength="10" Placeholder="Question Title">
+			<div id="editor"> </div>
+			<div id="editor-cancel-btn" onclick="editor_cancel()"> Cancel </div>
+			<div id="editor-submit-btn" onclick="editor_submit_question()"> Submit </div>
+		</div>
+	</div>
 
 
     <script type="text/javascript" src="style/forum.js"></script>

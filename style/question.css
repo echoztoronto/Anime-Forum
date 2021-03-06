@@ -225,13 +225,24 @@ a {
 }
 
 #editor-window {
-    background-color: rgba(255, 255, 255, 0.534);
+    background-color: rgba(255, 255, 255, 0.671);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     visibility: hidden;
+}
+
+#editor-message {
+    text-align: center;
+    position: fixed;
+    top: calc(50% - 300px);
+    left: calc(50% - 400px);
+    width: 800px;
+    font-size: 30px;
+    font-family:cursive;
+    height: 50px;
 }
 
 #editor-container {
@@ -241,11 +252,14 @@ a {
     left: calc(50% - 400px);
     width: 800px;
     height: 500px;
-
 }
 
 .ql-container {
     background-color: white;
+}
+
+.ql-editor {
+    font-size: 20px;
 }
 
 #editor-submit-btn {
