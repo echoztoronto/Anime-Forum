@@ -243,6 +243,7 @@ a {
     font-size: 30px;
     font-family:cursive;
     height: 50px;
+    text-shadow: 0 2px white, 0 3px #777;
 }
 
 #editor-container {
