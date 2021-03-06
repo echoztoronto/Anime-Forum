@@ -12,8 +12,9 @@ function updatePage() {
 
     if(qObject != null) {
         //remove error page if it's there
-        if(document.getElementById("error_page") != null) {
-            document.getElementById("error_page").remove;
+        if(document.getElementById("error-page") != null) {
+            document.getElementById("error-page").remove;
+            location.reload();
         }
 
         //get asker info
@@ -51,10 +52,12 @@ function updatePage() {
         }
 
     } else { //if there is no such question
-        let error_element = document.createElement("div");
-        error_element.id = "error-page";
-        error_element.innerHTML = `The question page you are trying to visit does not exist`;
-        document.body.appendChild(error_element);
+        if(document.getElementById("error-page") == null) {
+            let error_element = document.createElement("div");
+            error_element.id = "error-page";
+            error_element.innerHTML = `The question page you are trying to visit does not exist`;
+            document.body.appendChild(error_element);
+        }
     }
 }
 

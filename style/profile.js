@@ -21,8 +21,9 @@ function hashChange() {
 
     if(uProfile != null) {
         //remove error page if it's there
-        if(document.getElementById("error_page") != null) {
-            document.getElementById("error_page").remove;
+        if(document.getElementById("error-page") != null) {
+            document.getElementById("error-page").remove;
+            location.reload();
         }
 
         // banner element
@@ -47,12 +48,14 @@ function hashChange() {
         asked_question();
 
     } else { //if there is no such user
-        let error_element = document.createElement("div");
-        error_element.id = "error-page";
-        error_element.innerHTML = `This user account does not exist
-                                    <br/> 
-                                    or it has been deleted`;
-        document.body.appendChild(error_element);
+        if(document.getElementById("error-page") == null) {
+            let error_element = document.createElement("div");
+            error_element.id = "error-page";
+            error_element.innerHTML = `This user account does not exist
+                                        <br/> 
+                                        or it has been deleted`;
+            document.body.appendChild(error_element);
+        }  
     }
 }
 
