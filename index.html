@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/login-signup.css">
     <script src="data/user.js"> </script>
     <script src="data/post.js"> </script>
+    <script src="style/login-signup.js"></script>
     <script src="data/anime_schedule.js"></script>
     <title> Home / Nijigen Geography </title>
 </head>
@@ -17,8 +19,8 @@
             <div class="navbar-block"><a href="forum.html"><b> Q&amp;A Forum</b> </a></div>
         </div>
         <div class="navbar-user">
-            <div class="navbar-block" id="login-btn"> <b>Login </b></div>  
-            <div class="navbar-block" id="signup-btn"> <b> Sign Up </b></div>
+            <div class="navbar-block" id="login-btn" onclick="open_login_window()"> <b>Login </b></div>
+            <div class="navbar-block" id="signup-btn" onclick="open_signup_window()"> <b> Sign Up </b></div>
         </div>
     </div>
 
@@ -99,6 +101,72 @@
     </div>
 
     <script src="style/index.js"></script>
+
+
+
+    <div id="login-window" >
+		<div id="login-container">
+            <!-- generate close button -->
+            <div class="Xcontainer">
+                <div class="close" onclick="login_cancel()">&times;</div>
+            </div>
+            <!-- generate the unknown image -->
+            <div class ="image-container">         
+                <img id='bigProfilePicCircle' src="images/profilepic/user.jpg" />
+                <br/>
+                <div> <b> MEMBER LOGIN </b></div>        
+            </div>
+            <div class="content-container">
+                <!-- requied for username -->
+                <!-- use label-for -->
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <!-- reqired for password -->
+                <label for="pswd"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="pswd" required>
+                <!-- to see if it is possible to do this "remember me" -->
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+                <button type="submit">Login</button>
+                <div class="notamember"> 
+                    Not a member? 
+                    <div class ="signup_in_login" id="signup-btn" onclick="open_signup_window();close_login_window()">Sign up now</div>
+                </div>                
+            </div>
+		</div>
+	</div>
+
+    <div id="signup-window" >
+		<div id="signup-container">
+            <!-- generate close button -->
+            <div class="Xcontainer">
+                <div class="close" onclick="signup_cancel()">&times;</div>
+            </div>
+            <!-- generate the unknown image -->
+            <div class ="image-container">         
+                <img id='bigProfilePicCircle' src="images/profilepic/user.jpg" />
+                <br/>
+                <div> <b> MEMBER SIGNUP </b></div>        
+            </div>
+            <div class="content-container">
+                <!-- requied for username -->
+                <!-- use label-for -->
+                <label for="username"><b>Enter Username</b></label>
+                <input type="text" placeholder="Enter Your Username" name="username" required>
+                <!-- reqired for password -->
+                <label for="pswd"><b>Enter Password</b></label>
+                <input type="password" placeholder="Enter Your Password" name="pswd" required>
+
+                <label for="pswd"><b>Re-enter Password</b></label>
+                <input type="password" placeholder="Re-enter Your Password" name="pswd" required>
+                
+                <button type="submit">Signup</button>
+                <div class="alreadyamember"> 
+                    Already have an account? 
+                    <div class ="login_in_signup" id="login-btn" onclick="open_login_window();close_signup_window()">Log in now</div>
+                </div>                
+            </div>
+		</div>
+	</div>
         
 </body>
 </html>
