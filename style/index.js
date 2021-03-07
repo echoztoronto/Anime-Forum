@@ -1,6 +1,4 @@
 window.addEventListener('load', show_top_question);
-force_same_height("schedule", "top-question");
-force_same_height("schedule", "recent-question");
 
 function show_top_question(e){
     e.preventDefault();
