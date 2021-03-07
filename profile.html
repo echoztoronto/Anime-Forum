@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="style/profile.css">
         <script src="data/user.js"> </script>
         <script src="data/post.js"> </script>
+        <script src="style/util.js"></script>
         <title>User Profile</title>
     </head>
     <body onhashchange="hashChange()">
@@ -18,19 +19,23 @@
             <div class="navbar-user">
                 <div class="navbar-block-logged">
                     <img src="images/profilepic/1.jpg" id="nav_user_profile">
-				    <a id="nav_username" href="profile.html#user"> Pikachu</a>
+				    <a id="nav_username" href="profile.html#user" target="_blank"> Pikachu</a>
                 </div>
                 <div class="navbar-block"><a href="index.html"><b> Logout </b></a></div>
             </div>
         </div>
 
         <div class="profile-container">
-            <div class="banner">
+            <div class="banner" id="profile-banner">
                 <img id="banner-pic" src="//:0">       
                 <img id="profile-pic" src="//:0">
                 <div id="user-id">  </div>
                 <div id="display-name">  </div>
-                <div id="user-level">  </div>
+                <div class="user-info-inline"> 
+                    <div id="user-level">  </div>
+                    <div id="user-exp">  </div>
+                    <div id="user-gold">  </div>
+                </div>
             </div>
 
             <div class="info-panel">

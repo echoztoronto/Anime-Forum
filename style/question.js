@@ -86,9 +86,7 @@ function remove_answer_posts() {
     }
 
     //remove self answer
-    if(document.getElementById("self-post") != null) {
-        document.getElementById("self-post").remove();
-    } 
+    remove_element_by_ID("self-post");
 }
 
 // insert answer posts by the order of given list

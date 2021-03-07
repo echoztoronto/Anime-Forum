@@ -47,6 +47,22 @@ function hashChange() {
         // by default, display asked question
         asked_question();
 
+        // if this is a self page
+        if(is_self) {
+            document.getElementById("user-exp").innerHTML = "EXP: " + uProfile.exp;
+            document.getElementById("user-gold").innerHTML = "Gold: " + uProfile.gold;
+            let edit = create_element("div", "edit-btn", '', "profile-banner");
+            let checkin = create_element("div", "check-in-btn", '', "profile-banner");
+            console.log(edit.ID);
+            edit.innerHTML = `Edit Profile`;
+            checkin.innerHTML = `Check In`;
+        } else {
+            document.getElementById("user-exp").innerHTML = '';
+            document.getElementById("user-gold").innerHTML = '';
+            remove_element_by_ID("edit-btn");
+            remove_element_by_ID("check-in-btn");
+        }
+
     } else { //if there is no such user
         if(document.getElementById("error-page") == null) {
             let error_element = document.createElement("div");
@@ -62,7 +78,7 @@ function hashChange() {
 // onclick events for post selector buttons
 function asked_question() {
     reset_post_list_style();
-    document.getElementById("asked_q").style = "background-color:rgb(246, 234, 179);"
+    document.getElementById("asked_q").style = "background-color: #95c6ff;"
     remove_all_post();
     insert_post_by_question_list(user_question);
 }
@@ -70,7 +86,7 @@ function asked_question() {
 // onclick events for post selector buttons
 function answered_question() {
     reset_post_list_style();
-    document.getElementById("answered_q").style = "background-color:rgb(246, 234, 179);"
+    document.getElementById("answered_q").style = "background-color: #95c6ff;"
     remove_all_post();
     insert_post_by_question_list(user_answer);
 }
@@ -78,7 +94,7 @@ function answered_question() {
 // onclick events for post selector buttons
 function accepted_answer() {
     reset_post_list_style();
-    document.getElementById("accepted_a").style = "background-color:rgb(246, 234, 179);"
+    document.getElementById("accepted_a").style = "background-color: #95c6ff;"
     remove_all_post();
     insert_post_by_question_list(user_accept_answer);
 }
@@ -91,9 +107,7 @@ function reset_post_list_style() {
 }
 
 function remove_all_post() {
-    if(document.getElementById("post-list") != null) {
-        document.getElementById("post-list").remove();
-    } 
+    remove_element_by_ID("post-list");
 }
 
 function insert_post_by_question_list(list) {
@@ -102,7 +116,11 @@ function insert_post_by_question_list(list) {
     document.getElementById("posts-container").appendChild(element);
 
     if (list.length == 0) {
-        document.getElementById("post-list").innerHTML = "This user currently has no relevant post."
+        if(is_self) {
+            document.getElementById("post-list").innerHTML = "You currently don't have any relevant post."
+        } else {
+            document.getElementById("post-list").innerHTML = "This user currently has no relevant post."
+        }
     } else {
         for (let i = 0; i < list.length; i++) {
             let post_element = document.createElement("a");
