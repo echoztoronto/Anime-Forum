@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/login-signup.css">
+    <link rel="stylesheet" href="style/rule.css">
+    <title>User Rule</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-page"> 
+            <div class="navbar-block"><a href="index.html"> <b>Home </b></a></div>
+            <div class="navbar-block"><a href="forum.html"><b> Q&amp;A Forum</b> </a></div>
+            <div class="navbar-block"><a href="ranking.html"><b>Ranking</b></a></div>
+        </div>
+        <div class="navbar-user">
+            <div class="navbar-block" id="login-btn" onclick="open_login_window()"> <b>Login </b></div>
+            <div class="navbar-block" id="signup-btn" onclick="open_signup_window()"> <b> Sign Up </b></div>
+        </div>
+    </div>
+
+    <div id="text_container">
+        <h3>Level System:</h3>
+        <p>
+        Each user has a level, ranging from lv.1 to lv.6,
+        Gaining enough exp can let you get to the next level, see:
+        </p>
+        <table class="styled_table">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Exp Needed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="odd_row">
+                    <th>lv.1</th>
+                    <th>0</th>
+                </tr>
+                <tr>
+                    <th>lv.2</th>
+                    <th>10</th>
+                </tr>
+                <tr class="odd_row">
+                    <th>lv.3</th>
+                    <th>50</th>
+                </tr>
+                <tr>
+                    <th>lv.4</th>
+                    <th>100</th>
+                </tr>
+                <tr class="odd_row">
+                    <th>lv.5</th>
+                    <th>200</th>
+                </tr>
+                <tr>
+                    <th>lv.6</th>
+                    <th>500</th>
+                </tr>
+            </tbody>
+        </table>
+        <h3>How to gain exp?</h3>
+        <ul>
+            <li>Every time you have done a daily check-in, your exp will increase by 5.</li>
+            <li>You can receive 10 exp for every question you answered.</li>
+            <li>Once an ansnwer is accpeted, you will get another 20 exp.</li>
+        </ul>
+        <h3>Why pursue higher level?</h3>
+        <p>Some questions may block to lower level users and a highest level can guarantee a full view of the forum.
+            On the other hand, you can set level limit up to your level when you asking a question!
+        </p>
+    </div>
+</body>
+
