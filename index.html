@@ -19,7 +19,12 @@
             <div class="navbar-block"><a href="forum.html"><b> Q&amp;A Forum</b> </a></div>
             <div class="navbar-block"><a href="ranking.html"><b>Ranking</b></a></div>
         </div>
-        <div class="navbar-user">
+        <div class="navbar-block navbar-user hide" id="user_logout_content"><a href="index.html"><b> Logout </b></a></div>
+        <div class="navbar-block-logged navbar-user hide" id="user_info_content">
+            <img src="images/profilepic/1.jpg" id="nav_user_profile">
+            <a id="nav_username" href="profile.html#user"> Pikachu</a>
+        </div>
+        <div class="navbar-user" id="login_sign_content">
             <div class="navbar-block" id="login-btn" onclick="open_login_window()"> <b>Login </b></div>
             <div class="navbar-block" id="signup-btn" onclick="open_signup_window()"> <b> Sign Up </b></div>
         </div>
@@ -103,68 +108,71 @@
 
     <script src="style/index.js"></script>
     
-    <div id="login-window" >
-		<div id="login-container">
+    <div id="login-window">
+        <div id="login-container">
             <!-- generate close button -->
             <div class="Xcontainer">
                 <div class="close" onclick="login_cancel()">&times;</div>
             </div>
             <!-- generate the unknown image -->
-            <div class ="image-container">         
-                <img id='bigProfilePicCircle' src="images/profilepic/user.jpg" />
-                <br/>
-                <div> <b> MEMBER LOGIN </b></div>        
+            <div class="image-container">
+                <img id='profilePicCircle' src="images/profilepic/user.jpg" />
+                <br />
+                <div> <b> MEMBER LOGIN </b></div>
             </div>
             <div class="content-container">
                 <!-- requied for username -->
                 <!-- use label-for -->
                 <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <input type="text" placeholder="Enter Username" id="login_username" name="username" required>
                 <!-- reqired for password -->
                 <label for="pswd"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="pswd" required>
+                <input type="password" placeholder="Enter Password" id="login_pwd" name="pswd" required>
                 <!-- to see if it is possible to do this "remember me" -->
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-                <button type="submit">Login</button>
-                <div class="notamember"> 
-                    Not a member? 
-                    <div class ="signup_in_login" id="signup-btn" onclick="open_signup_window();close_login_window()">Sign up now</div>
-                </div>                
+                <div class="error-tips" id="login-error-tips"></div>
+                <input type="checkbox" checked="checked" id="login_remember" name="remember"> Remember me
+                <button type="button" onclick="login()">Login</button>
+                <div class="notamember">
+                    Not a member?
+                    <div class="signup_in_login" id="signup-btn" onclick="open_signup_window();close_login_window()">
+                        Sign up now</div>
+                </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 
-    <div id="signup-window" >
-		<div id="signup-container">
+    <div id="signup-window">
+        <div id="signup-container">
             <!-- generate close button -->
             <div class="Xcontainer">
                 <div class="close" onclick="signup_cancel()">&times;</div>
             </div>
             <!-- generate the unknown image -->
-            <div class ="image-container">         
-                <img id='bigProfilePicCircle' src="images/profilepic/user.jpg" />
-                <br/>
-                <div> <b> MEMBER SIGNUP </b></div>        
+            <div class="image-container">
+                <img id='profilePicCircle' src="images/profilepic/user.jpg" />
+                <br />
+                <div> <b> MEMBER SIGNUP </b></div>
             </div>
             <div class="content-container">
                 <!-- requied for username -->
                 <!-- use label-for -->
                 <label for="username"><b>Enter Username</b></label>
-                <input type="text" placeholder="Enter Your Username" name="username" required>
+                <input type="text" placeholder="Enter Your Username" id="sign_username" name="username" required>
                 <!-- reqired for password -->
                 <label for="pswd"><b>Enter Password</b></label>
-                <input type="password" placeholder="Enter Your Password" name="pswd" required>
+                <input type="password" placeholder="Enter Your Password" id="sign_pwd1" name="pswd" required>
 
                 <label for="pswd"><b>Re-enter Password</b></label>
-                <input type="password" placeholder="Re-enter Your Password" name="pswd" required>
-                
-                <button type="submit">Signup</button>
-                <div class="alreadyamember"> 
-                    Already have an account? 
-                    <div class ="login_in_signup" id="login-btn" onclick="open_login_window();close_signup_window()">Log in now</div>
-                </div>                
+                <input type="password" placeholder="Re-enter Your Password" id="sign_pwd2" name="pswd" required>
+
+                <button type="button" onclick="sign_up()">Signup</button>
+                <div class="alreadyamember">
+                    Already have an account?
+                    <div class="login_in_signup" id="login-btn" onclick="open_login_window();close_signup_window()">Log
+                        in now</div>
+                </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </body>
 </html>
