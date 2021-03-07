@@ -18,29 +18,17 @@ html, body {
 }
 
 .navbar-block {
-    width: 120px;
+    width: 100px;
     min-width: 100px;
-    height: 50px;
+    height: 30px;
     text-align: center;
     display: inline-block;
+    padding: 10px 20px 10px 20px;
     margin: 0 0 0 0;
     font-family: cursive;
     color: rgb(49, 49, 49);
     font-size: 20px;
     vertical-align: top;
-}
-
-.navbar-block a{
-    padding-top: 12px;
-    display: block;
-    width: 100%;
-    height: calc(100% - 12px);
-    text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: rgb(53, 53, 53);
-    font-size: 20px;
-    text-decoration: none;
-    white-space: nowrap;
 }
 
 .navbar-block-logged {
@@ -58,6 +46,13 @@ html, body {
     cursor: pointer;
 }
 
+.navbar-block a {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(53, 53, 53);
+    font-size: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+}
 
 #nav_user_profile {
     vertical-align: top;
@@ -81,10 +76,6 @@ html, body {
 
 #nav_username:hover {
     text-decoration: underline;
-}
-
-#login-btn, #signup-btn {
-    padding-top: 10px;
 }
 
 .slideshow {
@@ -147,12 +138,10 @@ html, body {
     position: absolute;
     top: 450px;
     width: 50%;
+    min-height: 500px;
     background-color: rgb(114, 231, 159);
-    min-height: 550px;
     text-align: center;
     font-size: 5em;
-    border-bottom: solid 2px black;
-    border-top: solid 2px black;
 }
 
 #schedule_title {
@@ -184,12 +173,12 @@ html, body {
     top: 450px;
     left: 50%;
     width: calc(25% - 2px);
-    min-height: 550px;
+    min-height: 400px;
     text-align: center;
     font-size: 5em;
+    padding-bottom: 50px;
     border-left: solid 2px black;
     border-bottom: solid 2px black;
-    border-top: solid 2px black;
 }
 
 #recent-question {
@@ -197,12 +186,12 @@ html, body {
     top: 450px;
     left: 75%;
     width: calc(25% - 2px);
-    min-height: 550px;
+    min-height: 400px;
     text-align: center;
     font-size: 5em;
+    padding-bottom: 50px;
     border-left: solid 2px black;
     border-bottom: solid 2px black;
-    border-top: solid 2px black;
 }
 
 #hot_title {
