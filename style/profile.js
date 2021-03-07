@@ -1,6 +1,7 @@
 let user_question = [];
 let user_answer = [];
 let user_accept_answer = [];
+let uProfile = null;
 
 let is_self = false;
 
@@ -11,7 +12,7 @@ if(window.location.hash) {
 function hashChange() {
     let x = location.hash;
     let uID = x.substring(1);
-    let uProfile = get_user_profile(uID);
+    uProfile = get_user_profile(uID);
 
     if(uID == "user") {
         is_self = true;
@@ -49,13 +50,20 @@ function hashChange() {
 
         // if this is a self page
         if(is_self) {
+            // display user exp and gold
             document.getElementById("user-exp").innerHTML = "EXP: " + uProfile.exp;
             document.getElementById("user-gold").innerHTML = "Gold: " + uProfile.gold;
+            // edit profile button
             let edit = create_element("div", "edit-btn", '', "profile-banner");
-            let checkin = create_element("div", "check-in-btn", '', "profile-banner");
-            console.log(edit.ID);
             edit.innerHTML = `Edit Profile`;
+            edit.addEventListener("click", edit_click);
+            // check in notif div
+            create_element("div", "check-in-notif", '', "profile-banner");
+            // check in button
+            // TODO: pull data to verify if user already checked in today, if so, disable the button
+            let checkin = create_element("div", "check-in-btn", '', "profile-banner");
             checkin.innerHTML = `Check In`;
+            checkin.addEventListener("click", checkin_click);
         } else {
             document.getElementById("user-exp").innerHTML = '';
             document.getElementById("user-gold").innerHTML = '';
@@ -182,4 +190,46 @@ function get_accepted_question_for_user(uID) {
         }    
     }
     return result;
+}
+
+// onclick event for Edit Profile
+function edit_click() {
+
+}
+
+// onclick event for Check In
+function checkin_click() {
+    // show notif
+    let notif = document.getElementById("check-in-notif");
+    console.log(notif);
+    notif.innerHTML = `+5 exp, +1 gold`;
+    notif.style.visibility = "visible";
+    // let notif dismiss after 3 seconds
+    setTimeout(function() {
+        let notif = document.getElementById("check-in-notif");
+        notif.style.visibility = "hidden";
+        notif.innerHTML = ``;
+    }, 3000);
+
+    // disable the button
+    checkin_disable();
+
+    // update exp and gold DOM
+    let exp = uProfile.exp;
+    let gold = uProfile.gold;
+    exp += 5;
+    gold += 1;
+    document.getElementById("user-exp").innerHTML = `EXP: ${exp}`;
+    document.getElementById("user-gold").innerHTML = `Gold: ${gold}`;
+
+    // TODO: update user exp and gold info to server
+
+}
+
+function checkin_disable() {
+    let checkin = document.getElementById("check-in-btn");
+    checkin.innerHTML = `Checked In`;
+    checkin.style.backgroundColor = "grey";
+    checkin.style.borderColor = "grey";
+    checkin.removeEventListener("click", checkin_click);
 }

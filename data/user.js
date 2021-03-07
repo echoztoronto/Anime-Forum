@@ -28,7 +28,7 @@ const user_profiles = [
         type: "normal",
         exp: 100,
         level: 2,
-        gold: 0.5,
+        gold: 10,
         profileBanner: 1,
         profilePic: 1,
         birthday: "1900.01.01",
