@@ -207,3 +207,83 @@
     background-color: rgb(222, 234, 255);
     cursor: pointer;
 }
+
+#edit-window {
+    background-color: rgba(255, 255, 255, 0.671);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+#edit-container {
+    background-color: white;
+    position: fixed;
+    top: calc(50% - 350px);
+    left: calc(50% - 400px);
+    width: 800px;
+    height: 730px;
+    border: ridge rgb(209, 202, 243) 3px;
+}
+
+#preview-banner {
+    width: 800px;
+    height: 180px;
+    position: fixed;
+}
+
+#preview-pic {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    position: fixed;
+    top: calc(50% - 330px);
+    left: calc(50% - 380px);
+}
+
+#edit-form {
+    position: fixed;
+    top: calc(50% - 130px);
+    left: calc(50% - 300px);
+}
+
+#edit-form input {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: rgb(67, 67, 68);
+}
+
+#edit-form input:invalid {
+    border: 2px solid red;
+}
+
+#edit-form label {
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#edit-reset {
+    font-size: 18px;
+    margin-right: 50px;
+}
+
+#edit-close {
+    font-size: 25px;
+    position: fixed;
+    top: calc(50% + 320px);
+    left: calc(50% + 300px);
+    width: 100px;
+    height: 50px;
+}
+
+#edit-close:hover {
+    cursor: pointer;
+}
+
+#edit-message {
+    color:red;
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

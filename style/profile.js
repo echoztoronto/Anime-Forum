@@ -35,10 +35,10 @@ function hashChange() {
         document.getElementById("profile-pic").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
 
         //info panel element
-        document.getElementById("gender").innerHTML = "Gender: " + uProfile.gender;
-        document.getElementById("birthday").innerHTML = "Birthday: " + uProfile.birthday;
-        document.getElementById("address").innerHTML = "Living in: " + uProfile.address;
-        document.getElementById("interest").innerHTML = "Interests: " + uProfile.interest;
+        document.getElementById("gender").innerHTML =  uProfile.gender;
+        document.getElementById("birthday").innerHTML =  uProfile.birthday;
+        document.getElementById("address").innerHTML = uProfile.address;
+        document.getElementById("interest").innerHTML = uProfile.interest;
 
         // push user post data
         user_question = get_asked_question_for_user(uID);
@@ -192,16 +192,11 @@ function get_accepted_question_for_user(uID) {
     return result;
 }
 
-// onclick event for Edit Profile
-function edit_click() {
 
-}
-
-// onclick event for Check In
+//  Check In --------------------------------------------------------
 function checkin_click() {
     // show notif
     let notif = document.getElementById("check-in-notif");
-    console.log(notif);
     notif.innerHTML = `+5 exp, +1 gold`;
     notif.style.visibility = "visible";
     // let notif dismiss after 3 seconds
@@ -232,4 +227,71 @@ function checkin_disable() {
     checkin.style.backgroundColor = "grey";
     checkin.style.borderColor = "grey";
     checkin.removeEventListener("click", checkin_click);
+}
+
+// Edit Profile --------------------------------------------------------
+function edit_click() {
+    document.getElementById("edit-window").style.visibility = "visible";
+    edit_reset();
+}
+
+function edit_close() {
+    document.getElementById("edit-window").style.visibility = "hidden";
+}
+
+function edit_reset() {
+    document.getElementById('edit-name').value = document.getElementById('display-name').textContent;
+    document.getElementById('edit-bday').value = document.getElementById('birthday').textContent;
+    document.getElementById('edit-gender').value = document.getElementById('gender').textContent;
+    document.getElementById('edit-place').value = document.getElementById('address').textContent;
+    document.getElementById('edit-interest').value = document.getElementById('interest').textContent;
+    document.getElementById('edit-message').innerHTML = ``;
+}
+
+function edit_submit() {
+    let new_name = document.getElementById('edit-name').value;
+
+    if(new_name.length < 4) {
+        document.getElementById('edit-message').innerHTML = `Display Name should have at least 4 characters!`;
+    } else {
+        //TODO: update new profile info to server
+
+        // apply profile pic
+        if(document.getElementById("edit-pic").files.length != 0 ){
+            apply_input_image_to_div("edit-pic", "profile-pic");
+        }
+        // apply banner
+        if(document.getElementById("edit-banner").files.length != 0 ){
+            apply_input_image_to_div("edit-banner", "banner-pic");
+        }
+        // apply text info
+        apply_input_value_to_div("edit-name","display-name");
+        apply_input_value_to_div("edit-bday","birthday");
+        apply_input_value_to_div("edit-gender","gender");
+        apply_input_value_to_div("edit-place","address");
+        apply_input_value_to_div("edit-interest","interest");
+
+        edit_close();
+    }
+}
+
+function preview_profile_pic() {
+    apply_input_image_to_div("edit-pic", "preview-pic");
+};
+
+function preview_profile_banner() {
+    apply_input_image_to_div("edit-banner", "preview-banner");
+};
+
+function apply_input_image_to_div(inputID, divID) {
+    let fReader = new FileReader();
+    fReader.readAsDataURL(document.getElementById(inputID).files[0]);
+
+    fReader.onload = function(e) {
+        document.getElementById(divID).src = e.target.result;
+    };
+}
+
+function apply_input_value_to_div(inputID, divID) {
+    document.getElementById(divID).innerHTML =  document.getElementById(inputID).value;
 }

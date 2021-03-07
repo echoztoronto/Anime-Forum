@@ -40,10 +40,10 @@
             </div>
 
             <div class="info-panel">
-                <div id="birthday">  </div>
-                <div id="gender">  </div>
-                <div id="address">  </div>
-                <div id="interest">  </div>           
+                <div> Birthday:  <span id="birthday"> </span></div>
+                <div> Gender:  <span  id="gender"> </span></div>
+                <div> Living in:  <span id="address"> </span> </div>
+                <div> Interest: <span id="interest"> </span> </div>           
             </div>
 
             <div class="posts-container" id="posts-container">
@@ -90,8 +90,34 @@
             </div>   
         </div>
 
+        <div id="edit-window" >
+
+            <div id="edit-container">
+                <img src="images/others/default_banner.jpg" id="preview-banner">
+                <img src="images/others/default.jpg" id="preview-pic">
+                <div id = "edit-form">
+                    <label>Banner:</label>
+                    <input type="file" id="edit-banner" onchange="preview_profile_banner()"><br>
+                    <label>Profile Picture:</label>
+                    <input type="file" id="edit-pic"  onchange="preview_profile_pic()"><br><br>
+                    <label>Display name:</label><br>
+                    <input type="text" id="edit-name" minlength="4"><br>
+                    <label>Birthday:</label><br>
+                    <input type="text" id="edit-bday" ><br>
+                    <label>Gender:</label><br>
+                    <input type="text" id="edit-gender" ><br>
+                    <label>Living in:</label><br>
+                    <input type="text" id="edit-place" ><br>
+                    <label>Interests:</label><br>
+                    <input type="text" id="edit-interest" ><br><br>
+                    <button id="edit-reset" onclick="edit_reset()"> Reset </button>
+                    <input type="submit" onclick="edit_submit()" value="Submit"> </br>
+                    <div id="edit-message">  </div>
+                    <div id="edit-close" onclick="edit_close()"> Close </div>
+                </div> 
+            </div>
+	    </div>
+
         <script src="style/profile.js"> </script>
-
-
     </body>
 </html>
