@@ -9,13 +9,12 @@ const user_credentials = [
     {
         userID: "user", 
         password: "user",
-        type: "normal"
-
+        admin: false
     },
     {
         userID: "admin", 
         password: "admin",
-        type: "admin"      
+        admin: true     
     }
 ];
 
