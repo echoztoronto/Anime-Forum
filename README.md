@@ -50,4 +50,4 @@ Entrance: On any page, click on any username.<br/> <br/>
 #### 4.2 Self View
 Entrance: On any of the Forum page, Question page (normal view), Profile page, click on the username "Pikachu" ![Alt text](/images/readme/phase1/user_pikachu.jpg?raw=true "Entrance" ) at top right corner. <br/><br/> 
 * Check In <br/> ![Alt text](/images/readme/phase1/checkin_before.jpg?raw=true "Check In-before") ![Alt text](/images/readme/phase1/checkin_after.jpg?raw=true "Check In-after")<br/>  
-* Edit Profile <br/> ![Alt text](/images/readme/phase1/edit_profile1.jpg?raw=true "Edit Profile") <br/> ![Alt text](/images/readme/phase1/edit_profile2.jpg?raw=true "Edit Profile") <br/> ![Alt text](/images/readme/phase1/edit_profile3.jpg?raw=true "Edit Profile") <br/> ![Alt text](/images/readme/phase1/edit_profile4.jpg?raw=true "Edit Profile")
+* Edit Profile (note: the only requirement is that the display name should be at least 4 characters) <br/> ![Alt text](/images/readme/phase1/edit_profile3.jpg?raw=true "Edit Profile") <br/> 
