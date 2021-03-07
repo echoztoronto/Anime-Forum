@@ -1,0 +1,10 @@
+.forbid-tips {
+    color: red;
+    font-size: 14px;
+  }
+  
+.admin-delete{
+    float: right;
+    margin-top: 100px;
+    margin-right: 0;
+}
