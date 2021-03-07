@@ -259,12 +259,14 @@ function edit_submit() {
         // apply profile pic
         if(document.getElementById("edit-pic").files.length != 0 ){
             apply_input_image_to_div("edit-pic", "profile-pic");
+            apply_input_image_to_div("edit-pic", "nav_user_profile");
         }
         // apply banner
         if(document.getElementById("edit-banner").files.length != 0 ){
             apply_input_image_to_div("edit-banner", "banner-pic");
         }
         // apply text info
+        apply_input_value_to_div("edit-name","nav_username");
         apply_input_value_to_div("edit-name","display-name");
         apply_input_value_to_div("edit-bday","birthday");
         apply_input_value_to_div("edit-gender","gender");

@@ -81,6 +81,19 @@ const questions = [
         tag: ["PunchMan"]
     },
     {
+        ID: 8,
+        summary: "What type of Pokemon is Jirachi?",
+        description: "Jirachi is a Pokemon based on the archetype of the genie - we can say that much without giving the answer away. We can also say that it was introduced in the third generation of the Pokemon games, though that probably won't help you pass this one. Really, the only thing you can rely on is your own Pokedex. Think back on what you know about Jirachi, and try picturing it in battle. What type of Pokemon do you think it is?",
+        likeCount: 0,
+        replyCount: 0,
+        status: "Ongoing",
+        asker: "user",
+        lastAnswerer: "",
+        reward: 0,
+        levelLimit: 0,
+        tag: ["general"]
+    },
+    {
         ID: 7,
         summary: "Why is anime still treated as childish, despite being so famous and diverse?",
         description: "<p>Anime is so famous and globally recognized that it’s unbelievable. But because of how it’s treated by the masses (in general), the industry’s smaller than it should be.Are people just being ignorant? Are big TV companies denying the existence of anime out of fear?</p> <p>Are people just being ignorant? Are big TV companies denying the existence of anime out of fear?</p>",
