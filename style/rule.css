@@ -4,6 +4,18 @@
     width: 80%;
     padding-left: 30px;
     margin-top: 30px;
+    border: 1px solid #005cb9;
+    background-color: #f1f5f9;
+    overflow: auto;
+    margin-bottom: 1.7em;
+    padding: 1em;
+    overflow-y: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center{
+    text-align: center;
 }
 
 .styled_table {
