@@ -132,24 +132,29 @@ a {
 
 .like_button_question{
     font-size: 72px;
-    color: grey;
+    color: silver;
     margin-top: 10px;
-    /* margin-left: 60px; */
-    align-items: center;
 }
 
 .dislike_button_question{
     font-size: 72px;
-    color: grey;
-    /* margin-left: 60px; */
-    align-items: center;
+    color: silver;  
 }
 
 .like_num{
     font-size: 64px;
     color: rgb(236, 104, 148);
-    /* margin-left: 80px; */
-    align-items: center;
+}
+
+.like_button_answer{
+    font-size: 72px;
+    color: silver;
+    margin-top: 10px;
+}
+
+.dislike_button_answer{
+    font-size: 72px;
+    color: silver; 
 }
 
 /*------ Question Posts---------------*/

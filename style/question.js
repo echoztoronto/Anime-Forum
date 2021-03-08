@@ -114,12 +114,23 @@ function insert_answer_posts(answer_list) {
         element.className = "post-container";
         element.id = "answer-post-"+i;
         document.getElementById("question-container").appendChild(element);
-        element.innerHTML = " <div class='post-profile-answerer'><img class='post-profile-icon' id='answerer-icon-"
-            + i + "' src='//:0'/><div class='post-profile-info'><div class='display-name' id='answerer-name-"
-            + i + "'> </div> <div class='user-level' id='answerer-level-"
-            + i + "'> </div></div></div><div class='post-content'><div class='post-description' id='answer-description-"
-            + i + "'> </div><div class ='accept-description' id='answer-accept-" 
-            + i + "'> </div></div>";
+        element.innerHTML = `
+            <div class='post-profile-answerer'>
+                <img class='post-profile-icon' id='answerer-icon-${i}' src='//:0'/>
+                <div class='post-profile-info'>
+                    <div class='display-name' id='answerer-name-${i}'></div> 
+                    <div class='user-level' id='answerer-level-${i}'></div>
+                </div>
+            </div>
+            <div class='post-content'>
+                <div class="vote_container">
+                    <div class="like_button_answer">&#9650</div>
+                    <div class="like_num">0</div>
+                    <div class="dislike_button_answer">&#9660</div>
+                </div>
+                <div class='post-description' id='answer-description-${i}'></div>
+                <div class ='accept-description' id='answer-accept-${i}'></div>
+            </div>`;
 
         // update answerer info DOM
         document.getElementById("answerer-icon-"+i).src = "images/profilepic/" + aProfile.profilePic + ".jpg";
@@ -213,32 +224,23 @@ function add_self_answer(HTMLcontent) {
     document.getElementById("self-answer-description").innerHTML = HTMLcontent;
 }
 
+// function: change cursor to pointer
+function cursor_pointer(e){
+    e.target.style.cursor = 'pointer';
+}
 
-// like & dislike
-
-// document.querySelectorAll('.angle_up').forEach(element => {
-//     element.addEventListener('click', change_angle_up);
-//     element.addEventListener('mouseover', function (event){
-//         event.target.style.cursor = "pointer";
-//     });
-// });
-
-// document.querySelectorAll('.angle_down').forEach(element => {
-//     element.addEventListener('click', change_angle_down);
-//     element.addEventListener('mouseover', function (event){
-//         event.target.style.cursor = "pointer";
-//     });
-// });
-
+// like & dislike for question  
 document.querySelector('.like_button_question').addEventListener('click', like_question);
 document.querySelector('.dislike_button_question').addEventListener('click', dislike_question);
+document.querySelector('.like_button_question').addEventListener('mouseover', cursor_pointer);
+document.querySelector('.dislike_button_question').addEventListener('mouseover', cursor_pointer);
 
 function like_question(e){
     e.preventDefault();
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
     e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
-    e.target.parentElement.children[2].style.color = 'grey';
+    e.target.parentElement.children[2].style.color = 'silver';
 }
 
 function dislike_question(e){
@@ -246,5 +248,33 @@ function dislike_question(e){
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
     e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
-    e.target.parentElement.children[0].style.color = 'grey';
+    e.target.parentElement.children[0].style.color = 'silver';
+}
+
+// NOTE: the following are similar as above, but we will change them in Phase2!!!
+// like & dislike for answers
+document.querySelectorAll('.like_button_answer').forEach(element => {
+    element.addEventListener('click', like_answer);
+    element.addEventListener('mouseover', cursor_pointer);
+});
+
+document.querySelectorAll('.dislike_button_answer').forEach(element => {
+    element.addEventListener('click', dislike_answer);
+    element.addEventListener('mouseover', cursor_pointer);
+});
+
+function like_answer(e){
+    e.preventDefault();
+    e.target.style.color = 'pink';
+    // TODO in Phase 2: really modify the data array
+    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    e.target.parentElement.children[2].style.color = 'silver';
+}
+
+function dislike_answer(e){
+    e.preventDefault();
+    e.target.style.color = 'pink';
+    // TODO in Phase 2: really modify the data array
+    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    e.target.parentElement.children[0].style.color = 'silver';
 }
