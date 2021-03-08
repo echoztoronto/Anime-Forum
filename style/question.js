@@ -44,6 +44,7 @@ function updatePage(sort="time") {     // sort range in {"like", "time"}
         // insert each answer
         if(answer_list.length != 0) {
             insert_answer_posts(answer_list);
+            add_event_listener();
         }
 
         //add text editor if question is not resolved
@@ -125,7 +126,7 @@ function insert_answer_posts(answer_list) {
             <div class='post-content'>
                 <div class="vote_container">
                     <div class="like_button_answer">&#9650</div>
-                    <div class="like_num">0</div>
+                    <div class="like_num">${answer_list[i].likeCount}</div>
                     <div class="dislike_button_answer">&#9660</div>
                 </div>
                 <div class='post-description' id='answer-description-${i}'></div>
@@ -207,6 +208,11 @@ function add_self_answer(HTMLcontent) {
             </div>
         </div>
         <div class="post-content">
+            <div class="vote_container">
+                    <div class="like_button_answer">&#9650</div>
+                    <div class="like_num">0</div>
+                    <div class="dislike_button_answer">&#9660</div>
+            </div>
             <div class="post-description" id="self-answer-description">  </div>
             <div class="accept-description" id="self-answer-accept"> </div>
         </div>`
@@ -237,44 +243,83 @@ document.querySelector('.dislike_button_question').addEventListener('mouseover',
 
 function like_question(e){
     e.preventDefault();
+    if (e.target.style.color == 'pink'){        // already clicked, undo it
+        e.target.style.color = 'silver';
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+        return;   
+    }
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
-    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 2;
+    }else{
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    }
     e.target.parentElement.children[2].style.color = 'silver';
 }
 
 function dislike_question(e){
     e.preventDefault();
+    if (e.target.style.color == 'pink'){        // already clicked, undo it
+        e.target.style.color = 'silver';
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+        return;   
+    }
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
-    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 2;
+    }else{  // like is un-clicked, decrease by 1
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    }
     e.target.parentElement.children[0].style.color = 'silver';
 }
 
 // NOTE: the following are similar as above, but we will change them in Phase2!!!
 // like & dislike for answers
-document.querySelectorAll('.like_button_answer').forEach(element => {
-    element.addEventListener('click', like_answer);
-    element.addEventListener('mouseover', cursor_pointer);
-});
 
-document.querySelectorAll('.dislike_button_answer').forEach(element => {
-    element.addEventListener('click', dislike_answer);
-    element.addEventListener('mouseover', cursor_pointer);
-});
+function add_event_listener(){      // a helper function that add event listener to answers vote button
+    document.querySelectorAll('.like_button_answer').forEach(element => {
+        element.addEventListener('click', like_answer);
+        element.addEventListener('mouseover', cursor_pointer);
+    });
+    
+    document.querySelectorAll('.dislike_button_answer').forEach(element => {
+        element.addEventListener('click', dislike_answer);
+        element.addEventListener('mouseover', cursor_pointer);
+    });
+}
 
 function like_answer(e){
     e.preventDefault();
+    if (e.target.style.color == 'pink'){        // already clicked, undo it
+        e.target.style.color = 'silver';
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+        return;   
+    }
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
-    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 2;
+    }else{
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    }
     e.target.parentElement.children[2].style.color = 'silver';
 }
 
 function dislike_answer(e){
     e.preventDefault();
+    if (e.target.style.color == 'pink'){        // already clicked, undo it
+        e.target.style.color = 'silver';
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+        return;   
+    }
     e.target.style.color = 'pink';
     // TODO in Phase 2: really modify the data array
-    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 2;
+    }else{  // like is un-clicked, decrease by 1
+        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    }
     e.target.parentElement.children[0].style.color = 'silver';
 }
