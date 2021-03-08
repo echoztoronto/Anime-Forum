@@ -60,6 +60,23 @@
     margin-right: 20px;
 }
 
+#user-rule {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: rgb(61, 130, 221);
+    color: white;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+    text-decoration: none;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+
+
 #edit-btn {
     text-align: center;
     font-size: 18px;

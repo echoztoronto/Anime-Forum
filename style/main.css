@@ -7,6 +7,7 @@ html, body {
     width: 100%;
     min-height: 50px;
     background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
 .navbar-page {

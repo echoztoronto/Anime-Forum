@@ -38,7 +38,7 @@ function update_ranking_page(users, table, flag){
         }else{
             cell0.innerHTML = `${users[i].num_answers}`;
         }
-        cell1.innerHTML = `<a href="profile.html#${users[i].userID}">${users[i].displayName}</a>`;
+        cell1.innerHTML = `<a target="_blank" href="profile.html#${users[i].userID}">${users[i].displayName}</a>`;
         cell2.innerHTML = `Lv.${users[i].level}`;
         if (i % 2){
             row.className += " odd_row";

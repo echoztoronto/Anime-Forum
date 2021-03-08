@@ -59,3 +59,12 @@
 .styled_table tbody tr.odd_row {
     color: #0e49eb;
 }
+
+td a {
+    text-decoration: none;
+    color: black;
+}
+
+td a:hover {
+    color: red;
+}
