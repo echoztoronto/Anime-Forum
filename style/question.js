@@ -216,30 +216,35 @@ function add_self_answer(HTMLcontent) {
 
 // like & dislike
 
-document.querySelectorAll('.angle_up').forEach(element => {
-    element.addEventListener('click', change_angle_up);
-    element.addEventListener('mouseover', function (event){
-        event.target.style.cursor = "pointer";
-    });
-});
+// document.querySelectorAll('.angle_up').forEach(element => {
+//     element.addEventListener('click', change_angle_up);
+//     element.addEventListener('mouseover', function (event){
+//         event.target.style.cursor = "pointer";
+//     });
+// });
 
-document.querySelectorAll('.angle_down').forEach(element => {
-    element.addEventListener('click', change_angle_down);
-    element.addEventListener('mouseover', function (event){
-        event.target.style.cursor = "pointer";
-    });
-});
+// document.querySelectorAll('.angle_down').forEach(element => {
+//     element.addEventListener('click', change_angle_down);
+//     element.addEventListener('mouseover', function (event){
+//         event.target.style.cursor = "pointer";
+//     });
+// });
 
-function change_angle_up(e){
+document.querySelector('.like_button_question').addEventListener('click', like_question);
+document.querySelector('.dislike_button_question').addEventListener('click', dislike_question);
+
+function like_question(e){
     e.preventDefault();
-    const image = e.target;
-    image.src = "images/arrow/arrow_up_after.png";      // change img src
-    image.parentElement.children[1].src = "images/arrow/arrow_down_before.png";     // revert the down arrow
+    e.target.style.color = 'pink';
+    // TODO in Phase 2: really modify the data array
+    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
+    e.target.parentElement.children[2].style.color = 'grey';
 }
 
-function change_angle_down(e){
+function dislike_question(e){
     e.preventDefault();
-    const image = e.target;
-    image.src = "images/arrow/arrow_down_after.png";
-    image.parentElement.children[0].src = "images/arrow/arrow_up_before.png";   // revert the up arrow
+    e.target.style.color = 'pink';
+    // TODO in Phase 2: really modify the data array
+    e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
+    e.target.parentElement.children[0].style.color = 'grey';
 }

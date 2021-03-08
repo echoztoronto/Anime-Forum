@@ -127,19 +127,26 @@ a {
     padding: 0px;
 }
 
-.angle_up{
-    width: 60px;
-    margin-left: 50px;
-    margin-top: 70px;
+.like_button_question{
+    font-size: 72px;
+    color: grey;
+    margin-top: 10px;
+    margin-left: 60px;
 }
 
-.angle_down{
-    width: 60px;
-    margin-left: 50px;
-    margin-top: 50px;
+.dislike_button_question{
+    font-size: 72px;
+    color: grey;
+    margin-left: 60px;
 }
 
+.like_num{
+    font-size: 64px;
+    color: rgb(236, 104, 148);
+    margin-left: 80px;
+}
 
+/*------ Question Posts---------------*/
 .question-header {
     text-align: center;
     padding: 10px 20px 10px 20px;
