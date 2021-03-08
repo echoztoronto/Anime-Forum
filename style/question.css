@@ -96,6 +96,7 @@ a {
 
 .post-content {
     padding: 10px 10% 10px 10%;
+    padding-left: 40px;
 	margin-left: 0;
 	display: inline-block;
 	width: calc(100% - 500px);
@@ -121,29 +122,34 @@ a {
 }
 
 /*-----------like & dislike---------------*/
-.likeContainer{
+.vote_container{
     text-align: center;
-    vertical-align: bottom;
-    padding: 0px;
+    width: 70px;
+    height: 300px;
+    float: left;
+    margin-left: 0px;
 }
 
 .like_button_question{
     font-size: 72px;
     color: grey;
     margin-top: 10px;
-    margin-left: 60px;
+    /* margin-left: 60px; */
+    align-items: center;
 }
 
 .dislike_button_question{
     font-size: 72px;
     color: grey;
-    margin-left: 60px;
+    /* margin-left: 60px; */
+    align-items: center;
 }
 
 .like_num{
     font-size: 64px;
     color: rgb(236, 104, 148);
-    margin-left: 80px;
+    /* margin-left: 80px; */
+    align-items: center;
 }
 
 /*------ Question Posts---------------*/
@@ -151,6 +157,7 @@ a {
     text-align: center;
     padding: 10px 20px 10px 20px;
     border-bottom: solid black 2px;
+    margin-left: 100px;
 }
 
 #question-title {
@@ -168,6 +175,7 @@ a {
     padding: 30px 10px 30px 10px;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
+    margin-left: 100px;
 }
 
 .post-description img {
@@ -178,6 +186,7 @@ a {
 #question-reward {
     font-size: 20px;
     color:rgb(226, 107, 9);
+    margin-left: 100px;
 }
 
 
