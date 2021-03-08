@@ -5,7 +5,7 @@ if(window.location.hash) {
 }
 
 // update page with updated question ID
-function updatePage() {
+function updatePage(sort="time") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
     let qObject = get_question(qID);
@@ -34,6 +34,9 @@ function updatePage() {
 
         // get the list of answers
         let answer_list = get_answer_by_question(qID);
+        if (sort == "like"){
+            answer_list = sort_list_by_like(answer_list);
+        }
 
         // remove previous answer posts
         remove_answer_posts();
@@ -65,11 +68,21 @@ function updatePage() {
 function sort_by_time() {
     document.getElementById("sort-by-time").style = "text-decoration: underline;"
     document.getElementById("sort-by-like").style = "text-decoration: none;"
+    updatePage("time");
 }
 
 function sort_by_like() {
     document.getElementById("sort-by-like").style = "text-decoration: underline;"
     document.getElementById("sort-by-time").style = "text-decoration: none;"
+    updatePage("like");
+}
+
+function sort_list_by_like(answer_list){    // we dont have to sort by time, the originial list is sorted by ID already.
+    answer_clone = JSON.parse(JSON.stringify(answer_list));
+    answer_clone.sort(function(a, b){
+        return b.likeCount - a.likeCount;
+    });
+    return answer_clone;
 }
 
 // remove answer posts container
