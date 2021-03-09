@@ -36,14 +36,14 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
 ![](/images/readme/phase1/home.jpg?raw=true) <br/> <br/>
 
-<span style="color:blue"> We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user"). </span> <br/>
+Note: We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user").  <br/>
 
 
 <img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
 
 * Login by clicking __Login__ button at top right corner
   * valid credentials: "user" "user" and "admin" "admin" 
-  * notice: admin only have authorities on question pages(we will provide an admin view page later), so logging "admin" in here will make no difference for now
+  * note: admin only have authorities on question pages(we will provide an admin view page later), so logging "admin" in here will make no difference for now
 * Sign up by clicking __Sign Up__ button at top right corner
 * Click on any question title in __Hottest Questions__ or __Recent Questions__, will open the corresponding question page in a new tab. <br/>
 
@@ -74,7 +74,7 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 There are 4 views for question page, 1 normal view + 3 special views. <br/>
 For all 3 special views, we provide an extra html for each view, the entrances are in the navbar on any question page. <br/>
 <img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/>
-These entrances are temporary, we will remove them and display all views on one single page in later phases. <br/>
+Note: These entrances are temporary, we will remove them and display all views on one single page in later phases. <br/>
 
 #### 3.1 Normal View
 Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
