@@ -14,6 +14,7 @@ function hashChange() {
     let uID = x.substring(1);
     uProfile = get_user_profile(uID);
 
+    // TODO: actually verify if it is self profile
     if(uID == "user") {
         is_self = true;
     } else {

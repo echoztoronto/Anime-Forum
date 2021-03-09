@@ -231,6 +231,8 @@ const user_profiles = [
     }
 ];
 
+// TODO: we need to retrieve data from the server for all the following functions
+
 // return true if the userID and password are valid
 function valid_login_credential(ID, pwd) {
     var i;

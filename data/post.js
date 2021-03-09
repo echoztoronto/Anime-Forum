@@ -108,7 +108,7 @@ const questions = [
     }
 ];
 
-// 
+// answers to the questions
 const answers = [
     {
         ID: 1,
@@ -201,6 +201,8 @@ const answers = [
     }
     
 ];
+
+// TODO: we need to retrieve data from the server for all the following functions
 
 // return the object given question ID
 function get_question(ID){
