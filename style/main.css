@@ -148,7 +148,7 @@ html, body {
     position: absolute;
     top: 450px;
     width: 50%;
-    background-color: rgb(114, 231, 159);
+    background-color: rgb(157, 183, 243);
     min-height: 550px;
     text-align: center;
     font-size: 5em;
@@ -213,7 +213,7 @@ html, body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-shadow: 0 2px white, 0 3px #777;
     border-bottom: double;
-    background-color: rgb(205, 231, 255);
+    background-color: rgb(248, 220, 243);
 }
 
 .question_summary {
