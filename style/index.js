@@ -10,7 +10,7 @@ function show_top_question(e){
     for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
         const c = document.createElement('div');
         c.className = "question_summary";
-        c.innerHTML = `Top ${i + 1}: <a href="question.html#${questions_clone[i].ID}">${questions_clone[i].summary}</a>`;
+        c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${questions_clone[i].ID}">${questions_clone[i].summary}</a>`;
         top_question.appendChild(c);
     }
 }
@@ -27,7 +27,7 @@ function show_recent_question(e){
     for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
         const c = document.createElement('div');
         c.className = "question_summary";
-        c.innerHTML = `Top ${i + 1}:<a href="question.html#${questions_clone[i].ID}"> ${questions_clone[i].summary}</a>`;
+        c.innerHTML = `Top ${i + 1}:<a target="_blank" href="question.html#${questions_clone[i].ID}"> ${questions_clone[i].summary}</a>`;
         top_question.appendChild(c);
     }
 }
