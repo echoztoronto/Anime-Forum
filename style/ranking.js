@@ -10,7 +10,13 @@ function show_users_most_answers(e){
     users_clone.sort(function(a, b){
         return b.num_answers - a.num_answers;
     });
-    update_ranking_page(users_clone, table_left, 0);
+    let i = 0;
+    for (i = 0; i < users_clone.length; i++){    // ONLY display users have answered questions
+        if (users_clone[i].num_answers == 0){
+            break;
+        }
+    }
+    update_ranking_page(users_clone.slice(0, i), table_left, 'left');
 }
 
 function show_users_most_accepted(e){
@@ -20,11 +26,11 @@ function show_users_most_accepted(e){
     });
     let i = 0;
     for (i = 0; i < users_clone.length; i++){    // ONLY display users have answered questions
-        if (users_clone[i].num_answers == 0){
+        if (users_clone[i].num_accepted == 0){
             break;
         }
     }
-    update_ranking_page(users_clone.slice(0, i), table_right, 1);
+    update_ranking_page(users_clone.slice(0, i), table_right, 'right');
 }
 
 function update_ranking_page(users, table, flag){
@@ -33,7 +39,7 @@ function update_ranking_page(users, table, flag){
         let cell0 = row.insertCell(0);
         let cell1 = row.insertCell(1);
         let cell2 = row.insertCell(2);
-        if (flag){      // flag is the indicator for left/right table
+        if (flag == 'right'){      // flag is the indicator for left/right table
             cell0.innerHTML = `${users[i].num_accepted / users[i].num_answers}`;
         }else{
             cell0.innerHTML = `${users[i].num_answers}`;

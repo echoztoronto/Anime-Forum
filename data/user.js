@@ -66,8 +66,8 @@ const user_profiles = [
         address: "Japan",
         gender: "Female",
         interest: "singing",
-        num_answers: 2,
-        num_accepted: 1
+        num_answers: 0,
+        num_accepted: 0
     },
     {
         userID: "noob",
@@ -82,8 +82,8 @@ const user_profiles = [
         address: "OwO",
         gender: "Male",
         interest: "answering questions",
-        num_answers: 5,
-        num_accepted: 2
+        num_answers: 1,
+        num_accepted: 0
     },
     {
         userID: "coco1998",
@@ -98,8 +98,8 @@ const user_profiles = [
         address: "5 St. Joseph Street",
         gender: "Female",
         interest: "dancing",
-        num_answers: 0,
-        num_accepted: 0
+        num_answers: 1,
+        num_accepted: 1
     },
     {
         userID: "jason_z",
@@ -130,7 +130,7 @@ const user_profiles = [
         address: "Youyi Street",
         gender: "Male",
         interest: "Comics",
-        num_answers: 0,
+        num_answers: 2,
         num_accepted: 0
     },
     {
@@ -146,8 +146,8 @@ const user_profiles = [
         address: "4 Yonge Street",
         gender: "Female",
         interest: "Computer engineering",
-        num_answers: 0,
-        num_accepted: 0
+        num_answers: 1,
+        num_accepted: 1
     },
     {
         userID: "Johnathan-Daniel-Holmes",
@@ -162,7 +162,7 @@ const user_profiles = [
         address: "Hongqi Street",
         gender: "Male",
         interest: "Cooking",
-        num_answers: 0,
+        num_answers: 1,
         num_accepted: 0
     },
     {
@@ -178,7 +178,7 @@ const user_profiles = [
         address: "297 Hongqi Street",
         gender: "Male",
         interest: "Video game",
-        num_answers: 0,
+        num_answers: 1,
         num_accepted: 0
     },
     {
@@ -226,8 +226,8 @@ const user_profiles = [
         address: "Unknown",
         gender: "Unknown",
         interest: "Unknown",
-        num_answers: 0,
-        num_accepted: 0
+        num_answers: 2,
+        num_accepted: 1
     }
 ];
 
