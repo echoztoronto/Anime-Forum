@@ -70,6 +70,11 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 
 
 ### 3. Question Page
+There are 4 views for question page, 1 normal view + 3 special views. <br/>
+For all 3 special views, we provide an extra html for each view, the entrances are in the navbar on any question page. <br/>
+<img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/>
+These entrances are temporary, we will remove them and display all views on one single page in later phases. <br/>
+
 #### 3.1 Normal View
 Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 ![](/images/readme/phase1/question.jpg?raw=true) <br/>
@@ -78,8 +83,20 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 <img src="/images/readme/phase1/sort.jpg" width="140px"> <br/>
 * Click on __Time__, it will display the answer list by answer time .
 * Click on __Most Liked__, it will display the answer list by like count.
+ <br/>
+ 
+<img src="/images/readme/phase1/like.jpg" width="300px"><br/>
+
+* Click on __▲/▼__ button, you can like or dislike an question or answer.
+* Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new answer. <br/>
+
+![](/images/readme/phase1/new_answer.jpg?raw=true) <br/><br/><br/>
+
 
 #### 3.2 Admin View
+Entrance: On any question page, click on __Admin__ in the nav bar <br/> <br/> 
+<img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/>
+
 #### 3.3 Question Asker View
 #### 3.4 Low Level User View
 
