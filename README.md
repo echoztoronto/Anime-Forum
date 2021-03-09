@@ -36,7 +36,8 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
 ![](/images/readme/phase1/home.jpg?raw=true) <br/> <br/>
 
-* We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user")<br/>
+<span style="color:blue"> We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user"). </span> <br/>
+
 
 <img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
 
