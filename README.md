@@ -28,7 +28,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 - [4. Profile Page](#4-profile-page)
   * [4.1 Normal View](#41-normal-view)
   * [4.2 Self View](#42-self-view)
-- [5. Level & Gold Explanation Page](#5-level---gold-explanation-page)
+- [5. Level and Gold Explanation Page](#5-level-and-gold-explanation-page)
 - [6. Ranking Page](#6-ranking-page)
 
 
@@ -106,8 +106,11 @@ Entrance: On any question page, click on __Admin__ in the nav bar <br/> <br/>
 Entrance: On any page, click on any username.<br/> <br/> 
 ![](/images/readme/phase1/profile.jpg?raw=true "User Profile Page") <br/> 
 * Click on __Asked Questions__ or __Answered Questions__ or __Accepted Questions__, a list of question posts will be displayed.<br/> 
-* Click on any question post, it will open the corresponding question page on a new tab.
-* Click on the question mark besides user level, it will open the [Level & Gold Explanation Page](#5-level---gold-explanation-page) <br/>   ![](/images/readme/phase1/rule_icon.jpg?raw=true)
+* Click on any question post, it will open the corresponding question page on a new tab.<br/>  
+
+<img src="/images/readme/phase1/rule_icon.jpg" width="250px"><br/>  
+* Click on the question mark besides user level, it will open the [Level and Gold Explanation Page](#5-level-and-gold-explanation-page) 
+
 
 
 #### 4.2 Self View
@@ -119,8 +122,8 @@ Entrance: On any of the Forum page, Question page (normal view), Profile page, c
 
 
 
-### 5. Level & Gold Explanation Page
-Entrance: On any Profile Page, click on the question mark besides user level. <br/> ![](/images/readme/phase1/rule_icon.jpg?raw=true)<br/> 
+### 5. Level and Gold Explanation Page
+Entrance: On any Profile Page, click on the question mark besides user level. <br/> <img src="/images/readme/phase1/rule_icon.jpg" width="250px"> <br/>
 ![](/images/readme/phase1/rule.jpg?raw=true)
 
 
