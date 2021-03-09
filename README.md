@@ -8,7 +8,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 * [Ziang Zhang](https://github.com/Ziang-Zhang)
 
 ### Libraries Used 
-* [Quill](https://quilljs.com/)
+* [Quill](https://quilljs.com/) Text Editor
 
 
 
@@ -33,12 +33,12 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 
 
 ### 1. Home Page
-Entrance: Open index.html, or click on the __Home__ in the top left navbar. ![Alt text](/images/readme/phase1/navbar.jpg?raw=true) <br/><br/> 
+Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
 ![Alt text](/images/readme/phase1/home.jpg?raw=true) <br/> <br/>
 
 * We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user")<br/>
 
-![Alt text](/images/readme/phase1/login_signup.jpg?raw=true)<br/>
+<img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
 
 * Login by clicking __Login__ button at top right corner
   * valid credentials: "user" "user" and "admin" "admin" 
@@ -52,12 +52,33 @@ Entrance: Open index.html, or click on the __Home__ in the top left navbar. ![Al
 
 
 ### 2. Forum Page
-Entrance: Click on the __Q&A Forum__ in the top left navbar. ![Alt text](/images/readme/phase1/navbar.jpg?raw=true) <br/> <br/> 
+Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
+
 ![Alt text](/images/readme/phase1/forum.jpg?raw=true) <br/>
+
+* Click on any question title, it will open the corresponding question page in a new tab.
+* Click on any user name, it will open the profile page of the corresponding user in a new tab.
+* Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new question. <br/>
+![Alt text](/images/readme/phase1/new_question.jpg?raw=true) <br/><br/><br/>
+
+<img src="/images/readme/phase1/sort.jpg" width="100px"> <br/>
+* Click on __Time__, it will display the question list by creation time .
+* Click on __Most Liked__, it will display the question list by question like count.
+
+
+
 
 
 ### 3. Question Page
 #### 3.1 Normal View
+Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
+![Alt text](/images/readme/phase1/question.jpg?raw=true) <br/>
+
+
+![Alt text](/images/readme/phase1/sort.jpg?raw=true) <br/>
+* Click on __Time__, it will display the answer list by answer time .
+* Click on __Most Liked__, it will display the answer list by like count.
+
 #### 3.2 Admin View
 #### 3.3 Question Asker View
 #### 3.4 Low Level User View
@@ -88,5 +109,5 @@ Entrance: On any Profile Page, click on the question mark besides user level. <b
 
 
 ### 6. Ranking Page
-Entrance: Click on the __Ranking__ in the top left navbar. ![Alt text](/images/readme/phase1/navbar.jpg?raw=true) <br/> <br/> 
+Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
 ![Alt text](/images/readme/phase1/ranking.jpg?raw=true) <br/>
