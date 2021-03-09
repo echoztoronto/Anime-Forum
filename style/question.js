@@ -216,6 +216,7 @@ function add_self_answer(HTMLcontent) {
             <div class="post-description" id="self-answer-description">  </div>
             <div class="accept-description" id="self-answer-accept"> </div>
         </div>`
+    add_event_listener();       // add eventlistener to the new answer buttons
 
     // assume our user is user
     let aProfile = get_user_profile("user");
