@@ -5,7 +5,7 @@ if(window.location.hash) {
 }
 
 // update page with updated question ID
-function updatePage(sort="time") {     // sort range in {"like", "time"}
+function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
     let qObject = get_question(qID);
@@ -36,6 +36,8 @@ function updatePage(sort="time") {     // sort range in {"like", "time"}
         let answer_list = get_answer_by_question(qID);
         if (sort == "like"){
             answer_list = sort_list_by_like(answer_list);
+        }else{
+            answer_list.reverse();      // reverse order is the time order
         }
 
         // remove previous answer posts

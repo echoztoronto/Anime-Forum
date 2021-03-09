@@ -23,7 +23,7 @@ function sort_by_time(e){
     e.preventDefault();
     sort_time_button.style = "text-decoration: underline";
     sort_like_button.style = "none";
-    update_forum_page(questions);
+    update_forum_page(questions.slice().reverse());     // use the reverse order of questions 
 }
 
 function update_forum_page(questions) {

@@ -33,7 +33,10 @@ a {
 }
 
 #sort-by-time {
-    color: black;
+    text-decoration: none;
+}
+
+#sort-by-like {
     text-decoration: underline;
 }
 
