@@ -1,7 +1,4 @@
-if(window.location.hash) {
-    updatePage_admin();
-
-}
+// updatePage();
 
 function delete_question () {
     document.getElementById("question-container").remove();

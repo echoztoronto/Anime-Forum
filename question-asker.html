@@ -56,10 +56,13 @@
 			</div>
 
 			<div class="post-content">
-				
+				<div class="vote_container">
+                    <div class="like_button_question">&#9650</div>
+                    <div class="like_num">0</div>
+                    <div class="dislike_button_question">&#9660</div>
+            	</div>
 				<button class ='btn_position' type="button" onclick="delete_question()">Delete the question</button>
-				
-				
+					
 				<div class="question-header"> 
 					<span id="question-title"><b>why one punch man season 2 is bad?</b></span> 
 					<span id="question-status">[Ongoing]</span>
@@ -73,7 +76,6 @@
 						<button type="button" onclick="confirm_reward()">confirm</button>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 
@@ -89,6 +91,11 @@
             </div>
         
             <div class="post-content">
+				<div class="vote_container">
+                    <div class="like_button_answer">&#9650</div>
+                    <div class="like_num">6</div>
+                    <div class="dislike_button_answer">&#9660</div>
+            	</div>
 				<div class ='btn_position'>
 				<button id ='accept-btn-0' type="button" onclick="accept_answer_0()">Accept the answer</button>
 				</div>
@@ -112,6 +119,11 @@
             </div>
 
             <div class="post-content">
+				<div class="vote_container">
+                    <div class="like_button_answer">&#9650</div>
+                    <div class="like_num">16</div>
+                    <div class="dislike_button_answer">&#9660</div>
+            </div>
 				<div class ='btn_position'>
 					<button id ='accept-btn-1' type="button" onclick="accept_answer_1()">Accept the answer</button>
 				</div>
@@ -124,13 +136,7 @@
         </div>
     </div>
 
-
-
-
-
 	<script src="style/question.js"></script>
     <script src="style/question-special.js"></script>
-	
 </body>
-
 </html>
