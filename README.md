@@ -17,6 +17,9 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 
 
 ## Phrase 1 Instruction
+Note: We indicated the places that require server calls by using comment __"TODO"__. </br>
+__e.g.__ // TODO: update user exp and gold info to server
+
 ### Table of Contents
 - [1. Home Page](#1-home-page)
 - [2. Forum Page](#2-forum-page)
@@ -122,7 +125,10 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 #### 3.4 Low Level User View
 Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
 <img src="/images/readme/phase1/low.jpg"> <br/>
-* The answers are hidden as you do not meet the level restriction for this question. You can click on __Unlock__ to spend gold and then you will be able to see the answers.
+* The answers are hidden as you do not meet the level restriction for this question. Clicking on __Unlock__ will allow you to see the answers.
+* Click on the question mark besides level limit, it will open the [Level and Gold Explanation Page](#5-level-and-gold-explanation-page) 
+
+
 
 ### 4. Profile Page
 #### 4.1 Normal View
