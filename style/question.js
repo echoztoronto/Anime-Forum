@@ -52,7 +52,9 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
         //add text editor if question is not resolved
         if(qObject.status != "Resolved") {
             document.getElementById("add-answer-btn").style = "visibility: visible;";
-            initiate_answer_editor();
+            if(quill == null) {
+                initiate_answer_editor();
+            }  
         } else {
             document.getElementById("add-answer-btn").style = "visibility: hidden;";
         }
@@ -178,13 +180,21 @@ function editor_submit() {
         message_element.style = "color: red;";
         message_element.innerHTML = "Your answer must be greater than 10 characters!";
     } else {
+        // TODO: add a new answer, update to server
+        // TODO: add 10 exp to user, update to server
+
         add_self_answer(quillHTML);
         document.getElementById("editor-window").style = "visibility: hidden;";
         document.getElementById("add-answer-btn").style = "visibility: hidden;";
         message_element.style = "color: black;";
-        message_element.innerHTML = "Add a new question";
+        message_element.innerHTML = "Add a new answer";
+        //create a notif 
+        let notif = document.createElement("div");
+        document.body.appendChild(notif);
+        notif.innerHTML = `exp + 10`;
+        notif.className = "center-notif";
+        add_fade(notif);
     }
-
 }
 
 

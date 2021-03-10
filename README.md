@@ -60,6 +60,7 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 * Click on any question title, it will open the corresponding question page in a new tab.
 * Click on any user name, it will open the profile page of the corresponding user in a new tab.
 * Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new question. <br/>
+  * note: for now we do not save the new question infomation, so you will not be able to open the new question link.
 ![](/images/readme/phase1/new_question.jpg?raw=true) <br/><br/><br/>
 
 <img src="/images/readme/phase1/sort.jpg" width="140px"> <br/>
@@ -121,7 +122,7 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 #### 3.4 Low Level User View
 Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
 <img src="/images/readme/phase1/low.jpg"> <br/>
-* The answers are all blurred, while you can click on __Unlock__ and then will be able to see the answers.
+* The answers are hidden as you do not meet the level restriction for this question. You can click on __Unlock__ to spend gold and then you will be able to see the answers.
 
 ### 4. Profile Page
 #### 4.1 Normal View

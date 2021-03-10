@@ -20,3 +20,17 @@ function remove_element_by_ID(ID) {
         document.getElementById(ID).remove();
     }
 }
+
+// function that add fading effect
+function add_fade(element) {
+    let op = 1;
+    let temp = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(temp);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 100);
+}

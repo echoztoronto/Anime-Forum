@@ -90,20 +90,7 @@ function pay_to_view(){
     while (elements.length > 0) elements[0].remove();
 }
 
-// function that add fading effect
-function add_fade(element) {
-    let op = 1;
 
-    let temp = setInterval(function () {
-        if (op <= 0.1){
-            clearInterval(temp);
-            element.style.display = 'none';
-        }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-    }, 50);
-}
 
 function unlock_level_limit() {
     // TODO: pull data to verify if user has enough gold
@@ -113,16 +100,11 @@ function unlock_level_limit() {
     // if has enough gold
     //remove limit-container
     remove_element_by_ID("limit-container");
-    //create a spend-gold-notif
+    //create a notif
     let notif = document.createElement("div");
     document.body.appendChild(notif);
     notif.innerHTML = `Gold - <span id="gold-spent"> 4 </span>`;
-    notif.className = "spend-gold-notif";
-    //make notif disappear after 3 seconds
-    // setTimeout(function() {
-    //     notif.style.visibility = "hidden";
-    //     notif.innerHTML = ``;
-    // }, 3000);
+    notif.className = "center-notif";
     add_fade(notif);
 
     // TODO: pull data and add answer posts
