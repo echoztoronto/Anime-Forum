@@ -112,7 +112,7 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 
 * The __Delete the question__ button works exactly the same as that on *Admin* page.
 * Enter the reward number and click on the __confirm__ button, then the reward for this question is made.
-<img src="/images/readme/phase1/reward.jpg" width="450px"> <br/>
+<img src="/images/readme/phase1/reward.jpg" width="200px"> <br/>
 
 * Click on the __Accept the answer__ button, this answer will be accepted.
 <img src="/images/readme/phase1/after_accepted.jpg" width="450px"> <br/><br/><br/>
@@ -122,7 +122,6 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
 <img src="/images/readme/phase1/low_level.png"> <br/>
 * The answers are all blurred, while you can click on __View Answers (5 coins)__ and then will be able to see the answers.
-<img src="/images/readme/phase1/low_level_after.jpg"> <br/><br/><br/>
 
 ### 4. Profile Page
 #### 4.1 Normal View
