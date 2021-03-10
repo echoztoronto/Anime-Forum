@@ -89,6 +89,18 @@ function pay_to_view(){
     while (elements.length > 0) elements[0].remove();
 }
 
+function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 50);
+}
 
 function unlock_level_limit() {
     // TODO: pull data to verify if user has enough gold
@@ -104,10 +116,11 @@ function unlock_level_limit() {
     notif.innerHTML = `Gold - <span id="gold-spent"> 4 </span>`;
     notif.className = "spend-gold-notif";
     //make notif disappear after 3 seconds
-    setTimeout(function() {
-        notif.style.visibility = "hidden";
-        notif.innerHTML = ``;
-    }, 3000);
+    // setTimeout(function() {
+    //     notif.style.visibility = "hidden";
+    //     notif.innerHTML = ``;
+    // }, 3000);
+    fade(notif);
 
     // TODO: pull data and add answer posts
     // for now we just hard code it
