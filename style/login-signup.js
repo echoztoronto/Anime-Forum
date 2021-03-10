@@ -2,7 +2,7 @@
 function login () {
     let username = document.getElementById("login_username").value;
     let pwd = document.getElementById("login_pwd").value;
-    // var re = document.getElementById("login_remember").value;
+    // let re = document.getElementById("login_remember").value;
     let result = valid_login_credential(username, pwd);
     if (result) {
         login_cancel();

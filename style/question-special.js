@@ -84,7 +84,7 @@ function confirm_reward(){
 
 
 function pay_to_view(){
-    var outerDiv = document.getElementById('bg-blur');//or $('#outerDivId')[0];
+    let outerDiv = document.getElementById('bg-blur');//or $('#outerDivId')[0];
     outerDiv.outerHTML = outerDiv.innerHTML;
     const elements = document.getElementsByClassName("z-text");
     while (elements.length > 0) elements[0].remove();
@@ -92,9 +92,9 @@ function pay_to_view(){
 
 // function that add fading effect
 function add_fade(element) {
-    var op = 1;
+    let op = 1;
 
-    var temp = setInterval(function () {
+    let temp = setInterval(function () {
         if (op <= 0.1){
             clearInterval(temp);
             element.style.display = 'none';
