@@ -42,13 +42,28 @@ function forbid3() {
     }
 }
 
-
-function accept_answer(){
+function accept_answer_0(){
     if(document.getElementById("question-status").innerHTML=="[Ongoing]"){
        document.getElementById("question-status").innerHTML="[Solved]"
+       document.getElementById("answer-accept-0").innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
+       document.getElementById('accept-btn-1').style = "visibility: hidden;";
+       document.getElementById('accept-btn-0').style = "visibility: hidden;";
+
+
     }
     
 }
+function accept_answer_1(){
+    if(document.getElementById("question-status").innerHTML=="[Ongoing]"){
+       document.getElementById("question-status").innerHTML="[Solved]"
+       document.getElementById("answer-accept-1").innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
+       document.getElementById('accept-btn-0').style = "visibility: hidden;";
+       document.getElementById('accept-btn-1').style = "visibility: hidden;";
+
+    }
+    }
+    
+
 
 function confirm_reward(){
     document.getElementById("rwd_num").innerHTML= document.getElementById("offering_rwd").value;
