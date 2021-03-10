@@ -58,13 +58,7 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
         }
 
     } else { //if there is no such question
-        //go to error page
-        if(document.getElementById("error-page") == null) {
-            let error_element = document.createElement("div");
-            error_element.id = "error-page";
-            error_element.innerHTML = `The question page you are trying to visit does not exist`;
-            document.body.appendChild(error_element);
-        }
+        go_to_error_page();
     }
 }
 
@@ -326,4 +320,13 @@ function dislike_answer(e){
         e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
     }
     e.target.parentElement.children[0].style.color = 'silver';
+}
+
+function go_to_error_page() {
+    if(document.getElementById("error-page") == null) {
+        let error_element = document.createElement("div");
+        error_element.id = "error-page";
+        error_element.innerHTML = `The question page you are trying to visit does not exist`;
+        document.body.appendChild(error_element);
+    }
 }

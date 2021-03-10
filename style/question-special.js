@@ -1,12 +1,17 @@
 function delete_question () {
     document.getElementById("question-container").remove();
+    go_to_error_page();
+
+    //TODO: update data
 }
 // delete the answer
 function delete_answer (answer_id) {
     document.getElementById("answer-post-" + answer_id).remove();
-}
-// mute
 
+    //TODO: update data
+}
+
+// mute
 function forbid() {
     if (document.getElementById("if-muted").innerText) {
         document.getElementById("forbid-btn").innerText = "mute"
@@ -43,7 +48,7 @@ function accept_answer_0(){
        document.getElementById("answer-accept-0").innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
        document.getElementById('accept-btn-1').style = "visibility: hidden;";
        document.getElementById('accept-btn-0').style = "visibility: hidden;";
-    }
+    } 
 }
 
 function accept_answer_1(){
@@ -52,7 +57,6 @@ function accept_answer_1(){
        document.getElementById("answer-accept-1").innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
        document.getElementById('accept-btn-0').style = "visibility: hidden;";
        document.getElementById('accept-btn-1').style = "visibility: hidden;";
-
     }
 }
     

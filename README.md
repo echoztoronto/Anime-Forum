@@ -95,13 +95,16 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 
 #### 3.2 Admin View
-Entrance: On any question page, click on __Admin__ in the nav bar <br/> <br/> 
-<img src="/images/readme/phase1/question_view.jpg" width="350px"> 
+Entrance: On any question page, click on __Admin__ in the nav bar <img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/><br/>
+
 <img src="/images/readme/phase1/admin.jpg"> <br/>
 
 * Click on __mute__ button, the user will be muted in the forum.<br/>
-<img src="/images/readme/phase1/mute_button.jpg" height="200px">
-<img src="/images/readme/phase1/after_mute.jpg" height="200px">
+<img src="/images/readme/phase1/mute_button.jpg" width="200px"> <img src="/images/readme/phase1/after_mute.jpg" width="200px">
+
+* Click on __Delete the answer__ button, the answer will be deleted and disappear. So does the __Delete the question__ button.<br/>
+<img src="/images/readme/phase1/delete.jpg" width="450px"> <br/><br/>
+
 
 * Click on __delete the answer__ button, the answer will be deleted and disappear. So does the __delete the question__ button.<br/>
 <img src="/images/readme/phase1/delete.jpg"> <br/><br/><br/>
@@ -155,3 +158,5 @@ Entrance: On any Profile Page, click on the question mark besides user level. <b
 ### 6. Ranking Page
 Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
 ![](/images/readme/phase1/ranking.jpg?raw=true) <br/>
+
+* Click on any user name, it will open the profile page of corresponding user. 
