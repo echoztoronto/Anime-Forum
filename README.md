@@ -120,8 +120,8 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 
 #### 3.4 Low Level User View
 Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
-<img src="/images/readme/phase1/low_level.png"> <br/>
-* The answers are all blurred, while you can click on __View Answers (5 coins)__ and then will be able to see the answers.
+<img src="/images/readme/phase1/low.jpg"> <br/>
+* The answers are all blurred, while you can click on __Unlock__ and then will be able to see the answers.
 
 ### 4. Profile Page
 #### 4.1 Normal View
