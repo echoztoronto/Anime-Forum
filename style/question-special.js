@@ -11,7 +11,11 @@ function delete_answer (answer_id) {
     //TODO: update data
 }
 
-// mute
+
+// TODO: pull data and add MUTE button
+    // for now we just hard code it
+    // there are some repitition for button's id
+    // use loop to replace them in the future
 function forbid() {
     if (document.getElementById("if-muted").innerText) {
         document.getElementById("forbid-btn").innerText = "mute"
@@ -78,9 +82,6 @@ function confirm_reward(){
     //TODO: update question reward and user reward
 }
 
-function hide_answers(){
-    hide_answers_posts();
-}
 
 function pay_to_view(){
     var outerDiv = document.getElementById('bg-blur');//or $('#outerDivId')[0];
@@ -89,11 +90,13 @@ function pay_to_view(){
     while (elements.length > 0) elements[0].remove();
 }
 
-function fade(element) {
-    var op = 1;  // initial opacity
-    var timer = setInterval(function () {
+// function that add fading effect
+function add_fade(element) {
+    var op = 1;
+
+    var temp = setInterval(function () {
         if (op <= 0.1){
-            clearInterval(timer);
+            clearInterval(temp);
             element.style.display = 'none';
         }
         element.style.opacity = op;
@@ -120,7 +123,7 @@ function unlock_level_limit() {
     //     notif.style.visibility = "hidden";
     //     notif.innerHTML = ``;
     // }, 3000);
-    fade(notif);
+    add_fade(notif);
 
     // TODO: pull data and add answer posts
     // for now we just hard code it
