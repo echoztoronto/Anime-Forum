@@ -142,3 +142,5 @@ Entrance: On any Profile Page, click on the question mark besides user level. <b
 ### 6. Ranking Page
 Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
 ![](/images/readme/phase1/ranking.jpg?raw=true) <br/>
+
+* Click on any user name, it will open the profile page of corresponding user. 
