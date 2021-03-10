@@ -55,10 +55,23 @@ function accept_answer_1(){
 
     }
 }
+    
+function rwd_change() {
+    let old_reward = Number(document.getElementById("rwd_num").innerHTML);
+    let new_reward = old_reward + Number(document.getElementById("offering_rwd").value);
+    document.getElementById("new_reward").innerHTML = `New Reward: ${new_reward}`;
+}
+
 
 function confirm_reward(){
-    document.getElementById("rwd_num").innerHTML= document.getElementById("offering_rwd").value;
-    
+    //TODO: pull data and verify if user has enough gold
+    let old_reward = Number(document.getElementById("rwd_num").innerHTML);
+    let new_reward = old_reward + Number(document.getElementById("offering_rwd").value);
+    document.getElementById("rwd_num").innerHTML= new_reward;
+    document.getElementById("offering_rwd").value = 0;
+    document.getElementById("new_reward").innerHTML = `&nbsp;`;
+
+    //TODO: update question reward and user reward
 }
 
 function hide_answers(){
