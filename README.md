@@ -95,17 +95,20 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 
 #### 3.2 Admin View
-Entrance: On any question page, click on __Admin__ in the nav bar <br/> <br/> 
-<img src="/images/readme/phase1/question_view.jpg" width="350px"> 
+Entrance: On any question page, click on __Admin__ in the nav bar <img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/><br/>
+
 <img src="/images/readme/phase1/admin.jpg"> <br/>
 
 * Click on __mute__ button, the user will be muted in the forum.<br/>
-<img src="/images/readme/phase1/mute_button.jpg" height="200px">
-<img src="/images/readme/phase1/after_mute.jpg" height="200px">
+<img src="/images/readme/phase1/mute_button.jpg" width="200px"> <img src="/images/readme/phase1/after_mute.jpg" width="200px">
 
-* Click on __delete the answer__ button, the answer will be deleted and disappear. So does the __delete the question__ button.<br/>
-<img src="/images/readme/phase1/delete.jpg"> 
+* Click on __Delete the answer__ button, the answer will be deleted and disappear. So does the __Delete the question__ button.<br/>
+<img src="/images/readme/phase1/delete.jpg" width="450px"> <br/><br/>
+
+
 #### 3.3 Question Asker View
+
+
 #### 3.4 Low Level User View
 
 
