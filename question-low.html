@@ -74,60 +74,16 @@
 			</div>
 		</div>
 		
-		<div id="bg-blur">
-			<div class="post-container" id="answer-post-0"> 
-				<div class="post-profile-answerer">
-					<img class="post-profile-icon" id="answerer-icon-0" src="images/profilepic/5.jpg">
-					<div class="post-profile-info">
-						<div class="display-name" id="answerer-name-0">
-							<a href="profile.html#james_h" target="_blank">James</a>
-						</div> 
-						<div class="user-level" id="answerer-level-0">Level: 3</div>
-					</div>
-				</div>
-			
-				<div class="post-content">
-					<div class="post-description" id="answer-description-0">
-						Yes, I wonderee why too.
-					</div>
-					<div class="accept-description" id="answer-accept-0"> </div>
-				</div>
-			</div>
-
-			<div class="post-container" id="answer-post-1"> 
-				<div class="post-profile-answerer">
-					<img class="post-profile-icon" id="answerer-icon-1" src="images/profilepic/4.jpg">
-					<div class="post-profile-info">
-						<div class="display-name" id="answerer-name-1">
-							<a href="profile.html#jason_z" target="_blank">Jason</a>
-						</div> 
-						<div class="user-level" id="answerer-level-1">Level: 3</div>
-					</div>
-				</div>
-
-				<div class="post-content">
-					<div class="post-description" id="answer-description-1">
-						The biggest reason why the animation sucked was due to the lack of production time. When you get
-						less time to work on stuff, you have to cut around corners. This is why most of the stuff from One
-						Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.
-					</div>
-					<div class="accept-description" id="answer-accept-1"> </div>
-				</div>
-			</div>
-	    </div>
-		<div class="z-text">
-			This question requires users with level 5+ to answer or view the best answer.
-            <br>
-			Level up or spend coins to view the best answer.
-			<br>
-			<button type="button" onclick="pay_to_view()">View Answers (5 coins)</button>
-			
-
-			
-
-
-
+		
+		<!-- Level limitation  -->
+		<div id="limit-container">
+			This question has a view/answer restriction: Level
+			<span id="limit-level"> 5 </span> <br/>
+			Level up or spend <span id="limit-gold"> 4 </span> golds to unlock this question! <br/>
+			<button id="limit-btn" onclick="unlock_level_limit()"> Unlock </button> 
 		</div>
+    </div>
+
 
 		<div class="footer">
 			Powered By 

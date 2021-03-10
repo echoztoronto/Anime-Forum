@@ -54,3 +54,44 @@
 #offering_rwd {
   width: 50px;
 }
+
+/*-------- Low Level User View   ---------------*/
+#limit-container {
+  background-color: rgb(245, 156, 156);
+min-height: 300px;
+border-bottom: 1px solid grey;
+overflow: auto;
+  height: auto;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  padding-top: 100px;
+}
+
+#limit-level {
+  color: red;
+}
+
+#limit-gold {
+  color: rgb(251, 251, 137);
+}
+
+#limit-btn {
+  margin-top: 50px;
+  width: 100px;
+  height: 50px;
+  font-size: 25px;
+}
+
+.spend-gold-notif {
+  position: fixed;
+  width: 200px;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.623);
+  color: rgb(255, 0, 0);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-size: 28px;
+}
