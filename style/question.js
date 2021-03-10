@@ -58,6 +58,7 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
         }
 
     } else { //if there is no such question
+        //go to error page
         if(document.getElementById("error-page") == null) {
             let error_element = document.createElement("div");
             error_element.id = "error-page";
@@ -165,12 +166,12 @@ function initiate_answer_editor() {
 }
 
 
-// onclick functino of "+" button
+// onclick function of "+" button
 function open_editor() {
     document.getElementById("editor-window").style = "visibility: visible;";
 }
 
-// onclick functino of "Cancel" button
+// onclick function of "Cancel" button
 function editor_cancel() {
     document.getElementById("editor-window").style = "visibility: hidden;";
 }

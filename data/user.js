@@ -235,8 +235,7 @@ const user_profiles = [
 
 // return true if the userID and password are valid
 function valid_login_credential(ID, pwd) {
-    var i;
-    for(i = 0; i < user_credentials.length; i++) {
+    for(let i = 0; i < user_credentials.length; i++) {
         if(user_credentials[i].userID == ID) {
             if(user_credentials[i].password == pwd) {
                 return true;
@@ -248,8 +247,7 @@ function valid_login_credential(ID, pwd) {
 
 // return the object given userID
 function get_user_profile(ID) {
-    var i;
-    for(i = 0; i < user_profiles.length; i++) {
+    for(let i = 0; i < user_profiles.length; i++) {
         if(user_profiles[i].userID == ID) {
             return user_profiles[i];
         }
