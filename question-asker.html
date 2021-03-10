@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/question.css">
+	<link rel="stylesheet" href="style/question-special.css">
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script src="data/user.js"></script>
@@ -55,12 +56,24 @@
 			</div>
 
 			<div class="post-content">
+				
+				<button class ='btn_position' type="button" onclick="delete_question()">Delete the question</button>
+				
+				
 				<div class="question-header"> 
 					<span id="question-title"><b>why one punch man season 2 is bad?</b></span> 
 					<span id="question-status">[Ongoing]</span>
 				</div>
 				<div class="post-description" id="question-description">I love One Punch Man. but I noticed that the season two is too lame..why one punch man season 2 is that bad?</div>
-				<div id="question-reward">Reward: 5</div>
+				<div id="question-reward">
+					Reward: <div id="rwd_num"> 0 </div>
+					<div class= 'textbox_position'>
+						<label for="rwd">Enter Your Offering Reward</label>
+						<input type="number" min ="0" placeholder="Enter the value here" id="offering_rwd" name="rwd" required>
+						<button type="button" onclick="confirm_reward()">confirm</button>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 
@@ -76,6 +89,7 @@
             </div>
         
             <div class="post-content">
+				<button class ='btn_position' type="button" onclick="accept_answer()">Accept the answer</button>
                 <div class="post-description" id="answer-description-0">
                     Yes, I wonderee why too.
                 </div>
@@ -95,6 +109,7 @@
             </div>
 
             <div class="post-content">
+				<button class ='btn_position' type="button" onclick="accept_answer()">Accept the answer</button>
                 <div class="post-description" id="answer-description-1">
                     The biggest reason why the animation sucked was due to the lack of production time. When you get less time to work on stuff, you have to cut around corners. This is why most of the stuff from One Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.
                 </div>

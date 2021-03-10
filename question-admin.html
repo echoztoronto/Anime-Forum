@@ -15,7 +15,7 @@
 	<title>Admin View</title>
 </head>
 
-<body onhashchange="updatePage_admin()">
+<body onhashchange="updatePage()">
 	<div class="navbar">
 		<div class="navbar-page">
 			<div class="navbar-block"><a href="index.html"> <b> Home </b></a></div>
@@ -37,7 +37,7 @@
 	<div class="question-banner">
 		<img id="question-banner-pic" src="images/banner/0.jpg">
 		<div class="sort-container">
-			<b>Sort By </b><br />
+			<b>Sort By </b><br/>
 			<span id="sort-by-time" onclick="sort_by_time()">Time </span>
 			| <span id="sort-by-like" onclick="sort_by_like()">Most Liked</span>
 		</div>
@@ -47,18 +47,22 @@
 	<div class="question-container" id="question-container">
 		<!-- Question Post -->
 		<div class="post-container">
+			
 			<div class="post-profile">
 				<img class="post-profile-icon" id="asker-icon" src="images/profilepic/100.jpg">
 				<div class="post-profile-info">
 					<div class="display-name" id="asker-name">
-						<a href="profile.html#kano" target="_blank">KanoChan</a>
+						<a href="profile.html#kano" target="_blank">KanoChan</a><div id="if-muted" class ="forbid-style"></div>
 					</div>
+					
 					<div class="user-level" id="asker-level">Level: 2</div>
-					<div id="forbid-btn"></div>
+					<button id="forbid-btn" type="button" onclick="forbid()">mute</button>
 				</div>
 			</div>
 
 			<div class="post-content">
+				<button class ='btn_position' type="button" onclick="delete_question()">Delete the question</button>
+				
 				<div class="vote_container">
 					<div class="like_button_question">&#9650</div>
 					<div class="like_num">0</div>
@@ -70,8 +74,9 @@
 				</div>
 				<div class="post-description" id="question-description">I love One Punch Man. but I noticed that the
 					season two is too lame..why one punch man season 2 is that bad?</div>
+	
 				<div id="question-reward">Reward: 5</div>
-				<button class ='admin-delete' type="button" onclick="delete_question()">Delete the question</button>
+				
 			</div>
 		</div>
 
@@ -80,16 +85,19 @@
 				<img class="post-profile-icon" id="answerer-icon-0" src="images/profilepic/5.jpg">
 				<div class="post-profile-info">
 					<div class="display-name" id="answerer-name-0">
-						<a href="profile.html#james_h" target="_blank">James</a>
+						<a href="profile.html#james_h" target="_blank">James</a><div id="if-muted2" class ="forbid-style"></div>
 					</div>
 					<div class="user-level" id="answerer-level-0">Level: 3</div>
+					<button id="forbid-btn2" type="button" onclick="forbid2()">mute</button>
 				</div>
 			</div>
 
 			<div class="post-content">
+				<button class ='btn_position' type="button" onclick="delete_answer(0)">Delete the answer</button>
 				<div class="post-description" id="answer-description-0">
 					Yes, I wonderee why too.
 				</div>
+				
 				<div class="accept-description" id="answer-accept-0"> </div>
 			</div>
 		</div>
@@ -99,18 +107,21 @@
 				<img class="post-profile-icon" id="answerer-icon-1" src="images/profilepic/4.jpg">
 				<div class="post-profile-info">
 					<div class="display-name" id="answerer-name-1">
-						<a href="profile.html#jason_z" target="_blank">Jason</a>
+						<a href="profile.html#jason_z" target="_blank">Jason</a><div id="if-muted3" class ="forbid-style"></div>
 					</div>
 					<div class="user-level" id="answerer-level-1">Level: 3</div>
+					<button id="forbid-btn3" type="button" onclick="forbid3()">mute</button>
 				</div>
 			</div>
 
 			<div class="post-content">
+				<button class ='btn_position' type="button" onclick="delete_answer(1)">Delete the answer</button>
 				<div class="post-description" id="answer-description-1">
 					The biggest reason why the animation sucked was due to the lack of production time. When you get
 					less time to work on stuff, you have to cut around corners. This is why most of the stuff from One
 					Punch Man Season 2 wasn't close to the level of One Punch Man Season 1.
 				</div>
+				
 				<div class="accept-description" id="answer-accept-1"> </div>
 			</div>
 		</div>
