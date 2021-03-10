@@ -1,5 +1,3 @@
-// updatePage();
-
 function delete_question () {
     document.getElementById("question-container").remove();
     go_to_error_page();
@@ -52,6 +50,7 @@ function accept_answer_0(){
        document.getElementById('accept-btn-0').style = "visibility: hidden;";
     } 
 }
+
 function accept_answer_1(){
     if(document.getElementById("question-status").innerHTML=="[Ongoing]"){
        document.getElementById("question-status").innerHTML="[Solved]"
@@ -79,12 +78,9 @@ function confirm_reward(){
     //TODO: update question reward and user reward
 }
 
-
 function hide_answers(){
     hide_answers_posts();
 }
-
-
 
 function pay_to_view(){
     var outerDiv = document.getElementById('bg-blur');//or $('#outerDivId')[0];
@@ -92,5 +88,3 @@ function pay_to_view(){
     const elements = document.getElementsByClassName("z-text");
     while (elements.length > 0) elements[0].remove();
 }
-
-
