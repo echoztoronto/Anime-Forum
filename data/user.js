@@ -15,6 +15,11 @@ const user_credentials = [
         userID: "admin", 
         password: "admin",
         admin: true     
+    },
+    {
+        userID: "kano", 
+        password: "1234",
+        admin: false
     }
 ];
 

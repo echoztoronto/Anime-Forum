@@ -34,3 +34,24 @@ function add_fade(element) {
         op -= op * 0.1;
     }, 100);
 }
+
+
+function getCookie(cname) {  //from https://www.w3schools.com/js/js_cookies.asp
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+function log_out() {
+    document.cookie = "username= ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log(document.cookie);
+}

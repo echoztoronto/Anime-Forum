@@ -4,6 +4,12 @@ if(window.location.hash) {
     updatePage();
 }
 
+// change icon and username in navbar
+let self_username = getCookie("username");
+let self_profile = get_user_profile(self_username);
+document.getElementById("nav_user_profile").src = "images/profilepic/" + self_profile.profilePic + ".jpg";
+document.getElementById("nav_username").innerText = self_profile.displayName;
+
 // update page with updated question ID
 function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
@@ -225,14 +231,11 @@ function add_self_answer(HTMLcontent) {
         </div>`
     add_event_listener();       // add eventlistener to the new answer buttons
 
-    // assume our user is user
-    let aProfile = get_user_profile("user");
-    
     // update answerer info DOM
-    document.getElementById("self-icon").src = "images/profilepic/" + aProfile.profilePic + ".jpg";
-    document.getElementById("self-name").innerHTML = '<a href="profile.html#' + aProfile.userID 
-            + '" target="_blank">' +  aProfile.displayName + '</a>';
-    document.getElementById("self-level").innerHTML = "Level: " + aProfile.level;
+    document.getElementById("self-icon").src = "images/profilepic/" + self_profile.profilePic + ".jpg";
+    document.getElementById("self-name").innerHTML = '<a href="profile.html#' + self_profile.userID 
+            + '" target="_blank">' +  self_profile.displayName + '</a>';
+    document.getElementById("self-level").innerHTML = "Level: " + self_profile.level;
     
     // update answer info DOM
     document.getElementById("self-answer-description").innerHTML = HTMLcontent;

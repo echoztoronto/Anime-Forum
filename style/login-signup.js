@@ -16,6 +16,11 @@ function login () {
         document.getElementById("user_logout_content").classList.remove('hide');
         // hide login or signup content
         document.getElementById("login_sign_content").classList.add('hide')
+        // save to cookie
+        let d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        document.cookie = "username=" + username + ";expires=" + d.toUTCString() + ";path=/";
+        console.log(document.cookie);
     } else {
         document.getElementById('login-error-tips').innerText = "Invalid Username or Password"
     }
