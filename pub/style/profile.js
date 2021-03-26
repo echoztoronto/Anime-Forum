@@ -22,14 +22,15 @@ function hashChange() {
            return res.json() 
        } else {
             console.log('Could not get user')
+            console.log(res)
        }                
     })
-    .then((json) => { 
-        console.log(json)
-        uProfile = JSON.parse(json)
-    }).catch((error) => {
-        console.log(error)
-    })
+    //.then((json) => { 
+    //    console.log(json)
+    //    uProfile = JSON.parse(json)
+    //}).catch((error) => {
+    //    console.log(error)
+    //})
 
 
     // TODO: actually verify if it is self profile
