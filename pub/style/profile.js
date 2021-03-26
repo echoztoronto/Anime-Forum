@@ -12,7 +12,25 @@ if(window.location.hash) {
 function hashChange() {
     let x = location.hash;
     let uID = x.substring(1);
-    uProfile = get_user_profile(uID);
+    //uProfile = get_user_profile(uID);
+
+    const url = '/user/' + uID;
+    console.log(url)
+    fetch(url)
+    .then((res) => { 
+        if (res.status === 200) {
+           return res.json() 
+       } else {
+            console.log('Could not get user')
+       }                
+    })
+    .then((json) => { 
+        console.log(json)
+        uProfile = JSON.parse(json)
+    }).catch((error) => {
+        console.log(error)
+    })
+
 
     // TODO: actually verify if it is self profile
     if(uID == "user") {
