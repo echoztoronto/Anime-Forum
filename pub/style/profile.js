@@ -12,10 +12,16 @@ if(window.location.hash) {
 function hashChange() {
     let x = location.hash;
     let uID = x.substring(1);
-    //uProfile = get_user_profile(uID);
 
+    // TODO: actually verify if it is self profile
+    if(uID == "user") {
+        is_self = true;
+    } else {
+        is_self = false;
+    }
+
+    // use GET method to get user info
     const url = '/user/' + uID;
-    console.log(url)
     fetch(url)
     .then((res) => { 
         if (res.status === 200) {
@@ -25,82 +31,93 @@ function hashChange() {
             console.log(res)
        }                
     })
-    //.then((json) => { 
-    //    console.log(json)
-    //    uProfile = JSON.parse(json)
-    //}).catch((error) => {
-    //    console.log(error)
-    //})
-
-
-    // TODO: actually verify if it is self profile
-    if(uID == "user") {
-        is_self = true;
-    } else {
-        is_self = false;
-    }
-
-    if(uProfile != null) {
-        //remove error page if it's there
-        if(document.getElementById("error-page") != null) {
-            document.getElementById("error-page").remove;
-            location.reload();
+    // then save public data into uProfile
+    .then((json) => { 
+        uProfile = {
+            address: json.address,
+            birthday: json.birthday,
+            displayName: json.displayName,
+            gender: json.gender,
+            interest: json.interest,
+            level: json.level,
+            profileBanner: json.profileBanner,
+            profilePic: json.profilePic,
+            userID: json.userID
         }
 
-        // banner element
-        document.getElementById("user-id").innerHTML = "User ID: " + uProfile.userID;
-        document.getElementById("display-name").innerHTML = uProfile.displayName;
-        document.getElementById("user-level").innerHTML = "Level: " + uProfile.level;
-        document.getElementById("banner-pic").src = "images/banner/" + uProfile.profileBanner + ".jpg";
-        document.getElementById("profile-pic").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
-
-        //info panel element
-        document.getElementById("gender").innerHTML =  uProfile.gender;
-        document.getElementById("birthday").innerHTML =  uProfile.birthday;
-        document.getElementById("address").innerHTML = uProfile.address;
-        document.getElementById("interest").innerHTML = uProfile.interest;
-
-        // push user post data
-        user_question = get_asked_question_for_user(uID);
-        user_answer = get_answered_question_for_user(uID);
-        user_accept_answer = get_accepted_question_for_user(uID);
-
-        // by default, display asked question
-        asked_question();
-
-        // if this is a self page
-        if(is_self) {
-            // display user exp and gold
-            document.getElementById("user-exp").innerHTML = "EXP: " + uProfile.exp;
-            document.getElementById("user-gold").innerHTML = "Gold: " + uProfile.gold;
-            // edit profile button
-            let edit = create_element("div", "edit-btn", '', "profile-banner");
-            edit.innerHTML = `Edit Profile`;
-            edit.addEventListener("click", edit_click);
-            // check in notif div
-            create_element("div", "check-in-notif", '', "profile-banner");
-            // check in button
-            // TODO: pull data to verify if user already checked in today, if so, disable the button
-            let checkin = create_element("div", "check-in-btn", '', "profile-banner");
-            checkin.innerHTML = `Check In`;
-            checkin.addEventListener("click", checkin_click);
-        } else {
-            document.getElementById("user-exp").innerHTML = '';
-            document.getElementById("user-gold").innerHTML = '';
-            remove_element_by_ID("edit-btn");
-            remove_element_by_ID("check-in-btn");
+        if(is_self){
+            uProfile["gold"] = json.gold;
+            uProfile["exp"] = json.exp;
         }
 
-    } else { //if there is no such user
-        if(document.getElementById("error-page") == null) {
-            let error_element = document.createElement("div");
-            error_element.id = "error-page";
-            error_element.innerHTML = `This user account does not exist
-                                        <br/> 
-                                        or it has been deleted`;
-            document.body.appendChild(error_element);
-        }  
-    }
+        // start DOM rendering
+        if(uProfile != null) {
+            //remove error page if it's there
+            if(document.getElementById("error-page") != null) {
+                document.getElementById("error-page").remove;
+                location.reload();
+            }
+
+            // banner element
+            document.getElementById("user-id").innerHTML = "User ID: " + uProfile.userID;
+            document.getElementById("display-name").innerHTML = uProfile.displayName;
+            document.getElementById("user-level").innerHTML = "Level: " + uProfile.level;
+            document.getElementById("banner-pic").src = "images/banner/" + uProfile.profileBanner + ".jpg";
+            document.getElementById("profile-pic").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
+
+            //info panel element
+            document.getElementById("gender").innerHTML =  uProfile.gender;
+            document.getElementById("birthday").innerHTML =  uProfile.birthday;
+            document.getElementById("address").innerHTML = uProfile.address;
+            document.getElementById("interest").innerHTML = uProfile.interest;
+
+            // push user post data
+            user_question = get_asked_question_for_user(uID);
+            user_answer = get_answered_question_for_user(uID);
+            user_accept_answer = get_accepted_question_for_user(uID);
+
+            // by default, display asked question
+            asked_question();
+
+            // if this is a self page
+            if(is_self) {
+                // display user exp and gold
+                document.getElementById("user-exp").innerHTML = "EXP: " + uProfile.exp;
+                document.getElementById("user-gold").innerHTML = "Gold: " + uProfile.gold;
+                // edit profile button
+                let edit = create_element("div", "edit-btn", '', "profile-banner");
+                edit.innerHTML = `Edit Profile`;
+                edit.addEventListener("click", edit_click);
+                // check in notif div
+                create_element("div", "check-in-notif", '', "profile-banner");
+                // check in button
+                // TODO: pull data to verify if user already checked in today, if so, disable the button
+                let checkin = create_element("div", "check-in-btn", '', "profile-banner");
+                checkin.innerHTML = `Check In`;
+                checkin.addEventListener("click", checkin_click);
+            } else {
+                document.getElementById("user-exp").innerHTML = '';
+                document.getElementById("user-gold").innerHTML = '';
+                remove_element_by_ID("edit-btn");
+                remove_element_by_ID("check-in-btn");
+            }
+
+        } else { //if there is no such user
+            if(document.getElementById("error-page") == null) {
+                let error_element = document.createElement("div");
+                error_element.id = "error-page";
+                error_element.innerHTML = `This user account does not exist
+                                            <br/> 
+                                            or it has been deleted`;
+                document.body.appendChild(error_element);
+            }  
+        }
+    })
+    
+    .catch((error) => {
+        console.log(error)
+    })
+
 }
 
 // onclick events for post selector buttons
