@@ -292,7 +292,38 @@ function edit_submit() {
         document.getElementById('edit-message').innerHTML = `Display Name should have at least 4 characters!`;
     } else {
         //TODO: update new profile info to server
+        const modified_profile = {
+            displayName: document.getElementById("edit-name").value,
+            birthday: document.getElementById("edit-bday").value,
+            gender: document.getElementById("edit-gender").value,
+            address: document.getElementById("edit-place").value,
+            interest: document.getElementById("edit-interest").value
+        }
 
+        // create PATCH request with updated user information
+        const url = '/user/:id';
+        const request = new Request(url, {
+            method: 'patch', 
+            body: JSON.stringify(modified_profile),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        console.log(request.body);
+        // Send the request with fetch()
+        fetch(request)
+        .then(function(res) {
+            //console.log(res)
+            if (res.status === 200) {
+                console.log('updated profile')
+            } else console.log('Could not update profile')           
+        }).catch((error) => {
+            console.log(error)
+        })
+
+        /*
         // apply profile pic
         if(document.getElementById("edit-pic").files.length != 0 ){
             apply_input_image_to_div("edit-pic", "profile-pic");
@@ -309,7 +340,8 @@ function edit_submit() {
         apply_input_value_to_div("edit-gender","gender");
         apply_input_value_to_div("edit-place","address");
         apply_input_value_to_div("edit-interest","interest");
-
+        */
+       
         edit_close();
     }
 }
