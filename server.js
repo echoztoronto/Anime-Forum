@@ -2,20 +2,21 @@
 const log = console.log;
 
 // Express
-const express = require('express')
+const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: false }));
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const path = require('path');
-app.use(express.static(path.join(__dirname, '/pub')))
+app.use(express.static(path.join(__dirname, '/pub')));
+
 
 // Mongo and Mongoose
-const { ObjectID } = require('mongodb')
+const { ObjectID } = require('mongodb');
 const { mongoose } = require('./db/mongoose');
 
 // Collections
-const { User } = require('./models/users')
+const { User } = require('./models/users');
 
 //////////////////////////////////   USER  ////////////////////////////////////
 // GET /user/id

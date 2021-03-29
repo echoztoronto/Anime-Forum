@@ -311,11 +311,12 @@ function edit_submit() {
             },
         });
 
+        console.log(request);
         console.log(request.body);
         // Send the request with fetch()
         fetch(request)
         .then(function(res) {
-            //console.log(res)
+            console.log(res)
             if (res.status === 200) {
                 console.log('updated profile')
             } else console.log('Could not update profile')           
