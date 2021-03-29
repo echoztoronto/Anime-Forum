@@ -301,7 +301,7 @@ function edit_submit() {
         }
 
         // create PATCH request with updated user information
-        const url = '/user/' + uID;
+        const url = '/user/' + uProfile.userID;
         const request = new Request(url, {
             method: 'patch', 
             body: JSON.stringify(modified_profile),
