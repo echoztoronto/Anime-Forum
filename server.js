@@ -17,6 +17,8 @@ const { mongoose } = require('./db/mongoose');
 
 // Collections
 const { User } = require('./models/users');
+const { Answer } = require('./models/answers.js');
+const { Question } = require('./models/questions.js');
 
 //////////////////////////////////   USER  ////////////////////////////////////
 // GET /user/id
@@ -97,7 +99,65 @@ app.patch('/user/:id', async (req, res) => {
 })
 
 
+// --------------- Part: Answers ---------------------------
 
+// POST /answer
+app.post('/answer', async (req, res) => {
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		let new_ID = await Answer.countDocuments() + 1;		// ID := length + 1
+		const answer = new Answer({
+			ID: new_ID,
+			questionID: req.body.questionID,
+			answerer: req.body.answer,
+			content: req.body.content,
+			likeCount: 0,
+			accepted: false
+		});
+		const result = await answer.save();	
+		res.send(result);
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+})
+
+
+
+// --------------- Part: Questions ---------------------------
+
+// POST /question
+app.post('/question', async (req, res) => {
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		let new_ID = await Question.countDocuments() + 1;		// ID := length + 1
+		const question = new Question({
+			questionID: new_ID,
+			summary: req.body.summary,
+			description: req.body.description,
+			reward: req.body.reward,
+			levelLimit: req.body.levelLimit,
+			asker: req.body.asker,
+			likeCount: 0,
+			replyCount: 0,
+			status: "Ongoing",
+			lastAnswerer: ""
+		});
+		const result = await question.save();	
+		res.send(result);
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+})
 
 ////////// DO NOT CHANGE THE CODE OR PORT NUMBER BELOW
 const port = process.env.PORT || 5000
