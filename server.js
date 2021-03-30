@@ -109,7 +109,7 @@ app.post('/answer', async (req, res) => {
 		return;
 	}
 	try {
-		let new_ID = await Answer.countDocuments() + 1;		// ID := length + 1
+		const new_ID = await Answer.countDocuments() + 1;		// ID := length + 1
 		const answer = new Answer({
 			ID: new_ID,
 			questionID: req.body.questionID,
@@ -124,8 +124,29 @@ app.post('/answer', async (req, res) => {
 		log(error);
 		res.status(500).send('Internal Server Error');
 	}
-})
+});
 
+// GET /answer/id
+// Note: id here is the ID field of answer objects
+app.get('/answer/:id', async (req, res) =>{
+	const id = req.params.id;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const result = await Answer.findOne({ ID: id }).exec();
+		if (!result) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
 
 
 // --------------- Part: Questions ---------------------------
@@ -138,7 +159,7 @@ app.post('/question', async (req, res) => {
 		return;
 	}
 	try {
-		let new_ID = await Question.countDocuments() + 1;		// ID := length + 1
+		const new_ID = await Question.countDocuments() + 1;		// ID := length + 1
 		const question = new Question({
 			questionID: new_ID,
 			summary: req.body.summary,
@@ -158,6 +179,30 @@ app.post('/question', async (req, res) => {
 		res.status(500).send('Internal Server Error');
 	}
 })
+
+
+// GET /question/id
+// Note: id here is the ID field of question objects
+app.get('/question/:id', async (req, res) =>{
+	const id = req.params.id;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const result = await Question.findOne({ questionID: id }).exec();
+		if (!result) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
 
 ////////// DO NOT CHANGE THE CODE OR PORT NUMBER BELOW
 const port = process.env.PORT || 5000
