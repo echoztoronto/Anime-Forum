@@ -183,7 +183,7 @@ app.get('/answers-of-question/:qid', async (req, res) =>{
 });
 
 // DELETE /question/:qid/:aid
-// Route that return a answer of aid inside the question of qid
+// Route that Delete a answer of aid inside the question of qid
 // Note: aid is the ObjectId, qid is the QuestionId field
 app.delete('/question/:qid/:aid', async (req, res) =>{
 	const qid = req.params.qid;
@@ -201,10 +201,14 @@ app.delete('/question/:qid/:aid', async (req, res) =>{
 			const item = question.answer_list.id(aid);
 			question.answer_list.id(aid).remove();
 			const result = await question.save();
-			res.send(
-				{"answer": item,
-				"question": question
-			});
+			if (!result){
+				res.status(404).send();
+			}else{
+				res.send({
+					"answer": item,
+					"question": question
+				});
+			}
 		}
 	} catch(error) {
 		log(error);
@@ -276,6 +280,34 @@ app.get('/question/:qid', async (req, res) =>{
 			res.status(404).send('Resource not found');
 		} else {
 			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+// DELETE /question/:qid/
+// Route that delete a answer of aid inside the question of qid
+// Note: aid is the ObjectId, qid is the QuestionId field
+app.delete('/question/:qid', async (req, res) =>{
+	const qid = req.params.qid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found');
+		} else {
+			const result = await Question.deleteMany({ questionID: qid});
+			if (!result){
+				res.status(404).send();
+			}else{
+				res.send(question);
+			}
 		}
 	} catch(error) {
 		log(error);
