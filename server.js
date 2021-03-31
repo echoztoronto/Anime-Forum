@@ -17,7 +17,6 @@ const { mongoose } = require('./db/mongoose');
 
 // Collections
 const { User } = require('./models/users');
-const { Answer } = require('./models/answers.js');
 const { Question } = require('./models/questions.js');
 
 //////////////////////////////////   USER  ////////////////////////////////////
@@ -112,29 +111,18 @@ app.post('/answer', async (req, res) => {
 	try {
 		const qid = req.body.questionID;
 		const question = await Question.findOne({ questionID: qid }).exec();	// find the question
-
-		// ID := max ID + 1
-		let new_ID = 0;
-		(await Answer.find({})).forEach(item => {
-			if (item.answerID > new_ID){
-				new_ID = item.answerID;
-			}
-		})
-		new_ID += 1;
-
-		// const answer = question.answer_list.create({
-		const answer = new Answer({
-			answerID: new_ID,
+		
+		// create a new answer
+		const answer = question.answer_list.create({
+			answerID: question.answer_list.length + 1,
 			questionID: req.body.questionID,
 			answerer: req.body.answer,
 			content: req.body.content,
 			likeCount: 0,
 			accepted: false
 		});
-
-		question.answer_list.push(answer)	// PATCH?
-		await question.save();
-		const result = await answer.save();	
+		question.answer_list.push(answer);
+		const result = await question.save();	
 		res.send(result);
 	} catch(error) {
 		log(error);
@@ -142,40 +130,18 @@ app.post('/answer', async (req, res) => {
 	}
 });
 
-// GET /answer/id
-// Note: id here is the ID field of answer objects
-app.get('/answer/:id', async (req, res) =>{
-	const id = req.params.id;
+
+// GET /answers-of-question/qid
+// Note: qid here is the questionID field of question objects, return all answers for this question
+app.get('/answers-of-question/:qid', async (req, res) =>{
+	const qid = req.params.qid;
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
 		res.status(500).send('Internal server error');
 		return;
 	}
 	try {
-		const result = await Answer.findOne({ ID: id }).exec();
-		if (!result) {
-			res.status(404).send('Resource not found');
-		} else {
-			res.send(result);
-		}
-	} catch(error) {
-		log(error);
-		res.status(500).send('Internal Server Error');
-	}
-});
-
-
-// GET /answers-of-question/id
-// Note: id here is the ID field of question objects, return all answers for this question
-app.get('/answers-of-question/:id', async (req, res) =>{
-	const id = req.params.id;
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection');
-		res.status(500).send('Internal server error');
-		return;
-	}
-	try {
-		const result = await Question.findOne({ ID: id }).exec();
+		const result = await Question.findOne({ questionID: qid }).exec();
 		if (!result) {
 			res.status(404).send('Resource not found');
 		} else {
