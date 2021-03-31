@@ -101,7 +101,7 @@ app.patch('/user/:id', async (req, res) => {
 // --------------- Part: Answers ---------------------------
 
 // POST /answer/:qid
-/* function that add an answer, qid: questionID
+/* Route that adds an answer, qid: questionID
 request body expects:
 {
 	"answerer": String,
@@ -136,6 +136,29 @@ app.post('/question/:qid', async (req, res) => {
 	}
 });
 
+// GET /question/:qid/:aid
+// Route that return a answer of aid inside the question of qid
+// Note: aid is the ObjectId, qid is the QuestionId field
+app.get('/question/:qid/:aid', async (req, res) =>{
+	const qid = req.params.qid;
+	const aid = req.params.aid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(question.answer_list.id(aid));
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
 
 // GET /answers-of-question/qid
 // Note: qid here is the questionID field of question objects, return all answers for this question
@@ -147,11 +170,41 @@ app.get('/answers-of-question/:qid', async (req, res) =>{
 		return;
 	}
 	try {
-		const result = await Question.findOne({ questionID: qid }).exec();
-		if (!result) {
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
 			res.status(404).send('Resource not found');
 		} else {
-			res.send(result.answer_list);
+			res.send(question.answer_list);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+// DELETE /question/:qid/:aid
+// Route that return a answer of aid inside the question of qid
+// Note: aid is the ObjectId, qid is the QuestionId field
+app.delete('/question/:qid/:aid', async (req, res) =>{
+	const qid = req.params.qid;
+	const aid = req.params.aid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found');
+		} else {
+			const item = question.answer_list.id(aid);
+			question.answer_list.id(aid).remove();
+			const result = await question.save();
+			res.send(
+				{"answer": item,
+				"question": question
+			});
 		}
 	} catch(error) {
 		log(error);
@@ -165,7 +218,7 @@ app.get('/answers-of-question/:qid', async (req, res) =>{
 /* function that add a question
 request body expects:
 {
-	"summary": String
+	"summary": String,
 	"description": String,
 	"reward": Number,
 	"levelLimit": Number,
