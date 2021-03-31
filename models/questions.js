@@ -1,5 +1,14 @@
 const mongoose = require('mongoose');
 
+const AnswerSchema = new mongoose.Schema({
+    answerID: Number,
+    questionID: Number,
+    answerer: String,
+    content: String,
+    likeCount: {type: Number, default: 0},
+    accepted: Boolean,
+});
+
 const QuestionSchema = new mongoose.Schema({
     questionID: Number,
     summary: String,
@@ -11,7 +20,7 @@ const QuestionSchema = new mongoose.Schema({
     lastAnswerer: String,
     reward: Number,
     levelLimit: Number,
-    answer_list: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}]      // array of answer objects
+    answer_list: [AnswerSchema]
 });
 
 const Question = mongoose.model('Question', QuestionSchema);
