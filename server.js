@@ -100,22 +100,28 @@ app.patch('/user/:id', async (req, res) => {
 
 // --------------- Part: Answers ---------------------------
 
-// POST /answer
-// NOT sure if change to /answer/pid?
-app.post('/answer', async (req, res) => {
+// POST /answer/:qid
+/* function that add an answer, qid: questionID
+request body expects:
+{
+	"answerer": String,
+	"content": String
+}
+*/
+app.post('/question/:qid', async (req, res) => {
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
 		res.status(500).send('Internal server error');
 		return;
 	}
 	try {
-		const qid = req.body.questionID;
+		const qid = req.params.qid;
 		const question = await Question.findOne({ questionID: qid }).exec();	// find the question
 		
 		// create a new answer
 		const answer = question.answer_list.create({
 			answerID: question.answer_list.length + 1,
-			questionID: req.body.questionID,
+			questionID: qid,
 			answerer: req.body.answer,
 			content: req.body.content,
 			likeCount: 0,
@@ -156,6 +162,16 @@ app.get('/answers-of-question/:qid', async (req, res) =>{
 // --------------- Part: Questions ---------------------------
 
 // POST /question
+/* function that add a question
+request body expects:
+{
+	"summary": String
+	"description": String,
+	"reward": Number,
+	"levelLimit": Number,
+	"asker": String
+}
+*/
 app.post('/question', async (req, res) => {
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
@@ -192,17 +208,17 @@ app.post('/question', async (req, res) => {
 })
 
 
-// GET /question/id
+// GET /question/qid
 // Note: id here is the ID field of question objects
-app.get('/question/:id', async (req, res) =>{
-	const id = req.params.id;
+app.get('/question/:qid', async (req, res) =>{
+	const qid = req.params.qid;
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
 		res.status(500).send('Internal server error');
 		return;
 	}
 	try {
-		const result = await Question.findOne({ questionID: id }).exec();
+		const result = await Question.findOne({ questionID: qid }).exec();
 		if (!result) {
 			res.status(404).send('Resource not found');
 		} else {
