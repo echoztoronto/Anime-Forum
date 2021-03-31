@@ -303,7 +303,7 @@ function edit_submit() {
         // create PATCH request with updated user information
         const url = '/user/' + uProfile.userID;
         const request = new Request(url, {
-            method: 'patch', 
+            method: 'PATCH', 
             body: JSON.stringify(modified_profile),
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -323,6 +323,7 @@ function edit_submit() {
         }).catch((error) => {
             console.log(error)
         })
+
 
         /*
         // apply profile pic
