@@ -14,60 +14,69 @@ document.getElementById("nav_username").innerText = self_profile.displayName;
 function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
-    let qObject = get_question(qID);
+    // let qObject = get_question(qID);
 
-    if(qObject != null) {
-        //remove error page if it's there
-        if(document.getElementById("error-page") != null) {
-            document.getElementById("error-page").remove;
-            location.reload();
+    // use GET route to get the question
+    fetch(`/question/${qID}`)
+    .then(res => res.json())
+    .then(qObject => {
+        if(qObject != null) {
+            //remove error page if it's there
+            if(document.getElementById("error-page") != null) {
+                document.getElementById("error-page").remove;
+                location.reload();
+            }
+    
+            //get asker info
+            let uProfile =  get_user_profile(qObject.asker);
+    
+            // update asker info DOM
+            document.getElementById("asker-icon").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
+            document.getElementById("asker-name").innerHTML = '<a href="profile.html#' + uProfile.userID 
+                    + '" target="_blank">' +  uProfile.displayName + '</a>';
+            document.getElementById("asker-level").innerHTML = "Level: " + uProfile.level;
+            
+            // update question info DOM
+            document.getElementById("question-title").innerHTML = '<b>' + qObject.summary + '</b>';
+            document.getElementById("question-status").innerHTML = '[' + qObject.status + ']';
+            document.getElementById("question-description").innerHTML = qObject.description;
+            document.getElementById("question-reward").innerHTML = 'Reward: ' + qObject.reward;
+    
+            // get the list of answers
+            let answer_list = get_answer_by_question(qID);
+            if (sort == "like"){
+                answer_list = sort_list_by_like(answer_list);
+            }else{
+                answer_list.reverse();      // reverse order is the time order
+            }
+    
+            // remove previous answer posts
+            remove_answer_posts();
+    
+            // insert each answer
+            if(answer_list.length != 0) {
+                insert_answer_posts(answer_list);
+                add_event_listener();
+            }
+    
+            //add text editor if question is not resolved
+            if(qObject.status != "Resolved") {
+                document.getElementById("add-answer-btn").style = "visibility: visible;";
+                if(quill == null) {
+                    initiate_answer_editor();
+                }  
+            } else {
+                document.getElementById("add-answer-btn").style = "visibility: hidden;";
+            }
+    
+        } else { //if there is no such question
+            go_to_error_page();
         }
-
-        //get asker info
-        let uProfile =  get_user_profile(qObject.asker);
-
-        // update asker info DOM
-        document.getElementById("asker-icon").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
-        document.getElementById("asker-name").innerHTML = '<a href="profile.html#' + uProfile.userID 
-                + '" target="_blank">' +  uProfile.displayName + '</a>';
-        document.getElementById("asker-level").innerHTML = "Level: " + uProfile.level;
-        
-        // update question info DOM
-        document.getElementById("question-title").innerHTML = '<b>' + qObject.summary + '</b>';
-        document.getElementById("question-status").innerHTML = '[' + qObject.status + ']';
-        document.getElementById("question-description").innerHTML = qObject.description;
-        document.getElementById("question-reward").innerHTML = 'Reward: ' + qObject.reward;
-
-        // get the list of answers
-        let answer_list = get_answer_by_question(qID);
-        if (sort == "like"){
-            answer_list = sort_list_by_like(answer_list);
-        }else{
-            answer_list.reverse();      // reverse order is the time order
-        }
-
-        // remove previous answer posts
-        remove_answer_posts();
-
-        // insert each answer
-        if(answer_list.length != 0) {
-            insert_answer_posts(answer_list);
-            add_event_listener();
-        }
-
-        //add text editor if question is not resolved
-        if(qObject.status != "Resolved") {
-            document.getElementById("add-answer-btn").style = "visibility: visible;";
-            if(quill == null) {
-                initiate_answer_editor();
-            }  
-        } else {
-            document.getElementById("add-answer-btn").style = "visibility: hidden;";
-        }
-
-    } else { //if there is no such question
-        go_to_error_page();
-    }
+    })
+    .catch(err => {
+        console.log('Could not get question');
+        console.log(res);
+    })
 }
 
 // onclick events for sorting 

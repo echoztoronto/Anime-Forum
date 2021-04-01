@@ -148,6 +148,27 @@ app.post('/question', async (req, res) => {
 	}
 })
 
+// GET /all-questions
+// get all the questions
+app.get('/allQuestions', async (req, res) =>{
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const result = await Question.find({});
+		if (!result) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
 
 // GET /question/qid
 // Note: id here is the ID field of question objects
