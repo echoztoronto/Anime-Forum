@@ -28,6 +28,7 @@ fetch(url)
     }
     document.getElementById("nav_user_profile").src = json.profilePicImg;
     document.getElementById("nav_username").innerText = json.displayName;
+    document.getElementById("nav_username").href = "profile.html#" + self_ID;
 })
 
 
