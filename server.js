@@ -348,6 +348,41 @@ app.delete('/question/:qid/:aid', async (req, res) =>{
 });
 
 
+// PATCH /question/:qid/:aid
+// Route that updates an answer
+// NOTE: aid is the ObjectId of answer, qid is the questionID field
+app.patch('/question/:qid/:aid', async (req, res) => {
+	const qid = req.params.qid;
+	const aid = req.params.aid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try{
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found')
+		}else{
+			const answer = await question.answer_list.id(aid);
+			for (const [key, value] of Object.entries(req.body)) {
+				answer[key] = value;
+			}
+			const result = await question.save();
+			res.send(answer);
+		}
+	} catch (error) {
+		log(error);
+		if (isMongoError(error)) { 
+			res.status(500).send('Internal server error');
+		} else {
+			res.status(400).send('Bad Request');
+		}
+	}
+});
+
+
+
 
 ////////// DO NOT CHANGE THE CODE OR PORT NUMBER BELOW
 const port = process.env.PORT || 5000
