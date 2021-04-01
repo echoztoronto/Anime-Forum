@@ -69,6 +69,7 @@ function updatePage() {
         if(is_self){
             uProfile["gold"] = json.gold;
             uProfile["exp"] = json.exp;
+            uProfile["checkin"] = json.checkin;
         }
 
         // start DOM rendering
@@ -115,10 +116,20 @@ function updatePage() {
                 // check in notif div
                 create_element("div", "check-in-notif", '', "profile-banner");
                 // check in button
-                // TODO: pull data to verify if user already checked in today, if so, disable the button
                 let checkin = create_element("div", "check-in-btn", '', "profile-banner");
                 checkin.innerHTML = `Check In`;
-                checkin.addEventListener("click", checkin_click);
+                
+                // verify if user already checked in today
+                let checked_in = false;
+                for (let i = 0; i < uProfile.checkin.length; i++) {
+                    if(uProfile.checkin[i] = get_today_date()) checked_in = true;
+                }
+                if(checked_in) checkin_disable();
+                else {
+                    checkin.addEventListener("click", checkin_click);
+                    checkin.addEventListener("mouseover",checkin_hover);
+                    checkin.addEventListener("mouseout",checkin_unhover);
+                }
             } else {
                 document.getElementById("user-exp").innerHTML = '';
                 document.getElementById("user-gold").innerHTML = '';
@@ -256,6 +267,9 @@ function get_accepted_question_for_user(uID) {
 
 //  Check In --------------------------------------------------------
 function checkin_click() {
+    // disable the button
+    checkin_disable();
+    
     // show notif
     let notif = document.getElementById("check-in-notif");
     notif.innerHTML = `+5 exp, +1 gold`;
@@ -267,27 +281,82 @@ function checkin_click() {
         notif.innerHTML = ``;
     }, 3000);
 
-    // disable the button
-    checkin_disable();
-
     // update exp and gold DOM
     let exp = uProfile.exp;
     let gold = uProfile.gold;
+    let level = uProfile.level;
     exp += 5;
     gold += 1;
+    console.log(level,exp);
+    const updated = calculate_exp_and_level(level, exp);
+    level = updated[0];
+    exp = updated[1];
+    console.log(level,exp);
     document.getElementById("user-exp").innerHTML = `EXP: ${exp}`;
     document.getElementById("user-gold").innerHTML = `Gold: ${gold}`;
+    document.getElementById("user-level").innerHTML = `Level: ${level}`;
 
-    // TODO: update user exp and gold info to server
+    // update user exp and gold info to server
+    const modified_profile = {
+        exp: exp,
+        gold: gold,
+        level: level,
+        checkin: uProfile.checkin.push(get_today_date())
+    }
+    const url = '/user/' + uProfile.userID;
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(modified_profile),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
 
+    // Send the request with fetch()
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log('updated profile')
+        } else console.log('Could not update profile')           
+    }).catch((error) => {
+        console.log(error)
+    })
+    
 }
 
 function checkin_disable() {
     let checkin = document.getElementById("check-in-btn");
     checkin.innerHTML = `Checked In`;
+    checkin.removeEventListener("mouseover",checkin_hover);
+    checkin.removeEventListener("mouseout",checkin_unhover);
     checkin.style.backgroundColor = "grey";
     checkin.style.borderColor = "grey";
-    checkin.removeEventListener("click", checkin_click);
+    checkin.style.color = "black";
+    checkin.disabled = true;
+    console.log("disable");
+}
+
+function checkin_hover() {
+    let checkin = document.getElementById("check-in-btn");
+    checkin.style.color = "#000000";
+    checkin.style.backgroundColor = "#FFFFFF";
+    checkin.style.cursor = "pointer";
+}
+
+function checkin_unhover() {
+    let checkin = document.getElementById("check-in-btn");
+    checkin.style.color = "#FFFFFF";
+    checkin.style.backgroundColor = "#c01baa";
+}
+
+function get_today_date() {   // from https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+    
+    return  mm + '/' + dd + '/' + yyyy;
 }
 
 // Edit Profile --------------------------------------------------------

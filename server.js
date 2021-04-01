@@ -99,6 +99,13 @@ app.patch('/user/:id', async (req, res) => {
 })
 
 ///////////////////   Users' questions for profile page  /////////////////////////
+/* 
+request body expects:
+{
+	"summary": String,
+    "qid": Number
+}
+*/
 app.post('/userQuestion/:type/:id', async(req, res) => {
 	const id = req.params.id
 	const type = req.params.type

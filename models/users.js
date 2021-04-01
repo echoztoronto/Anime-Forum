@@ -20,7 +20,8 @@ const UserSchema = new mongoose.Schema({
     interest: String,
     asked: [UQuestionSchema],
     answered: [UQuestionSchema],
-    accepted: [UQuestionSchema]
+    accepted: [UQuestionSchema],
+    checkin: Array
 });
 
 const User = mongoose.model('User', UserSchema);

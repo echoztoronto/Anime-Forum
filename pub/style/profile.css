@@ -119,12 +119,6 @@
     transition: all 0.2s;
 }
 
-#check-in-btn:hover {
-    color:#000000;
-    background-color:#FFFFFF;
-    cursor: pointer;
-}
-
 #check-in-notif {
     background-color: rgba(0, 0, 0, 0.493);
     text-align: center;
