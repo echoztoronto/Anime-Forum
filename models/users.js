@@ -18,10 +18,8 @@ const UserSchema = new mongoose.Schema({
     address: String,
     gender: String,
     interest: String,
-    num_answers: Number,
-    num_accepted: Number,
-    asked_question: [UQuestionSchema],
-    answered_question: [UQuestionSchema],
+    asked: [UQuestionSchema],
+    answered: [UQuestionSchema],
     accepted: [UQuestionSchema]
 });
 

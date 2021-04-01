@@ -98,8 +98,76 @@ app.patch('/user/:id', async (req, res) => {
 	}
 })
 
+///////////////////   Users' questions for profile page  /////////////////////////
+app.post('/userQuestion/:type/:id', async(req, res) => {
+	const id = req.params.id
+	const type = req.params.type
 
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
 
+	try {
+		const user = await User.findOne({ userID: id }).exec()
+		if (!user) {
+			res.status(404).send('Resource not found')  
+		}  else {
+
+			user[type].push({
+				summary: req.body.summary,
+    			qid: req.body.qid
+			})
+
+			const result = await user.save()
+			if (!result) {
+				res.status(404).send()
+			} else {   
+				res.send(user[type])
+			}
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
+
+app.delete('/userQuestion/:type/:id/:qid', async(req, res) => {
+	const id = req.params.id
+	const qid = req.params.qid
+	const type = req.params.type
+
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	try {
+		const user = await User.findOne({ userID: id }).exec()
+		if (!user) {
+			res.status(404).send('Resource not found')  
+		} else {
+			
+			for(let i = 0; i < user[type].length; i++) {
+				if(user[type][i].qid == qid) {
+					user[type][i].remove()
+				}
+			}
+
+			const result = await user.save()
+			if (!result) {
+				res.status(404).send()
+			} else {   
+				res.send(user[type])
+			}
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
 
 // --------------- Part: Questions ---------------------------
 
