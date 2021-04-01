@@ -5,6 +5,7 @@ if(window.location.hash) {
 }
 
 // get self ID from cookie
+// TODO: use a safer method to store it
 let self_ID = getCookie("username");
 let self_profile = null;
 

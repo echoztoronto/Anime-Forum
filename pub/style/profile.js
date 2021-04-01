@@ -2,23 +2,44 @@ let user_question = [];
 let user_answer = [];
 let user_accept_answer = [];
 let uProfile = null;
-
 let is_self = false;
+
+// get self ID from cookie
+// TODO: use a safer method to store it
+let self_ID = getCookie("username");
 
 if(window.location.hash) {
     updatePage();
 }
 
+// use GET method to get self info
+const url = '/user/' + self_ID;
+fetch(url)
+.then((res) => { 
+    if (res.status === 200) {
+       return res.json() 
+   } else {
+        console.log('Could not get user')
+        console.log(res)
+   }                
+})
+// then save public data into self_profile
+.then((json) => { 
+    self_profile = {
+        level: json.level,
+        userID: json.userID,
+        profilePicImg: json.profilePicImg
+    }
+    document.getElementById("nav_user_profile").src = json.profilePicImg;
+    document.getElementById("nav_username").innerText = json.displayName;
+    document.getElementById("nav_username").href = "profile.html#" + self_ID;
+})
+
 function updatePage() {
     let x = location.hash;
     let uID = x.substring(1);
-
-    // TODO: actually verify if it is self profile
-    if(uID == "user") {
-        is_self = true;
-    } else {
-        is_self = false;
-    }
+    if(uID == self_ID) is_self = true;
+    else is_self = false;
 
     // use GET method to get user info
     const url = '/user/' + uID;
