@@ -117,6 +117,7 @@ function updatePage() {
                 // check in notif div
                 create_element("div", "check-in-notif", '', "profile-banner");
                 // check in button
+                remove_element_by_ID("check-in-btn");
                 let checkin = create_element("div", "check-in-btn", '', "profile-banner");
                 checkin.innerHTML = `Check In`;
                 
@@ -129,6 +130,8 @@ function updatePage() {
                     checkin.addEventListener("click", checkin_click);
                     checkin.addEventListener("mouseover",checkin_hover);
                     checkin.addEventListener("mouseout",checkin_unhover);
+                    checkin.style.color = "#FFFFFF";
+                    checkin.style.backgroundColor = "#c01baa";
                 }
             } else {
                 document.getElementById("user-exp").innerHTML = '';
