@@ -35,9 +35,9 @@ function sort_by_time(e){
     .then(res => res.json())    
     .then(question_list => {
         question_list.sort(function (a, b){
-            return a.quesionID - b.questionID;      // sort by ID, i.e. time
+            return b.questionID - a.questionID;      // sort by ID, i.e. time
         });
-        update_forum_page(question_list.reverse()); // seems sort doesn't work, use reverse instead
+        update_forum_page(question_list);
     })
     .catch(err => {
         console.log(err);
@@ -64,7 +64,7 @@ function update_forum_page(questions) {
                 <td class="c1">${questions[i].likeCount}</td>
                 <td class="c2">${questions[i].replyCount}</td>
                 <td class="c3">${questions[i].status}</td>
-                <td class="c4"><a target="_blank" href="question.html#${questions[i].ID}">${questions[i].summary}</a></td>
+                <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
                 <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker}">${questions[i].asker}</a></td>
                 <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer}">${questions[i].lastAnswerer}</a></td>
             </tr>
