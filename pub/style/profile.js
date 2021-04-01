@@ -3,6 +3,7 @@ let user_answer = [];
 let user_accept_answer = [];
 let uProfile = null;
 let is_self = false;
+let checked_in = false;
 
 // get self ID from cookie
 // TODO: use a safer method to store it
@@ -120,7 +121,6 @@ function updatePage() {
                 checkin.innerHTML = `Check In`;
                 
                 // verify if user already checked in today
-                let checked_in = false;
                 for (let i = 0; i < uProfile.checkin.length; i++) {
                     if(uProfile.checkin[i] = get_today_date()) checked_in = true;
                 }
