@@ -36,7 +36,7 @@ function add_fade(element) {
 }
 
 function calculate_exp_and_level(level, exp) {
-    let updated_level = 1;
+    let updated_level = level;
     switch(level) {
         case 1:
             if(exp >= 10) {
