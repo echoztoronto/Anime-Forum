@@ -98,6 +98,137 @@ app.patch('/user/:id', async (req, res) => {
 })
 
 
+
+
+// --------------- Part: Questions ---------------------------
+
+// POST /question
+/* function that add a question
+request body expects:
+{
+	"summary": String,
+	"description": String,
+	"reward": Number,
+	"levelLimit": Number,
+	"asker": String
+}
+*/
+app.post('/question', async (req, res) => {
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		// ID := max ID + 1
+		let new_ID = 0;
+		(await Question.find({})).forEach(item => {
+			if (item.questionID > new_ID){
+				new_ID = item.questionID;
+			}
+		})
+		new_ID += 1;
+		const question = new Question({
+			questionID: new_ID,
+			summary: req.body.summary,
+			description: req.body.description,
+			reward: req.body.reward,
+			levelLimit: req.body.levelLimit,
+			asker: req.body.asker,
+			likeCount: 0,
+			replyCount: 0,
+			status: "Ongoing",
+			lastAnswerer: ""
+		});
+		const result = await question.save();	
+		res.send(result);
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+})
+
+
+// GET /question/qid
+// Note: id here is the ID field of question objects
+app.get('/question/:qid', async (req, res) =>{
+	const qid = req.params.qid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const result = await Question.findOne({ questionID: qid }).exec();
+		if (!result) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+// DELETE /question/:qid/
+// Route that delete a answer of aid inside the question of qid
+// Note: aid is the ObjectId, qid is the QuestionId field
+app.delete('/question/:qid', async (req, res) =>{
+	const qid = req.params.qid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found');
+		} else {
+			const result = await Question.deleteMany({ questionID: qid});
+			if (!result){
+				res.status(404).send();
+			}else{
+				res.send(question);
+			}
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+// PATCH /question/:qid
+app.patch('/question/:qid', async (req, res) => {
+	const qid = req.params.qid;
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try{
+		const question = await Question.findOne({ questionID: qid }).exec();
+		if (!question) {
+			res.status(404).send('Resource not found')
+		}else{   
+			for (const [key, value] of Object.entries(req.body)) {
+				question[key] = value;
+			}
+			const result = await question.save();
+			res.send(result);
+		}
+	} catch (error) {
+		log(error);
+		if (isMongoError(error)) { 
+			res.status(500).send('Internal server error');
+		} else {
+			res.status(400).send('Bad Request');
+		}
+	}
+});
+
+
 // --------------- Part: Answers ---------------------------
 
 // POST /answer/:qid
@@ -216,104 +347,6 @@ app.delete('/question/:qid/:aid', async (req, res) =>{
 	}
 });
 
-// --------------- Part: Questions ---------------------------
-
-// POST /question
-/* function that add a question
-request body expects:
-{
-	"summary": String,
-	"description": String,
-	"reward": Number,
-	"levelLimit": Number,
-	"asker": String
-}
-*/
-app.post('/question', async (req, res) => {
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection');
-		res.status(500).send('Internal server error');
-		return;
-	}
-	try {
-		// ID := max ID + 1
-		let new_ID = 0;
-		(await Question.find({})).forEach(item => {
-			if (item.questionID > new_ID){
-				new_ID = item.questionID;
-			}
-		})
-		new_ID += 1;
-		const question = new Question({
-			questionID: new_ID,
-			summary: req.body.summary,
-			description: req.body.description,
-			reward: req.body.reward,
-			levelLimit: req.body.levelLimit,
-			asker: req.body.asker,
-			likeCount: 0,
-			replyCount: 0,
-			status: "Ongoing",
-			lastAnswerer: ""
-		});
-		const result = await question.save();	
-		res.send(result);
-	} catch(error) {
-		log(error);
-		res.status(500).send('Internal Server Error');
-	}
-})
-
-
-// GET /question/qid
-// Note: id here is the ID field of question objects
-app.get('/question/:qid', async (req, res) =>{
-	const qid = req.params.qid;
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection');
-		res.status(500).send('Internal server error');
-		return;
-	}
-	try {
-		const result = await Question.findOne({ questionID: qid }).exec();
-		if (!result) {
-			res.status(404).send('Resource not found');
-		} else {
-			res.send(result);
-		}
-	} catch(error) {
-		log(error);
-		res.status(500).send('Internal Server Error');
-	}
-});
-
-// DELETE /question/:qid/
-// Route that delete a answer of aid inside the question of qid
-// Note: aid is the ObjectId, qid is the QuestionId field
-app.delete('/question/:qid', async (req, res) =>{
-	const qid = req.params.qid;
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection');
-		res.status(500).send('Internal server error');
-		return;
-	}
-	try {
-		const question = await Question.findOne({ questionID: qid }).exec();
-		if (!question) {
-			res.status(404).send('Resource not found');
-		} else {
-			const result = await Question.deleteMany({ questionID: qid});
-			if (!result){
-				res.status(404).send();
-			}else{
-				res.send(question);
-			}
-		}
-	} catch(error) {
-		log(error);
-		res.status(500).send('Internal Server Error');
-	}
-});
 
 
 ////////// DO NOT CHANGE THE CODE OR PORT NUMBER BELOW
