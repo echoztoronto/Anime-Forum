@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const UQuestionSchema = new mongoose.Schema({
+    summary: String,
+    qid: Number
+});
+
 const UserSchema = new mongoose.Schema({
     userID: String, 
     displayName: String,
@@ -7,14 +12,17 @@ const UserSchema = new mongoose.Schema({
     exp: Number,
     level: Number,
     gold: Number,
-    profileBanner: Number,
-    profilePic: Number,
+    bannerImg: {type: String, default: "images/others/default_banner.jpg"},
+    profilePicImg: {type: String, default: "images/others/default.jpg"},
     birthday: String,
     address: String,
     gender: String,
     interest: String,
     num_answers: Number,
-    num_accepted: Number
+    num_accepted: Number,
+    asked_question: [UQuestionSchema],
+    answered_question: [UQuestionSchema],
+    accepted: [UQuestionSchema]
 });
 
 const User = mongoose.model('User', UserSchema);

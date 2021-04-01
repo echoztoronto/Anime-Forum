@@ -5,10 +5,11 @@ const log = console.log;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
 const path = require('path');
 app.use(express.static(path.join(__dirname, '/pub')));
+
 
 
 // Mongo and Mongoose

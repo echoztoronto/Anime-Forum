@@ -6,10 +6,10 @@ let uProfile = null;
 let is_self = false;
 
 if(window.location.hash) {
-    hashChange();
+    updatePage();
 }
 
-function hashChange() {
+function updatePage() {
     let x = location.hash;
     let uID = x.substring(1);
 
@@ -40,9 +40,9 @@ function hashChange() {
             gender: json.gender,
             interest: json.interest,
             level: json.level,
-            profileBanner: json.profileBanner,
-            profilePic: json.profilePic,
-            userID: json.userID
+            userID: json.userID,
+            bannerImg: json.bannerImg,
+            profilePicImg: json.profilePicImg
         }
 
         if(is_self){
@@ -62,8 +62,11 @@ function hashChange() {
             document.getElementById("user-id").innerHTML = "User ID: " + uProfile.userID;
             document.getElementById("display-name").innerHTML = uProfile.displayName;
             document.getElementById("user-level").innerHTML = "Level: " + uProfile.level;
-            document.getElementById("banner-pic").src = "images/banner/" + uProfile.profileBanner + ".jpg";
-            document.getElementById("profile-pic").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
+            if(uProfile.bannerImg ==  undefined) document.getElementById("banner-pic").src = "images/others/default_banner.jpg";
+            else document.getElementById("banner-pic").src =  uProfile.bannerImg;
+            if(uProfile.profilePicImg ==  undefined) document.getElementById("profile-pic").src = "images/others/default.jpg";
+            else document.getElementById("profile-pic").src = uProfile.profilePicImg;
+
 
             //info panel element
             document.getElementById("gender").innerHTML =  uProfile.gender;
@@ -291,7 +294,7 @@ function edit_submit() {
     if(new_name.length < 4) {
         document.getElementById('edit-message').innerHTML = `Display Name should have at least 4 characters!`;
     } else {
-        //TODO: update new profile info to server
+        // update new profile info to server
         const modified_profile = {
             displayName: document.getElementById("edit-name").value,
             birthday: document.getElementById("edit-bday").value,
@@ -299,51 +302,28 @@ function edit_submit() {
             address: document.getElementById("edit-place").value,
             interest: document.getElementById("edit-interest").value
         }
+        update_profile_request_and_fetch(modified_profile);
 
-        // create PATCH request with updated user information
-        const url = '/user/' + uProfile.userID;
-        const request = new Request(url, {
-            method: 'PATCH', 
-            body: JSON.stringify(modified_profile),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-        });
-
-        console.log(request);
-        console.log(request.body);
-        // Send the request with fetch()
-        fetch(request)
-        .then(function(res) {
-            console.log(res)
-            if (res.status === 200) {
-                console.log('updated profile')
-            } else console.log('Could not update profile')           
-        }).catch((error) => {
-            console.log(error)
-        })
-
-
-        /*
-        // apply profile pic
-        if(document.getElementById("edit-pic").files.length != 0 ){
-            apply_input_image_to_div("edit-pic", "profile-pic");
-            apply_input_image_to_div("edit-pic", "nav_user_profile");
-        }
-        // apply banner
+        // update banner
         if(document.getElementById("edit-banner").files.length != 0 ){
-            apply_input_image_to_div("edit-banner", "banner-pic");
+            let fReader = new FileReader();
+            fReader.readAsDataURL(document.getElementById("edit-banner").files[0]);
+            fReader.onload = function() {
+                const modified = {bannerImg: fReader.result};
+                update_profile_request_and_fetch(modified);
+            };
         }
-        // apply text info
-        apply_input_value_to_div("edit-name","nav_username");
-        apply_input_value_to_div("edit-name","display-name");
-        apply_input_value_to_div("edit-bday","birthday");
-        apply_input_value_to_div("edit-gender","gender");
-        apply_input_value_to_div("edit-place","address");
-        apply_input_value_to_div("edit-interest","interest");
-        */
-       
+
+        // update profilePic
+        if(document.getElementById("edit-pic").files.length != 0 ){
+            let fReader = new FileReader();
+            fReader.readAsDataURL(document.getElementById("edit-pic").files[0]);
+            fReader.onload = function() {
+                const modified = {profilePicImg: fReader.result};
+                update_profile_request_and_fetch(modified);
+            };
+        }
+
         edit_close();
     }
 }
@@ -367,4 +347,29 @@ function apply_input_image_to_div(inputID, divID) {
 
 function apply_input_value_to_div(inputID, divID) {
     document.getElementById(divID).innerHTML =  document.getElementById(inputID).value;
+}
+
+
+function update_profile_request_and_fetch(modified_profile) {
+    // create PATCH request with updated user information
+    const url = '/user/' + uProfile.userID;
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(modified_profile),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    // Send the request with fetch()
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log('updated profile')
+            updatePage()
+        } else console.log('Could not update profile')           
+    }).catch((error) => {
+        console.log(error)
+    })
 }
