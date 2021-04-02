@@ -136,11 +136,13 @@ a {
     font-size: 72px;
     color: silver;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .dislike_button_question{
     font-size: 72px;
-    color: silver;  
+    color: silver;
+    cursor: pointer;
 }
 
 .like_num{

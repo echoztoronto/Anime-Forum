@@ -14,7 +14,6 @@ document.getElementById("nav_username").innerText = self_profile.displayName;
 function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
-    // let qObject = get_question(qID);
 
     // use GET route to get the question
     fetch(`/question/${qID}`)
@@ -42,40 +41,47 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
             document.getElementById("question-description").innerHTML = qObject.description;
             document.getElementById("question-reward").innerHTML = 'Reward: ' + qObject.reward;
     
-            // get the list of answers
-            let answer_list = get_answer_by_question(qID);
-            if (sort == "like"){
-                answer_list = sort_list_by_like(answer_list);
-            }else{
-                answer_list.reverse();      // reverse order is the time order
-            }
-    
-            // remove previous answer posts
-            remove_answer_posts();
-    
-            // insert each answer
-            if(answer_list.length != 0) {
-                insert_answer_posts(answer_list);
-                add_event_listener();
-            }
-    
-            //add text editor if question is not resolved
-            if(qObject.status != "Resolved") {
-                document.getElementById("add-answer-btn").style = "visibility: visible;";
-                if(quill == null) {
-                    initiate_answer_editor();
-                }  
-            } else {
-                document.getElementById("add-answer-btn").style = "visibility: hidden;";
-            }
-    
+            // route to get all answers of the question
+            fetch(`./answers-of-question/${qObject.questionID}`)
+            .then(res => res.json())
+            .then(answer_list => {
+                console.log(answer_list);
+
+                if (sort == "like"){
+                    answer_list = sort_list_by_like(answer_list);
+                }else{
+                    answer_list.reverse();      // reverse order is the time order
+                }
+                // remove previous answer posts
+                remove_answer_posts();
+        
+                // insert each answer
+                if(answer_list.length != 0) {
+                    insert_answer_posts(answer_list);
+                    add_event_listener();
+                }
+        
+                //add text editor if question is not resolved
+                if(qObject.status != "Resolved") {
+                    document.getElementById("add-answer-btn").style = "visibility: visible;";
+                    if(quill == null) {
+                        initiate_answer_editor();
+                    }  
+                } else {
+                    document.getElementById("add-answer-btn").style = "visibility: hidden;";
+                }
+            })
+            .catch(err => {
+                console.log('Could not get answers to the question');
+                console.log(err);
+            })
         } else { //if there is no such question
             go_to_error_page();
         }
     })
     .catch(err => {
         console.log('Could not get question');
-        console.log(res);
+        console.log(err);
     })
 }
 
@@ -122,6 +128,8 @@ function insert_answer_posts(answer_list) {
     let i = 0;
     for(i = 0; i < answer_list.length; i++) {
         // get answerer profile object
+        // get user profile by route 
+        // fetch(`/user/${}`)
         let aProfile = get_user_profile(answer_list[i].answerer);
 
         // create the DOM for answer post
@@ -301,12 +309,9 @@ function dislike_question(e){
 function add_event_listener(){      // a helper function that add event listener to answers vote button
     document.querySelectorAll('.like_button_answer').forEach(element => {
         element.addEventListener('click', like_answer);
-        element.addEventListener('mouseover', cursor_pointer);
     });
-    
     document.querySelectorAll('.dislike_button_answer').forEach(element => {
         element.addEventListener('click', dislike_answer);
-        element.addEventListener('mouseover', cursor_pointer);
     });
 }
 
