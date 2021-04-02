@@ -35,14 +35,14 @@ fetch(url)
 
 
 // update page with updated question ID
-function updatePage(sort="like") {     // sort range in {"like", "time"}
+async function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
 
-    // use GET route to get the question
-    fetch(`/question/${qID}`)
-    .then(res => res.json())
-    .then(qObject => {
+    
+    try{
+        const res = await fetch(`/question/${qID}`);      // use GET route to get the question
+        const qObject = await res.json();
         if(qObject != null) {
             //remove error page if it's there
             if(document.getElementById("error-page") != null) {
@@ -51,7 +51,9 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
             }
     
             //get asker info
-            let uProfile =  get_user_profile(qObject.asker);
+            // fetch to GET the asker
+            const user_res = await fetch(`/user/${qObject.asker.userID}`);
+            const uProfile = await user_res.json();
     
             // update asker info DOM
             document.getElementById("asker-icon").src = uProfile.profilePicImg;
@@ -66,47 +68,36 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
             document.getElementById("question-reward").innerHTML = 'Reward: ' + qObject.reward;
     
             // route to get all answers of the question
-            fetch(`./answers-of-question/${qObject.questionID}`)
-            .then(res => res.json())
-            .then(answer_list => {
-                console.log(answer_list);
-
-                if (sort == "like"){
-                    answer_list = sort_list_by_like(answer_list);
-                }else{
-                    answer_list.reverse();      // reverse order is the time order
-                }
-                // remove previous answer posts
-                remove_answer_posts();
-        
-                // insert each answer
-                if(answer_list.length != 0) {
-                    insert_answer_posts(answer_list);
-                    add_event_listener();
-                }
-        
-                //add text editor if question is not resolved
-                if(qObject.status != "Resolved") {
-                    document.getElementById("add-answer-btn").style = "visibility: visible;";
-                    if(quill == null) {
-                        initiate_answer_editor();
-                    }  
-                } else {
-                    document.getElementById("add-answer-btn").style = "visibility: hidden;";
-                }
-            })
-            .catch(err => {
-                console.log('Could not get answers to the question');
-                console.log(err);
-            })
-        } else { //if there is no such question
+            const answer_res = await fetch(`./answers-of-question/${qObject.questionID}`);
+            const answer_list = await answer_res.json();
+            if (sort == "like"){
+                answer_list.sort(function(a, b){ return b.likeCount - a.likeCount; });
+            }else{
+                answer_list.sort(function(a, b){ return b.answerID - a.answerID; });
+            }
+            // remove previous answer posts
+            remove_answer_posts();
+            // insert each answer
+            if(answer_list.length != 0) {
+                insert_answer_posts(answer_list);
+                add_event_listener();
+            }
+            //add text editor if question is not resolved
+            if(qObject.status != "Resolved") {
+                document.getElementById("add-answer-btn").style = "visibility: visible;";
+                if(quill == null) {
+                    initiate_answer_editor();
+                }  
+            } else {
+                document.getElementById("add-answer-btn").style = "visibility: hidden;";
+            }
+        }else{  //if there is no such question
             go_to_error_page();
         }
-    })
-    .catch(err => {
-        console.log('Could not get question');
+    }catch(err){
+        console.log('Could not get answers to the question');
         console.log(err);
-    })
+    }
 }
 
 // onclick events for sorting 
@@ -122,13 +113,6 @@ function sort_by_like() {
     updatePage("like");
 }
 
-function sort_list_by_like(answer_list){    // we dont have to sort by time, the originial list is sorted by ID already.
-    answer_clone = JSON.parse(JSON.stringify(answer_list));
-    answer_clone.sort(function(a, b){
-        return b.likeCount - a.likeCount;
-    });
-    return answer_clone;
-}
 
 // remove answer posts container
 function remove_answer_posts() {
@@ -148,48 +132,52 @@ function remove_answer_posts() {
 }
 
 // insert answer posts by the order of given list
-function insert_answer_posts(answer_list) {
+async function insert_answer_posts(answer_list) {
     let i = 0;
     for(i = 0; i < answer_list.length; i++) {
         // get answerer profile object
         // get user profile by route 
-        // fetch(`/user/${}`)
-        let aProfile = get_user_profile(answer_list[i].answerer);
-
-        // create the DOM for answer post
-        let element = document.createElement("div");
-        element.className = "post-container";
-        element.id = "answer-post-"+i;
-        document.getElementById("question-container").appendChild(element);
-        element.innerHTML = `
-            <div class='post-profile-answerer'>
-                <img class='post-profile-icon' id='answerer-icon-${i}' src='//:0'/>
-                <div class='post-profile-info'>
-                    <div class='display-name' id='answerer-name-${i}'></div> 
-                    <div class='user-level' id='answerer-level-${i}'></div>
+        try{
+            const user_res = await fetch(`/user/${answer_list[i].answerer.userID}`);
+            const aProfile = await user_res.json();
+            
+            // create the DOM for answer post
+            let element = document.createElement("div");
+            element.className = "post-container";
+            element.id = "answer-post-"+i;
+            document.getElementById("question-container").appendChild(element);
+            element.innerHTML = `
+                <div class='post-profile-answerer'>
+                    <img class='post-profile-icon' id='answerer-icon-${i}' src='//:0'/>
+                    <div class='post-profile-info'>
+                        <div class='display-name' id='answerer-name-${i}'></div> 
+                        <div class='user-level' id='answerer-level-${i}'></div>
+                    </div>
                 </div>
-            </div>
-            <div class='post-content'>
-                <div class="vote_container">
-                    <div class="like_button_answer">&#9650</div>
-                    <div class="like_num">${answer_list[i].likeCount}</div>
-                    <div class="dislike_button_answer">&#9660</div>
-                </div>
-                <div class='post-description' id='answer-description-${i}'></div>
-                <div class ='accept-description' id='answer-accept-${i}'></div>
-            </div>`;
+                <div class='post-content'>
+                    <div class="vote_container">
+                        <div class="like_button_answer">&#9650</div>
+                        <div class="like_num">${answer_list[i].likeCount}</div>
+                        <div class="dislike_button_answer">&#9660</div>
+                    </div>
+                    <div class='post-description' id='answer-description-${i}'></div>
+                    <div class ='accept-description' id='answer-accept-${i}'></div>
+                </div>`;
 
-        // update answerer info DOM
-        document.getElementById("answerer-icon-"+i).src = aProfile.profilePicImg;
-        document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
-                + '" target="_blank">' +  aProfile.displayName + '</a>';
-        document.getElementById("answerer-level-"+i).innerHTML = "Level: " + aProfile.level;
-        
-        // update answer info DOM
-        document.getElementById("answer-description-"+i).innerHTML = answer_list[i].content;
-        if(answer_list[i].accepted) {
-            document.getElementById("answer-accept-"+i).innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
-        }  
+            // update answerer info DOM
+            document.getElementById("answerer-icon-"+i).src = aProfile.profilePicImg;
+            document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
+                    + '" target="_blank">' +  aProfile.displayName + '</a>';
+            document.getElementById("answerer-level-"+i).innerHTML = "Level: " + aProfile.level;
+            
+            // update answer info DOM
+            document.getElementById("answer-description-"+i).innerHTML = answer_list[i].content;
+            if(answer_list[i].accepted) {
+                document.getElementById("answer-accept-"+i).innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
+            }  
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 

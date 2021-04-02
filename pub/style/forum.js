@@ -8,40 +8,38 @@ let forum_quill = null;
 initiate_question_editor();
 
 
-function sort_by_like(e){
+async function sort_by_like(e){
     e.preventDefault();
     sort_like_button.style = "text-decoration: underline";   
     sort_time_button.style = "none";
 
-    fetch('/allQuestions')     // get all questions from the database
-    .then(res => res.json())    
-    .then(question_list => {
+    try{
+        const res = await fetch('/allQuestions');     // get all questions from the database
+        const question_list = await res.json();
         question_list.sort(function (a, b){
             return b.likeCount - a.likeCount;      // sort by like
         });
         update_forum_page(question_list);
-    })
-    .catch(err => {
+    }catch(err){
         console.log(err);
-    })
+    }
 }
 
-function sort_by_time(e){
+async function sort_by_time(e){
     e.preventDefault();
     sort_time_button.style = "text-decoration: underline";
     sort_like_button.style = "none";
 
-    fetch('/allQuestions')     // get all questions from the database
-    .then(res => res.json())    
-    .then(question_list => {
+    try{
+        const res = await fetch('/allQuestions');     // get all questions from the database
+        const question_list = await res.json();
         question_list.sort(function (a, b){
             return b.questionID - a.questionID;      // sort by ID, i.e. time
         });
         update_forum_page(question_list);
-    })
-    .catch(err => {
+    }catch(err){
         console.log(err);
-    })
+    }
 }
 
 function update_forum_page(questions) {
@@ -65,7 +63,7 @@ function update_forum_page(questions) {
                 <td class="c2">${questions[i].replyCount}</td>
                 <td class="c3">${questions[i].status}</td>
                 <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
-                <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName}</a></td>
+                <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName }</a></td>
                 <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer.userID}">${questions[i].lastAnswerer.displayName}</a></td>
             </tr>
         `;
