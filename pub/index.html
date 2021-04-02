@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,11 @@
     <script src="data/user.js"> </script>
     <script src="data/post.js"> </script>
     <script src="data/anime_schedule.js"></script>
-    <script src="style/login-signup.js"></script>
     <script src="style/util.js"></script>
+    <script src="style/login-signup.js"></script>
     <title> Home / Nijigen Geography </title>
 </head>
+
 <body>
     <div class="navbar">
         <div class="navbar-page"> 
@@ -20,7 +22,8 @@
             <div class="navbar-block"><a href="forum.html"><b> Q&amp;A Forum</b> </a></div>
             <div class="navbar-block"><a href="ranking.html"><b>Ranking</b></a></div>
         </div>
-        <div class="navbar-block navbar-user hide" id="user_logout_content"  onclick="log_out()"><a href="index.html"><b> Logout </b></a></div>
+        <div class="navbar-block navbar-user hide" id="user_logout_content"  onclick="log_out()"><a href="index.html"><b>
+                    Logout </b></a></div>
         <div class="navbar-block-logged navbar-user hide" id="user_info_content">
             <img src="images/profilepic/1.jpg" id="nav_user_profile">
             <a id="nav_username" href="profile.html#user"> Pikachu</a>
@@ -130,7 +133,7 @@
                 <input type="password" placeholder="Enter Password" id="login_pwd" name="pswd" required>
                 <!-- to see if it is possible to do this "remember me" -->
                 <div class="error-tips" id="login-error-tips"></div>
-                <input type="checkbox" checked="checked" id="login_remember" name="remember"> Remember me
+                <input type="checkbox" value="1" checked="checked" id="login_remember" name="remember"> Remember me
                 <button type="button" onclick="login()">Login</button>
                 <div class="notamember">
                     Not a member?
