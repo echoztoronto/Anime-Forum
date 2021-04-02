@@ -104,8 +104,6 @@
 #check-in-btn {
     text-align: center;
     font-size: 18px;
-    background-color: #c01baa;
-    color:#FFFFFF;
     width: 100px;
     height: 25px;
     position: absolute;
@@ -117,12 +115,6 @@
     font-family:'Roboto',sans-serif;
     font-weight:300;
     transition: all 0.2s;
-}
-
-#check-in-btn:hover {
-    color:#000000;
-    background-color:#FFFFFF;
-    cursor: pointer;
 }
 
 #check-in-notif {

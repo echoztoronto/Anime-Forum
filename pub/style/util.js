@@ -1,4 +1,4 @@
-// general helper functions
+/////////// general helper functions  ///////////////
 
 // create an element, need to provide at least one of ID and class name
 function create_element(type, ID, cName, parentID) {
@@ -35,6 +35,45 @@ function add_fade(element) {
     }, 100);
 }
 
+function calculate_exp_and_level(level, exp) {
+    let updated_level = level;
+    switch(level) {
+        case 1:
+            if(exp >= 10) {
+                exp = exp - 10;
+                updated_level = level + 1;
+            }
+            break;
+        case 2:
+            if(exp >= 50) {
+                exp = exp - 50;
+                updated_level = level + 1;
+            }
+            break;
+        case 3:
+            if(exp >= 100) {
+                exp = exp - 100;
+                updated_level = level + 1;
+            }
+            break;
+        case 4:
+            if(exp >= 200) {
+                exp = exp - 200;
+                updated_level = level + 1;
+            }
+            break;
+        case 5:
+            if(exp >= 500) {
+                exp = exp - 500;
+                updated_level = level + 1;
+            }
+            break;
+
+        default:
+            exp = 0;
+    }
+    return [updated_level, exp];
+}
 
 function getCookie(cname) {  //from https://www.w3schools.com/js/js_cookies.asp
     let name = cname + "=";

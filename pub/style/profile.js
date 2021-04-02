@@ -2,23 +2,45 @@ let user_question = [];
 let user_answer = [];
 let user_accept_answer = [];
 let uProfile = null;
-
 let is_self = false;
+let checked_in = false;
+
+// get self ID from cookie
+// TODO: use a safer method to store it
+let self_ID = getCookie("username");
 
 if(window.location.hash) {
-    hashChange();
+    updatePage();
 }
 
-function hashChange() {
+// use GET method to get self info
+const url = '/user/' + self_ID;
+fetch(url)
+.then((res) => { 
+    if (res.status === 200) {
+       return res.json() 
+   } else {
+        console.log('Could not get user')
+        console.log(res)
+   }                
+})
+// then save public data into self_profile
+.then((json) => { 
+    self_profile = {
+        level: json.level,
+        userID: json.userID,
+        profilePicImg: json.profilePicImg
+    }
+    document.getElementById("nav_user_profile").src = json.profilePicImg;
+    document.getElementById("nav_username").innerText = json.displayName;
+    document.getElementById("nav_username").href = "profile.html#" + self_ID;
+})
+
+function updatePage() {
     let x = location.hash;
     let uID = x.substring(1);
-
-    // TODO: actually verify if it is self profile
-    if(uID == "user") {
-        is_self = true;
-    } else {
-        is_self = false;
-    }
+    if(uID == self_ID) is_self = true;
+    else is_self = false;
 
     // use GET method to get user info
     const url = '/user/' + uID;
@@ -40,14 +62,15 @@ function hashChange() {
             gender: json.gender,
             interest: json.interest,
             level: json.level,
-            profileBanner: json.profileBanner,
-            profilePic: json.profilePic,
-            userID: json.userID
+            userID: json.userID,
+            bannerImg: json.bannerImg,
+            profilePicImg: json.profilePicImg
         }
 
         if(is_self){
             uProfile["gold"] = json.gold;
             uProfile["exp"] = json.exp;
+            uProfile["checkin"] = json.checkin;
         }
 
         // start DOM rendering
@@ -62,8 +85,11 @@ function hashChange() {
             document.getElementById("user-id").innerHTML = "User ID: " + uProfile.userID;
             document.getElementById("display-name").innerHTML = uProfile.displayName;
             document.getElementById("user-level").innerHTML = "Level: " + uProfile.level;
-            document.getElementById("banner-pic").src = "images/banner/" + uProfile.profileBanner + ".jpg";
-            document.getElementById("profile-pic").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
+            if(uProfile.bannerImg ==  undefined) document.getElementById("banner-pic").src = "images/others/default_banner.jpg";
+            else document.getElementById("banner-pic").src =  uProfile.bannerImg;
+            if(uProfile.profilePicImg ==  undefined) document.getElementById("profile-pic").src = "images/others/default.jpg";
+            else document.getElementById("profile-pic").src = uProfile.profilePicImg;
+
 
             //info panel element
             document.getElementById("gender").innerHTML =  uProfile.gender;
@@ -91,10 +117,22 @@ function hashChange() {
                 // check in notif div
                 create_element("div", "check-in-notif", '', "profile-banner");
                 // check in button
-                // TODO: pull data to verify if user already checked in today, if so, disable the button
+                remove_element_by_ID("check-in-btn");
                 let checkin = create_element("div", "check-in-btn", '', "profile-banner");
                 checkin.innerHTML = `Check In`;
-                checkin.addEventListener("click", checkin_click);
+                
+                // verify if user already checked in today
+                for (let i = 0; i < uProfile.checkin.length; i++) {
+                    if(uProfile.checkin[i] = get_today_date()) checked_in = true;
+                }
+                if(checked_in) checkin_disable();
+                else {
+                    checkin.addEventListener("click", checkin_click);
+                    checkin.addEventListener("mouseover",checkin_hover);
+                    checkin.addEventListener("mouseout",checkin_unhover);
+                    checkin.style.color = "#FFFFFF";
+                    checkin.style.backgroundColor = "#c01baa";
+                }
             } else {
                 document.getElementById("user-exp").innerHTML = '';
                 document.getElementById("user-gold").innerHTML = '';
@@ -232,6 +270,9 @@ function get_accepted_question_for_user(uID) {
 
 //  Check In --------------------------------------------------------
 function checkin_click() {
+    // disable the button
+    checkin_disable();
+    
     // show notif
     let notif = document.getElementById("check-in-notif");
     notif.innerHTML = `+5 exp, +1 gold`;
@@ -243,27 +284,82 @@ function checkin_click() {
         notif.innerHTML = ``;
     }, 3000);
 
-    // disable the button
-    checkin_disable();
-
     // update exp and gold DOM
     let exp = uProfile.exp;
     let gold = uProfile.gold;
+    let level = uProfile.level;
     exp += 5;
     gold += 1;
+    console.log(level,exp);
+    const updated = calculate_exp_and_level(level, exp);
+    level = updated[0];
+    exp = updated[1];
+    console.log(level,exp);
     document.getElementById("user-exp").innerHTML = `EXP: ${exp}`;
     document.getElementById("user-gold").innerHTML = `Gold: ${gold}`;
+    document.getElementById("user-level").innerHTML = `Level: ${level}`;
 
-    // TODO: update user exp and gold info to server
+    // update user exp and gold info to server
+    const modified_profile = {
+        exp: exp,
+        gold: gold,
+        level: level,
+        checkin: uProfile.checkin.push(get_today_date())
+    }
+    const url = '/user/' + uProfile.userID;
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(modified_profile),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
 
+    // Send the request with fetch()
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log('updated profile')
+        } else console.log('Could not update profile')           
+    }).catch((error) => {
+        console.log(error)
+    })
+    
 }
 
 function checkin_disable() {
     let checkin = document.getElementById("check-in-btn");
     checkin.innerHTML = `Checked In`;
+    checkin.removeEventListener("mouseover",checkin_hover);
+    checkin.removeEventListener("mouseout",checkin_unhover);
     checkin.style.backgroundColor = "grey";
     checkin.style.borderColor = "grey";
-    checkin.removeEventListener("click", checkin_click);
+    checkin.style.color = "black";
+    checkin.disabled = true;
+    console.log("disable");
+}
+
+function checkin_hover() {
+    let checkin = document.getElementById("check-in-btn");
+    checkin.style.color = "#000000";
+    checkin.style.backgroundColor = "#FFFFFF";
+    checkin.style.cursor = "pointer";
+}
+
+function checkin_unhover() {
+    let checkin = document.getElementById("check-in-btn");
+    checkin.style.color = "#FFFFFF";
+    checkin.style.backgroundColor = "#c01baa";
+}
+
+function get_today_date() {   // from https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+    
+    return  mm + '/' + dd + '/' + yyyy;
 }
 
 // Edit Profile --------------------------------------------------------
@@ -291,7 +387,7 @@ function edit_submit() {
     if(new_name.length < 4) {
         document.getElementById('edit-message').innerHTML = `Display Name should have at least 4 characters!`;
     } else {
-        //TODO: update new profile info to server
+        // update new profile info to server
         const modified_profile = {
             displayName: document.getElementById("edit-name").value,
             birthday: document.getElementById("edit-bday").value,
@@ -299,51 +395,28 @@ function edit_submit() {
             address: document.getElementById("edit-place").value,
             interest: document.getElementById("edit-interest").value
         }
+        update_profile_request_and_fetch(modified_profile);
 
-        // create PATCH request with updated user information
-        const url = '/user/' + uProfile.userID;
-        const request = new Request(url, {
-            method: 'PATCH', 
-            body: JSON.stringify(modified_profile),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-        });
-
-        console.log(request);
-        console.log(request.body);
-        // Send the request with fetch()
-        fetch(request)
-        .then(function(res) {
-            console.log(res)
-            if (res.status === 200) {
-                console.log('updated profile')
-            } else console.log('Could not update profile')           
-        }).catch((error) => {
-            console.log(error)
-        })
-
-
-        /*
-        // apply profile pic
-        if(document.getElementById("edit-pic").files.length != 0 ){
-            apply_input_image_to_div("edit-pic", "profile-pic");
-            apply_input_image_to_div("edit-pic", "nav_user_profile");
-        }
-        // apply banner
+        // update banner
         if(document.getElementById("edit-banner").files.length != 0 ){
-            apply_input_image_to_div("edit-banner", "banner-pic");
+            let fReader = new FileReader();
+            fReader.readAsDataURL(document.getElementById("edit-banner").files[0]);
+            fReader.onload = function() {
+                const modified = {bannerImg: fReader.result};
+                update_profile_request_and_fetch(modified);
+            };
         }
-        // apply text info
-        apply_input_value_to_div("edit-name","nav_username");
-        apply_input_value_to_div("edit-name","display-name");
-        apply_input_value_to_div("edit-bday","birthday");
-        apply_input_value_to_div("edit-gender","gender");
-        apply_input_value_to_div("edit-place","address");
-        apply_input_value_to_div("edit-interest","interest");
-        */
-       
+
+        // update profilePic
+        if(document.getElementById("edit-pic").files.length != 0 ){
+            let fReader = new FileReader();
+            fReader.readAsDataURL(document.getElementById("edit-pic").files[0]);
+            fReader.onload = function() {
+                const modified = {profilePicImg: fReader.result};
+                update_profile_request_and_fetch(modified);
+            };
+        }
+
         edit_close();
     }
 }
@@ -367,4 +440,29 @@ function apply_input_image_to_div(inputID, divID) {
 
 function apply_input_value_to_div(inputID, divID) {
     document.getElementById(divID).innerHTML =  document.getElementById(inputID).value;
+}
+
+
+function update_profile_request_and_fetch(modified_profile) {
+    // create PATCH request with updated user information
+    const url = '/user/' + uProfile.userID;
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(modified_profile),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    // Send the request with fetch()
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log('updated profile')
+            updatePage()
+        } else console.log('Could not update profile')           
+    }).catch((error) => {
+        console.log(error)
+    })
 }

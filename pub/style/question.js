@@ -1,14 +1,38 @@
-let quill = null;
+let quill = null;  //editor object
 
 if(window.location.hash) {
     updatePage();
 }
 
-// change icon and username in navbar
-let self_username = getCookie("username");
-let self_profile = get_user_profile(self_username);
-document.getElementById("nav_user_profile").src = "images/profilepic/" + self_profile.profilePic + ".jpg";
-document.getElementById("nav_username").innerText = self_profile.displayName;
+// get self ID from cookie
+// TODO: use a safer method to store it
+let self_ID = getCookie("username");
+let self_profile = null;
+
+// use GET method to get self info
+const url = '/user/' + self_ID;
+fetch(url)
+.then((res) => { 
+    if (res.status === 200) {
+       return res.json() 
+   } else {
+        console.log('Could not get user')
+        console.log(res)
+   }                
+})
+// then save public data into self_profile
+.then((json) => { 
+    self_profile = {
+        level: json.level,
+        userID: json.userID,
+        profilePicImg: json.profilePicImg
+    }
+    document.getElementById("nav_user_profile").src = json.profilePicImg;
+    document.getElementById("nav_username").innerText = json.displayName;
+    document.getElementById("nav_username").href = "profile.html#" + self_ID;
+})
+
+
 
 // update page with updated question ID
 function updatePage(sort="like") {     // sort range in {"like", "time"}
@@ -30,7 +54,7 @@ function updatePage(sort="like") {     // sort range in {"like", "time"}
             let uProfile =  get_user_profile(qObject.asker);
     
             // update asker info DOM
-            document.getElementById("asker-icon").src = "images/profilepic/" + uProfile.profilePic + ".jpg";
+            document.getElementById("asker-icon").src = uProfile.profilePicImg;
             document.getElementById("asker-name").innerHTML = '<a href="profile.html#' + uProfile.userID 
                     + '" target="_blank">' +  uProfile.displayName + '</a>';
             document.getElementById("asker-level").innerHTML = "Level: " + uProfile.level;
@@ -156,7 +180,7 @@ function insert_answer_posts(answer_list) {
             </div>`;
 
         // update answerer info DOM
-        document.getElementById("answerer-icon-"+i).src = "images/profilepic/" + aProfile.profilePic + ".jpg";
+        document.getElementById("answerer-icon-"+i).src = aProfile.profilePicImg;
         document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
                 + '" target="_blank">' +  aProfile.displayName + '</a>';
         document.getElementById("answerer-level-"+i).innerHTML = "Level: " + aProfile.level;
@@ -249,7 +273,7 @@ function add_self_answer(HTMLcontent) {
     add_event_listener();       // add eventlistener to the new answer buttons
 
     // update answerer info DOM
-    document.getElementById("self-icon").src = "images/profilepic/" + self_profile.profilePic + ".jpg";
+    document.getElementById("self-icon").src = self_profile.profilePicImg;
     document.getElementById("self-name").innerHTML = '<a href="profile.html#' + self_profile.userID 
             + '" target="_blank">' +  self_profile.displayName + '</a>';
     document.getElementById("self-level").innerHTML = "Level: " + self_profile.level;
