@@ -545,7 +545,7 @@ app.post('/login', async (req, res) => {
 		const remember = body.remember ? 1 : 0;
 		// cookie exp
 		// remember psw then 7 days expire; otherwise 1 day expire
-		const day = remember ? 7 : 1;
+		const day = remember == 1 ? 7 : 1;
 		if (result) {
 			res.cookie('username', body.userID, { maxAge: day * 86400, path: "/" });
 			// Successfully Log in
