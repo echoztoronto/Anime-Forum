@@ -5,10 +5,11 @@ const log = console.log;
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
 const path = require('path');
 app.use(express.static(path.join(__dirname, '/pub')));
+
 
 
 // Mongo and Mongoose
@@ -97,8 +98,83 @@ app.patch('/user/:id', async (req, res) => {
 	}
 })
 
+///////////////////   Users' questions for profile page  /////////////////////////
+/* 
+request body expects:
+{
+	"summary": String,
+    "qid": Number
+}
+*/
+app.post('/userQuestion/:type/:id', async(req, res) => {
+	const id = req.params.id
+	const type = req.params.type
 
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
 
+	try {
+		const user = await User.findOne({ userID: id }).exec()
+		if (!user) {
+			res.status(404).send('Resource not found')  
+		}  else {
+
+			user[type].push({
+				summary: req.body.summary,
+    			qid: req.body.qid
+			})
+
+			const result = await user.save()
+			if (!result) {
+				res.status(404).send()
+			} else {   
+				res.send(user[type])
+			}
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
+
+app.delete('/userQuestion/:type/:id/:qid', async(req, res) => {
+	const id = req.params.id
+	const qid = req.params.qid
+	const type = req.params.type
+
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	try {
+		const user = await User.findOne({ userID: id }).exec()
+		if (!user) {
+			res.status(404).send('Resource not found')  
+		} else {
+			
+			for(let i = 0; i < user[type].length; i++) {
+				if(user[type][i].qid == qid) {
+					user[type][i].remove()
+				}
+			}
+
+			const result = await user.save()
+			if (!result) {
+				res.status(404).send()
+			} else {   
+				res.send(user[type])
+			}
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
 
 // --------------- Part: Questions ---------------------------
 
@@ -137,7 +213,8 @@ app.post('/question', async (req, res) => {
 			asker: req.body.asker,
 			likeCount: 0,
 			replyCount: 0,
-			status: "Ongoing"
+			status: "Ongoing",
+			lastAnswerer: ""
 		});
 		const result = await question.save();	
 		res.send(result);
@@ -255,11 +332,7 @@ app.patch('/question/:qid', async (req, res) => {
 /* Route that adds an answer, qid: questionID
 request body expects:
 {
-	"questionID": Number,
-	"answerer": {
-		"userID": String,
-		"displayName": String
-	},
+	"answerer": String,
 	"content": String
 }
 */
@@ -277,13 +350,12 @@ app.post('/question/:qid', async (req, res) => {
 		const answer = question.answer_list.create({
 			answerID: question.answer_list.length + 1,
 			questionID: qid,
-			answerer: req.body.answerer,
+			answerer: req.body.answer,
 			content: req.body.content,
 			likeCount: 0,
 			accepted: false
 		});
 		question.answer_list.push(answer);
-		question.lastAnswerer = req.body.answerer;		// modify the lastAnswerer of the question
 		const result = await question.save();	
 		res.send(result);
 	} catch(error) {
