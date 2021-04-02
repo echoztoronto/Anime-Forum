@@ -38,7 +38,6 @@ fetch(url)
 async function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
     let qID = x.substring(1);
-
     
     try{
         const res = await fetch(`/question/${qID}`);      // use GET route to get the question
@@ -66,7 +65,14 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             document.getElementById("question-status").innerHTML = '[' + qObject.status + ']';
             document.getElementById("question-description").innerHTML = qObject.description;
             document.getElementById("question-reward").innerHTML = 'Reward: ' + qObject.reward;
-    
+            document.querySelector(`#question_vote_num`).innerHTML = qObject.likeCount;
+            
+            // add eventlisener to question voter
+            document.querySelector('.like_button_question').addEventListener('click', like_question);
+            document.querySelector('.dislike_button_question').addEventListener('click', dislike_question);
+            document.querySelector('.like_button_question').id = `${qID}`;
+            document.querySelector('.dislike_button_question').id = `${qID}`;
+
             // route to get all answers of the question
             const answer_res = await fetch(`./answers-of-question/${qObject.questionID}`);
             const answer_list = await answer_res.json();
@@ -164,6 +170,7 @@ async function insert_answer_posts(answer_list) {
                     <div class ='accept-description' id='answer-accept-${i}'></div>
                 </div>`;
 
+            add_event_listener();       // add event listener
             // update answerer info DOM
             document.getElementById("answerer-icon-"+i).src = aProfile.profilePicImg;
             document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
@@ -270,49 +277,75 @@ function add_self_answer(HTMLcontent) {
     document.getElementById("self-answer-description").innerHTML = HTMLcontent;
 }
 
-// function: change cursor to pointer
-function cursor_pointer(e){
-    e.target.style.cursor = 'pointer';
+
+async function like_question(e){
+    e.preventDefault();
+    try{
+        const res = await fetch(`/question/${e.target.id}`);        // e.target.id === questionID
+        const question = await res.json();
+        let increment = 0;
+        if (e.target.style.color == 'pink'){        // already clicked, undo it
+            e.target.style.color = 'silver';
+            increment = -1;
+        }else{          // upvote is not clicked
+            e.target.style.color = 'pink';
+            if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
+                increment = 2;
+            }else{
+                increment = 1;
+            }
+            e.target.parentElement.children[2].style.color = 'silver';
+        }
+        // PATCH the question
+        const res_updated = await fetch(`/question/${e.target.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "likeCount": question.likeCount + increment
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const question_updated = await res_updated.json();
+        e.target.parentElement.children[1].innerHTML = question_updated.likeCount;
+    }catch(err){
+        console.log(err);
+    }
 }
 
-// like & dislike for question  
-document.querySelector('.like_button_question').addEventListener('click', like_question);
-document.querySelector('.dislike_button_question').addEventListener('click', dislike_question);
-document.querySelector('.like_button_question').addEventListener('mouseover', cursor_pointer);
-document.querySelector('.dislike_button_question').addEventListener('mouseover', cursor_pointer);
-
-function like_question(e){
+async function dislike_question(e){
     e.preventDefault();
-    if (e.target.style.color == 'pink'){        // already clicked, undo it
-        e.target.style.color = 'silver';
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
-        return;   
+    try{
+        const res = await fetch(`/question/${e.target.id}`);        // e.target.id === questionID
+        const question = await res.json();
+        let increment = 0;
+        if (e.target.style.color == 'pink'){        // already clicked, undo it
+            e.target.style.color = 'silver';
+            increment = 1;  
+        }else{
+            e.target.style.color = 'pink';
+            if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
+                increment = -2;
+            }else{  // like is un-clicked, decrease by 1
+                increment = -1;
+            }
+            e.target.parentElement.children[0].style.color = 'silver';
+        }
+        // PATCH the question
+        const res_updated = await fetch(`/question/${e.target.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "likeCount": question.likeCount + increment
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const question_updated = await res_updated.json();
+        e.target.parentElement.children[1].innerHTML = question_updated.likeCount;        
+    }catch(err){
+        console.log(err);
     }
-    e.target.style.color = 'pink';
-    // TODO in Phase 2: really modify the data array
-    if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 2;
-    }else{
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
-    }
-    e.target.parentElement.children[2].style.color = 'silver';
-}
-
-function dislike_question(e){
-    e.preventDefault();
-    if (e.target.style.color == 'pink'){        // already clicked, undo it
-        e.target.style.color = 'silver';
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) + 1;
-        return;   
-    }
-    e.target.style.color = 'pink';
-    // TODO in Phase 2: really modify the data array
-    if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 2;
-    }else{  // like is un-clicked, decrease by 1
-        e.target.parentElement.children[1].innerHTML = parseInt(e.target.parentElement.children[1].innerHTML) - 1;
-    }
-    e.target.parentElement.children[0].style.color = 'silver';
 }
 
 // NOTE: the following are similar as above, but we will change them in Phase2!!!

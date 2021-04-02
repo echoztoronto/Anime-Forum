@@ -154,11 +154,13 @@ a {
     font-size: 72px;
     color: silver;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .dislike_button_answer{
     font-size: 72px;
     color: silver; 
+    cursor: pointer;
 }
 
 /*------ Question Posts---------------*/
