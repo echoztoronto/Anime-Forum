@@ -19,6 +19,7 @@ const { mongoose } = require('./db/mongoose');
 // Collections
 const { User } = require('./models/users');
 const { Question } = require('./models/questions.js');
+const { Credential } = require('./models/credential');
 
 //////////////////////////////////   USER  ////////////////////////////////////
 // GET /user/id
@@ -484,6 +485,82 @@ app.patch('/question/:qid/:aid', async (req, res) => {
 		}
 	}
 });
+
+
+//////////////////////////////////   SIGNUP  ////////////////////////////////////
+// POST /signup
+app.post('/signup', async (req, res) => {
+	var body = req.body;
+	var response = { code: 500, data: [], message: "fail to signup" };
+	// distinguish between admin and other users' account
+	if (body.userID === "admin") {
+		body["admin"] = true;
+	} else {
+		body["admin"] = false;
+	}
+	log("body", body);
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		response.message = "error with database connection";
+		res.json(response)
+		return;
+	}
+	try {
+		// to see if the account is exist
+		const result1 = await Credential.findOne({ userID: body.userID }).exec();
+		log("result", result1);
+		if (result1) {
+			response.message = "No Duplicate Application";
+		} else {
+			const credential = new Credential(body)
+			log("credential", credential);
+			const result2 = await credential.save();
+			log("result2", result2);
+			response.data = { id: ObjectID(result2._id), userID: body.userID }
+			response.code = 0;
+			response.message = "Successfully Signup";
+			res.cookie('username', body.userID, { maxAge: 86400, path: "/" });
+		}
+	} catch (error) {
+		log(error)
+		response.message = "Internal Server Error";
+	}
+	res.json(response)
+})
+
+//////////////////////////////////   LOGIN  ////////////////////////////////////
+// POST /login
+app.post('/login', async (req, res) => {
+	const body = req.body;
+	var response = { code: 500, data: [], message: "fail to login" };
+	log("body", body);
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.json(response);
+		return;
+	}
+	try {
+		// To compare the userid and password
+		const result = await Credential.findOne({ userID: body.userID, password: body.password }).exec();
+		const remember = body.remember ? 1 : 0;
+		// cookie exp
+		// remember psw then 7 days expire; otherwise 1 day expire
+		const day = remember ? 7 : 1;
+		if (result) {
+			res.cookie('username', body.userID, { maxAge: day * 86400, path: "/" });
+			// Successfully Log in
+			response.code = 0;
+			response.data = { userID: body.userID, remember: remember, day: day };
+			response.message = "Successfully Login.";
+		} else {
+			response.message = "Incorrect username or password.";
+		}
+	} catch (error) {
+		log(error)
+		response.message = "Database Finding Error";
+	}
+	res.json(response);
+})
 
 
 
