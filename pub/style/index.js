@@ -1,34 +1,44 @@
 window.addEventListener('load', show_top_question);
 
-function show_top_question(e){
+async function show_top_question(e){
     e.preventDefault();
-    let questions_clone = JSON.parse(JSON.stringify(questions));    // clone the array
-    questions_clone.sort(function(a, b){
-        return b.likeCount + b.replyCount - a.likeCount - a.replyCount;
-    });
-    const top_question = document.querySelector('#top-question');
-    for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
-        const c = document.createElement('div');
-        c.className = "question_summary";
-        c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${questions_clone[i].ID}">${questions_clone[i].summary}</a>`;
-        top_question.appendChild(c);
+    try{
+        // fetch to get the questions from the databse
+        const res = await fetch('/allQuestions');
+        const question_list = await res.json();
+        question_list.sort((a, b) => b.likeCount + b.replyCount - a.likeCount - a.replyCount);      // sort
+        const top_question = document.querySelector('#top-question');
+        for (let i = 0; i < Math.min(5, question_list.length); i++){        // top 5 
+            const c = document.createElement('div');
+            c.className = "question_summary";
+            c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
+            top_question.appendChild(c);
+        }
+    }catch(err){
+        console.log('Could not get questions');
+        console.log(err);
     }
 }
 
 window.addEventListener('load', show_recent_question);
 
-function show_recent_question(e){
+async function show_recent_question(e){
     e.preventDefault();
-    let questions_clone = JSON.parse(JSON.stringify(questions));    // clone the array
-    questions_clone.sort(function(a, b){
-        return a.ID - b.ID;
-    });
-    const top_question = document.querySelector('#recent-question');
-    for (let i = 0; i < Math.min(5, questions_clone.length); i++){        // top 5 
-        const c = document.createElement('div');
-        c.className = "question_summary";
-        c.innerHTML = `Top ${i + 1}:<a target="_blank" href="question.html#${questions_clone[i].ID}"> ${questions_clone[i].summary}</a>`;
-        top_question.appendChild(c);
+    try{
+        // fetch to get the questions from the databse
+        const res = await fetch('/allQuestions');
+        const question_list = await res.json();
+        question_list.sort((a, b) => b.questionID - a.questionID);      // sort
+        const top_question = document.querySelector('#recent-question');
+        for (let i = 0; i < Math.min(5, question_list.length); i++){        // top 5 
+            const c = document.createElement('div');
+            c.className = "question_summary";
+            c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
+            top_question.appendChild(c);
+        }
+    }catch(err){
+        console.log('Could not get questions');
+        console.log(err);
     }
 }
 
