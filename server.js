@@ -186,7 +186,10 @@ request body expects:
 	"description": String,
 	"reward": Number,
 	"levelLimit": Number,
-	"asker": String
+	"asker": {
+        userID: String, 
+        displayName: String,
+    },
 }
 */
 app.post('/question', async (req, res) => {

@@ -65,8 +65,8 @@ function update_forum_page(questions) {
                 <td class="c2">${questions[i].replyCount}</td>
                 <td class="c3">${questions[i].status}</td>
                 <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
-                <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker}">${questions[i].asker}</a></td>
-                <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer}">${questions[i].lastAnswerer}</a></td>
+                <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName}</a></td>
+                <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer.userID}">${questions[i].lastAnswerer.displayName}</a></td>
             </tr>
         `;
         question_table.appendChild(tb);

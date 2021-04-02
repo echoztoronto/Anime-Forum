@@ -19,7 +19,10 @@ const QuestionSchema = new mongoose.Schema({
     likeCount: {type: Number, default: 0},
     replyCount: {type: Number, default: 0},
     status: String,
-    asker: String,
+    asker: {
+        userID: {type: String, default: ""}, 
+        displayName: {type: String, default: ""},
+    },
     lastAnswerer: {
         userID: {type: String, default: ""}, 
         displayName: {type: String, default: ""},
