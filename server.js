@@ -214,7 +214,6 @@ app.post('/question', async (req, res) => {
 			likeCount: 0,
 			replyCount: 0,
 			status: "Ongoing",
-			lastAnswerer: ""
 		});
 		const result = await question.save();	
 		res.send(result);
@@ -332,7 +331,11 @@ app.patch('/question/:qid', async (req, res) => {
 /* Route that adds an answer, qid: questionID
 request body expects:
 {
-	"answerer": String,
+	"questionID": Number,
+	"answerer": {
+		"userId": String,
+		"displayName": String
+	},
 	"content": String
 }
 */
@@ -350,12 +353,13 @@ app.post('/question/:qid', async (req, res) => {
 		const answer = question.answer_list.create({
 			answerID: question.answer_list.length + 1,
 			questionID: qid,
-			answerer: req.body.answer,
+			answerer: req.body.answerer,
 			content: req.body.content,
 			likeCount: 0,
 			accepted: false
 		});
 		question.answer_list.push(answer);
+		question.lastAnswerer = req.body.answerer;		// modify question lastAnswerer
 		const result = await question.save();	
 		res.send(result);
 	} catch(error) {
