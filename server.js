@@ -58,7 +58,17 @@ app.get('/allUsers', async (req, res) =>{
 		if (!result) {
 			res.status(404).send('Resource not found');
 		} else {
-			res.send(result);
+			const lst = []
+			result.forEach(user => {
+				lst.push({
+					userID: user.userID, 
+					displayName: user.displayName,
+					level: user.level,
+					num_answers: user.answered.length,
+					num_accepted: user.accepted.length
+				})
+			})
+			res.json(lst);
 		}
 	} catch(error) {
 		log(error);
