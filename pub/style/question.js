@@ -2,6 +2,7 @@ let quill = null;  //editor object
 let qID = 0;
 let qSummary = '';
 let already_answered = false;
+let am_asker = false;
 
 // get self ID from cookie
 let self_ID = getCookie("username");
@@ -60,6 +61,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 location.reload();
             }
             qSummary = qObject.summary;
+            if(qObject.asker.userID == self_ID) am_asker = true;
     
             //get asker info
             // fetch to GET the asker
@@ -101,7 +103,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 add_event_listener();
             }
             //add text editor if question is not resolved
-            if(qObject.status != "Resolved" && !already_answered) {
+            if(qObject.status != "Resolved" && !already_answered && !am_asker) {
                 document.getElementById("add-answer-btn").style = "visibility: visible;";
                 if(quill == null) {
                     initiate_answer_editor();
