@@ -1,4 +1,7 @@
 let quill = null;  //editor object
+let qID = 0;
+let qSummary = '';
+let already_answered = false;
 
 // get self ID from cookie
 let self_ID = getCookie("username");
@@ -16,7 +19,6 @@ if(self_ID != "null") {
             console.log(res)
     }                
     })
-    // then save public data into self_profile
     .then((json) => { 
         self_profile = {
             level: json.level,
@@ -24,7 +26,11 @@ if(self_ID != "null") {
             displayName: json.displayName,
             gold: json.gold,
             exp: json.exp,
-            profilePicImg: json.profilePicImg
+            profilePicImg: json.profilePicImg,
+            answered: json.answered
+        }
+        for(let i = 0; i < self_profile.answered.length; i++) {
+            if(self_profile.answered[i].qid == qID) already_answered = true;
         }
         document.getElementById("nav_user_profile").src = json.profilePicImg;
         document.getElementById("nav_username").innerText = json.displayName;
@@ -42,7 +48,7 @@ if(window.location.hash && self_ID != "null") {
 // update page with updated question ID
 async function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
-    let qID = x.substring(1);
+    qID = x.substring(1);
     
     try{
         const res = await fetch(`/question/${qID}`);      // use GET route to get the question
@@ -53,6 +59,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 document.getElementById("error-page").remove;
                 location.reload();
             }
+            qSummary = qObject.summary;
     
             //get asker info
             // fetch to GET the asker
@@ -94,7 +101,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 add_event_listener();
             }
             //add text editor if question is not resolved
-            if(qObject.status != "Resolved") {
+            if(qObject.status != "Resolved" && !already_answered) {
                 document.getElementById("add-answer-btn").style = "visibility: visible;";
                 if(quill == null) {
                     initiate_answer_editor();
@@ -102,13 +109,12 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             } else {
                 document.getElementById("add-answer-btn").style = "visibility: hidden;";
             }
-        }else{  //if there is no such question
-            err_message = "The question page you are trying to visit does not exist";
-            go_to_error_page(err_message);
         }
     }catch(err){
         console.log('Could not get answers to the question');
         console.log(err);
+        err_message = "The question page you are trying to visit does not exist";
+        go_to_error_page(err_message);
     }
 
 }
@@ -237,51 +243,100 @@ function editor_submit() {
         document.getElementById("add-answer-btn").style = "visibility: hidden;";
         message_element.style = "color: black;";
         message_element.innerHTML = "Add a new answer";
-        //create a notif 
-        let notif = document.createElement("div");
-        document.body.appendChild(notif);
-        notif.innerHTML = `exp + 10`;
-        notif.className = "center-notif";
-        add_fade(notif);
     }
 }
 
 
 function add_self_answer(HTMLcontent) {
-    //TODO: push new answer info to database
+    // push new answer info to database
+    const new_answer_data = {
+        "questionID": qID,
+        "answerer": {
+            "userID": self_profile.userID,
+            "displayName": self_profile.displayName
+        },
+        "content": HTMLcontent
+    }
+    const url = '/question/' + qID;
+    const request = new Request(url, {
+        method: 'POST', 
+        body: JSON.stringify(new_answer_data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            // add to user collection "answered" array
+            const user_answer_info = {
+                summary: qSummary,
+                qid: qID
+            }
+            const url = '/userQuestion/answered/' + self_profile.userID;
+            const request_user = new Request(url, {
+                method: 'POST', 
+                body: JSON.stringify(user_answer_info),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+            });
+            fetch(request_user)
+            .then(function(res) {
+                if (res.status === 200) {
+                    console.log("added to user array")
+                } else console.log('Could not to user array')           
+            })
+            .catch((error) => {
+                console.log(error)
+            })
 
-    // create the DOM for answer post
-    let element = document.createElement("div");
-    element.className = "post-container";
-    element.id = "self-post";
-    document.getElementById("question-container").appendChild(element);
-    element.innerHTML = 
-        `<div class="post-profile-answerer">
-            <img class="post-profile-icon" id="self-icon" src="//:0">
-            <div class="post-profile-info">
-                <div class="display-name" id="self-name"> </div> 
-                <div class="user-level" id="self-level"> </div>
-            </div>
-        </div>
-        <div class="post-content">
-            <div class="vote_container">
-                    <div class="like_button_answer">&#9650</div>
-                    <div class="like_num">0</div>
-                    <div class="dislike_button_answer">&#9660</div>
-            </div>
-            <div class="post-description" id="self-answer-description">  </div>
-            <div class="accept-description" id="self-answer-accept"> </div>
-        </div>`
-    add_event_listener();       // add eventlistener to the new answer buttons
+            // create the DOM for answer post
+            let element = document.createElement("div");
+            element.className = "post-container";
+            element.id = "self-post";
+            document.getElementById("question-container").appendChild(element);
+            element.innerHTML = 
+                `<div class="post-profile-answerer">
+                    <img class="post-profile-icon" id="self-icon" src="//:0">
+                    <div class="post-profile-info">
+                        <div class="display-name" id="self-name"> </div> 
+                        <div class="user-level" id="self-level"> </div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <div class="vote_container">
+                            <div class="like_button_answer">&#9650</div>
+                            <div class="like_num">0</div>
+                            <div class="dislike_button_answer">&#9660</div>
+                    </div>
+                    <div class="post-description" id="self-answer-description">  </div>
+                    <div class="accept-description" id="self-answer-accept"> </div>
+                </div>`
+            add_event_listener();       // add eventlistener to the new answer buttons
 
-    // update answerer info DOM
-    document.getElementById("self-icon").src = self_profile.profilePicImg;
-    document.getElementById("self-name").innerHTML = '<a href="profile.html#' + self_profile.userID 
-            + '" target="_blank">' +  self_profile.displayName + '</a>';
-    document.getElementById("self-level").innerHTML = "Level: " + self_profile.level;
-    
-    // update answer info DOM
-    document.getElementById("self-answer-description").innerHTML = HTMLcontent;
+            // update answerer info DOM
+            document.getElementById("self-icon").src = self_profile.profilePicImg;
+            document.getElementById("self-name").innerHTML = '<a href="profile.html#' + self_profile.userID 
+                    + '" target="_blank">' +  self_profile.displayName + '</a>';
+            document.getElementById("self-level").innerHTML = "Level: " + self_profile.level;
+            
+            // update answer info DOM
+            document.getElementById("self-answer-description").innerHTML = HTMLcontent;
+
+            //create a notif 
+            let notif = document.createElement("div");
+            document.body.appendChild(notif);
+            notif.innerHTML = `exp + 10`;
+            notif.className = "center-notif";
+            add_fade(notif);
+        } else {
+            console.log('Could not add answer')
+            console.log(res)
+        }
+    })
 }
 
 // like & dislike for question

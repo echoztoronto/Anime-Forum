@@ -16,11 +16,11 @@ if(self_ID != "null") {
     fetch(url)
     .then((res) => { 
         if (res.status === 200) {
-        return res.json() 
-    } else {
-            console.log('Could not get user')
-            console.log(res)
-    }                
+            return res.json() 
+        } else {
+                console.log('Could not get user')
+                console.log(res)
+        }                
     })
     // then save public data into self_profile
     .then((json) => { 
@@ -152,19 +152,12 @@ function updatePage() {
                 remove_element_by_ID("check-in-btn");
             }
 
-        } else { //if there is no such user
-            if(document.getElementById("error-page") == null) {
-                let error_element = document.createElement("div");
-                error_element.id = "error-page";
-                error_element.innerHTML = `This user account does not exist
-                                            <br/> 
-                                            or it has been deleted`;
-                document.body.appendChild(error_element);
-            }  
-        }
+        } 
     })
     .catch((error) => {
         console.log(error)
+        err_message = "This user account does not exist";
+        go_to_error_page(err_message);
     })
 }
 
@@ -295,7 +288,6 @@ function checkin_disable() {
     checkin.style.borderColor = "grey";
     checkin.style.color = "black";
     checkin.disabled = true;
-    console.log("disable");
 }
 
 function checkin_hover() {
