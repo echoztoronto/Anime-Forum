@@ -142,7 +142,7 @@ function sign_up () {
             let userInfo = {
                 userID: username,
                 type: username == "admin" ? "admin" : "normal",
-                displayName: "Default",
+                displayName: username,
             }
             ajax({ url: "./user", method: "POST", data: userInfo }).then(function onSuccess (response) {
                 // save successfully
