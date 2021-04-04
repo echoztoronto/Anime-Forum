@@ -277,6 +277,7 @@ app.get('/allQuestions', async (req, res) =>{
 					"questionID": question.questionID,
     				"summary": question.summary,
 					"likeCount": question.likeCount,
+					"replyCount": question.replyCount,
 					"status": question.status,
 					"asker": question.asker,
 					"lastAnswerer": question.lastAnswerer
