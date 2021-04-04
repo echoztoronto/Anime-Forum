@@ -578,7 +578,6 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
 	const body = req.body;
 	var response = { code: 500, data: [], message: "fail to login" };
-	log("body", body);
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
 		res.json(response);

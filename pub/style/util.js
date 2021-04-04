@@ -99,9 +99,9 @@ function getCookie (cname) {
 }
 
 function log_out () {
-    setCookie("username", null);
-    // document.cookie = null;
-    console.log(document.cookie);
+    setCookie("username", "");
+    remove_right_navbar();
+    add_not_logged_navbar();
 }
 
 

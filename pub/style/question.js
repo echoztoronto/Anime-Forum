@@ -8,7 +8,7 @@ let am_asker = false;
 let self_ID = getCookie("username");
 let self_profile = null;
 
-if(self_ID != "null") {
+if(self_ID != "") {
     // use GET method to get self info
     const url = '/user/' + self_ID;
     fetch(url)
@@ -34,15 +34,14 @@ if(self_ID != "null") {
             if(self_profile.answered[i].qid == qID) already_answered = true;
         }
         document.getElementById("nav_user_profile").src = json.profilePicImg;
-        document.getElementById("nav_username").innerText = json.displayName;
-        document.getElementById("nav_username").href = "profile.html#" + self_ID;
+        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
     })
 } else {  // user is not logged in
     err_message = "Please login to view the questions";
     go_to_error_page(err_message);
 }
 
-if(window.location.hash && self_ID != "null") {
+if(window.location.hash && self_ID != "") {
     updatePage();
 }
 

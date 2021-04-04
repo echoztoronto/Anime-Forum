@@ -43,7 +43,7 @@ async function sort_by_time(e){
 }
 
 function update_forum_page(questions) {
-    if(self_ID != "null") {
+    if(self_ID != "") {
         let question_table = document.querySelector('#question_table');
         question_table.innerHTML = `
             <tbody>

@@ -45,8 +45,7 @@ html, body {
 }
 
 .navbar-block-logged {
-    width: 200px;
-    min-width: 100px;
+    width: 50px;
     height: 30px;
     display: inline-block;
     margin: 0 0 0 0;
@@ -67,18 +66,6 @@ html, body {
     height: 45px;
     margin-top: 3px;
     margin-right: 5px;
-}
-
-#nav_username {
-    vertical-align: bottom;
-    height: 100px;
-    padding-top:10px;
-    margin-right: 20px;
-    color: rgb(76, 105, 199);
-    font-size: 23px;
-    white-space: nowrap;
-    text-decoration: none;
-    font-family:cursive;
 }
 
 #nav_username:hover {

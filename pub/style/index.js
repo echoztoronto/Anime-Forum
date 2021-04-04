@@ -1,3 +1,15 @@
+let self_ID = getCookie("username");
+let is_logged_in = false;
+if(self_ID != "") is_logged_in = true;
+
+if(is_logged_in) {
+    remove_right_navbar();
+    add_logged_navbar();
+} else {
+    remove_right_navbar();
+    add_not_logged_navbar();
+}
+
 window.addEventListener('load', show_top_question);
 
 async function show_top_question(e){
@@ -81,3 +93,25 @@ function showSlides() {
     setTimeout(showSlides, 3000);
 }
 
+
+function remove_right_navbar () {
+    remove_element_by_ID("navbar-user");
+}
+
+function add_logged_navbar() {
+    const container = create_element("div", "navbar-user", "navbar-user", "navbar");
+    container.innerHTML = `
+        <div class="navbar-block-logged">
+            <a id="clickable_icon" target="_blank"> <img id="nav_user_profile"> </a>
+        </div>
+        <div class="navbar-block" onclick="log_out()"><a href="index.html"><b> Logout </b></a></div>
+    `;
+}
+
+function add_not_logged_navbar() {
+    const container = create_element("div", "navbar-user", "navbar-user", "navbar");
+    container.innerHTML = `
+        <div class="navbar-block" id="login-btn" onclick="open_login_window()"> <b>Login </b></div>
+        <div class="navbar-block" id="signup-btn" onclick="open_signup_window()"> <b> Sign Up </b></div>
+    `;
+}

@@ -77,19 +77,12 @@ setTimeout(auto_login, 500);
 function set_login_info (username) {
     ajax({ url: "./user/" + username, method: "GET", data: {} }).then(function onSuccess (response) {
         const userinfo = JSON.parse(response);
-        console.log("getuserinfo:", userinfo);
+        remove_right_navbar();
+        add_logged_navbar();
         // change icon
         document.getElementById("nav_user_profile").setAttribute("src", userinfo.profilePicImg);
-        // insert display name
-        document.getElementById("nav_username").innerText = userinfo.displayName;
-        // change "#"
-        document.getElementById("nav_username").setAttribute("href", "profile.html#" + userinfo.userID);
-        // show userinfo and logout
-        document.getElementById("user_info_content").classList.remove('hide');
-        document.getElementById("user_logout_content").classList.remove('hide');
-        // hide login or signup content
-        document.getElementById("login_sign_content").classList.add('hide')
-        // // save to cookie (for local cookie)
+        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
+        // save to cookie (for local cookie)
         let d = new Date();
         d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
         document.cookie = "username=" + userinfo.userID + ";expires=" + d.toUTCString() + ";path=/";
