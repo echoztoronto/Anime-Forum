@@ -547,7 +547,6 @@ app.post('/signup', async (req, res) => {
 	} else {
 		body["admin"] = false;
 	}
-	log("body", body);
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
 		response.message = "error with database connection";
@@ -557,7 +556,6 @@ app.post('/signup', async (req, res) => {
 	try {
 		// to see if the account is exist
 		const result1 = await Credential.findOne({ userID: body.userID }).exec();
-		log("result", result1);
 		if (result1) {
 			response.message = "No Duplicate Application";
 		} else {

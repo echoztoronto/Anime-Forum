@@ -43,31 +43,33 @@ async function sort_by_time(e){
 }
 
 function update_forum_page(questions) {
-    let question_table = document.querySelector('#question_table');
-    question_table.innerHTML = `
-        <tbody>
-            <tr class="tr" id="question_table_title">
-                <td class="c1">Like</td>
-                <td class="c2">Reply</td>
-                <td class="c3">Status</td>
-                <td class="c4">Summary</td>
-                <td class="c5">Asker</td>
-                <td class="c6">Last Answer</td>
-            </tr>
-        </tbody>`;      // add the header
-    for (let i = 0; i < questions.length; i++){
-        let tb = document.createElement('TBODY');
-        tb.innerHTML = `
-            <tr class="tr">
-                <td class="c1">${questions[i].likeCount}</td>
-                <td class="c2">${questions[i].replyCount}</td>
-                <td class="c3">${questions[i].status}</td>
-                <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
-                <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName }</a></td>
-                <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer.userID}">${questions[i].lastAnswerer.displayName}</a></td>
-            </tr>
-        `;
-        question_table.appendChild(tb);
+    if(self_ID != "null") {
+        let question_table = document.querySelector('#question_table');
+        question_table.innerHTML = `
+            <tbody>
+                <tr class="tr" id="question_table_title">
+                    <td class="c1">Like</td>
+                    <td class="c2">Reply</td>
+                    <td class="c3">Status</td>
+                    <td class="c4">Summary</td>
+                    <td class="c5">Asker</td>
+                    <td class="c6">Last Answer</td>
+                </tr>
+            </tbody>`;      // add the header
+        for (let i = 0; i < questions.length; i++){
+            let tb = document.createElement('TBODY');
+            tb.innerHTML = `
+                <tr class="tr">
+                    <td class="c1">${questions[i].likeCount}</td>
+                    <td class="c2">${questions[i].replyCount}</td>
+                    <td class="c3">${questions[i].status}</td>
+                    <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
+                    <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName }</a></td>
+                    <td class="c6"><a target="_blank" href="profile.html#${questions[i].lastAnswerer.userID}">${questions[i].lastAnswerer.displayName}</a></td>
+                </tr>
+            `;
+            question_table.appendChild(tb);
+        }
     }
 }
 
