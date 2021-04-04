@@ -25,6 +25,9 @@ fetch(url)
     self_profile = {
         level: json.level,
         userID: json.userID,
+        displayName: json.displayName,
+        gold: json.gold,
+        exp: json.exp,
         profilePicImg: json.profilePicImg
     }
     document.getElementById("nav_user_profile").src = json.profilePicImg;

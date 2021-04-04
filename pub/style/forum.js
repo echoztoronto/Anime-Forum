@@ -105,15 +105,51 @@ function editor_submit_question() {
 }
 
 function add_new_question(title, description) {
-    //TODO: push new question info to database
+    // create POST request with updated user information
+    const new_question_data = {
+        "summary": title,
+        "description": description,
+        "reward": 0,
+        "levelLimit": 0,
+        "asker": {
+            userID: self_profile.userID, 
+            displayName: self_profile.displayName,
+        },
+    }
 
-    const table_element = document.getElementById("question_table");
-    let newRow = table_element.insertRow(1);
-    newRow.className = "tr";
-    newRow.innerHTML = `<td class="c1">0</td>
-                        <td class="c2">0</td>
-                        <td class="c3">Ongoing</td>
-                        <td class="c4"><a href="question.html#new">${title}</a></td>
-                        <td class="c5"><a href="profile.html#user">Pikachu</a></td>
-                        <td class="c6"></td>`;
+    const url = '/question';
+    const request = new Request(url, {
+        method: 'POST', 
+        body: JSON.stringify(new_question_data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    // Send the request with fetch()
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log("added question")
+            return res.json()
+        } else console.log('Could not add question')           
+    })
+    .then(json => {
+        const table_element = document.getElementById("question_table")
+        let newRow = table_element.insertRow(1)
+        newRow.className = "tr"
+        newRow.innerHTML = `<td class="c1">0</td>
+                            <td class="c2">0</td>
+                            <td class="c3">Ongoing</td>
+                            <td class="c4"><a href="question.html#${json.questionID}">${title}</a></td>
+                            <td class="c5"><a href="profile.html#${json.asker.userID}}"> ${json.asker.displayName} </a></td>
+                            <td class="c6"></td>`
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    
+
+    
 }

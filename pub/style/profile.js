@@ -4,6 +4,7 @@ let user_accept_answer = [];
 let uProfile = null;
 let is_self = false;
 let checked_in = false;
+let self_profile = null;
 
 // get self ID from cookie
 // TODO: use a safer method to store it
@@ -29,6 +30,9 @@ fetch(url)
     self_profile = {
         level: json.level,
         userID: json.userID,
+        displayName: json.displayName,
+        gold: json.gold,
+        exp: json.exp,
         profilePicImg: json.profilePicImg
     }
     document.getElementById("nav_user_profile").src = json.profilePicImg;
