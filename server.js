@@ -261,7 +261,18 @@ app.get('/allQuestions', async (req, res) =>{
 		if (!result) {
 			res.status(404).send('Resource not found');
 		} else {
-			res.send(result);
+			const lst = [];
+			result.forEach(question => {
+				lst.push({
+					"questionID": question.questionID,
+    				"summary": question.summary,
+					"likeCount": question.likeCount,
+					"status": question.status,
+					"asker": question.asker,
+					"lastAnswerer": question.lastAnswerer
+				})
+			})
+			res.json(lst);
 		}
 	} catch(error) {
 		log(error);
