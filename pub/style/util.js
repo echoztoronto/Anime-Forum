@@ -120,3 +120,14 @@ function go_to_error_page(message) {
         error_element.appendChild(return_element);
     } else error_element.innerHTML = message;
 }
+
+Array.prototype.remove = function() {       // cite from: https://stackoverflow.com/questions/3954438/how-to-remove-item-from-array-by-value
+    let what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
