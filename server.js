@@ -519,7 +519,8 @@ app.post('/signup', async (req, res) => {
 			response.data = { id: ObjectID(result2._id), userID: body.userID }
 			response.code = 0;
 			response.message = "Successfully Signup";
-			res.cookie('username', body.userID, { maxAge: 864000, path: "/" });
+			//res.cookie('username', body.userID, { maxAge: 864000, path: "/" });
+			res.cookie('username', body.userID, { maxAge: new Date(Date.now() + 3 * 86400 * 1000), path: "/" });
 		}
 	} catch (error) {
 		log(error)
@@ -547,7 +548,8 @@ app.post('/login', async (req, res) => {
 		// remember psw then 7 days expire; otherwise 1 day expire
 		const day = remember == 1 ? 7 : 1;
 		if (result) {
-			res.cookie('username', body.userID, { maxAge: day * 864000, path: "/" });
+			//res.cookie('username', body.userID, { maxAge: day * 864000, path: "/" });
+			res.cookie('username', body.userID, { maxAge: new Date(Date.now() + day * 86400 * 1000), path: "/" });
 			// Successfully Log in
 			response.code = 0;
 			response.data = { userID: body.userID, remember: remember, day: day };
