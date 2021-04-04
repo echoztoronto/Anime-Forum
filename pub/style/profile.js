@@ -37,7 +37,7 @@ if(self_ID != "null") {
         document.getElementById("nav_username").href = "profile.html#" + self_ID;
     })
 } else {  // user is not logged in
-    err_message = "Please login to view the questions";
+    err_message = "Please login to view the user profile";
     go_to_error_page(err_message);
 }
 
