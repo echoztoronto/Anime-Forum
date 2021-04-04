@@ -92,10 +92,10 @@ function set_login_info (username) {
     // hide login or signup content
     document.getElementById("login_sign_content").classList.add('hide')
     // // save to cookie (for local cookie)
-    // let d = new Date();
-    // d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
-    // document.cookie = "username=" + username + ";expires=" + d.toUTCString() + ";path=/";
-    // console.log(document.cookie);
+    let d = new Date();
+    d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
+    document.cookie = "username=" + username + ";expires=" + d.toUTCString() + ";path=/";
+    console.log(document.cookie);
 }
 
 
