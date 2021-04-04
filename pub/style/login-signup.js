@@ -79,7 +79,6 @@ function set_login_info (username) {
     if (profile == null) {
         profile = get_user_profile("user")
     }
-    console.log("profile", profile);
     // change icon
     document.getElementById("nav_user_profile").setAttribute("src", "images/profilepic/" + profile.profilePic + ".jpg");
     // insert display name
@@ -95,7 +94,6 @@ function set_login_info (username) {
     let d = new Date();
     d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
     document.cookie = "username=" + username + ";expires=" + d.toUTCString() + ";path=/";
-    console.log(document.cookie);
 }
 
 
@@ -107,9 +105,7 @@ function login () {
     let data = { userID: username, password: pwd, remember: re };
     let result = false;
     ajax({ url: "./login", method: "POST", data: data }).then(function onSuccess (response) {
-        console.log('response：' + response, "response parse：", JSON.parse(response));
         const res = JSON.parse(response);
-        alert(res.message);
         if (res.code == 0) {
             login_cancel();
             set_login_info(username);
@@ -136,9 +132,7 @@ function sign_up () {
     }
     let data = { userID: username, password: pwd1 };
     ajax({ url: "./signup", method: "POST", data: data }).then(function onSuccess (response) {
-        console.log('response：' + response, "response parse：", JSON.parse(response));
         const res = JSON.parse(response);
-        alert(res.message);
         if (res.code == 0) {
             signup_cancel();
             set_login_info(username)
