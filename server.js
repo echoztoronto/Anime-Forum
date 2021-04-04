@@ -45,6 +45,27 @@ app.get('/user/:id', async (req, res) => {
 	}
 })
 
+// GET /allUsers
+// return ALL users
+app.get('/allUsers', async (req, res) =>{
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection');
+		res.status(500).send('Internal server error');
+		return;
+	}
+	try {
+		const result = await User.find({});
+		if (!result) {
+			res.status(404).send('Resource not found');
+		} else {
+			res.send(result);
+		}
+	} catch(error) {
+		log(error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
 // POST /user
 app.post('/user', async (req, res) => {
 	const user = new User(req.body)
