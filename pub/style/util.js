@@ -103,3 +103,18 @@ function log_out () {
     // document.cookie = null;
     console.log(document.cookie);
 }
+
+
+function go_to_error_page(message) {
+    if(document.getElementById("error-page") == null) {
+        let error_element = document.createElement("div");
+        error_element.id = "error-page";
+        error_element.innerHTML = message + `<br><br>`;
+        document.body.appendChild(error_element);
+        let return_element = document.createElement("a");
+        return_element.id = "error-page-return";
+        return_element.innerHTML = `Back to Home`;
+        return_element.href = "index.html";
+        error_element.appendChild(return_element);
+    } else error_element.innerHTML = message;
+}

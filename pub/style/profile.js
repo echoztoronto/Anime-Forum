@@ -10,35 +10,40 @@ let self_profile = null;
 // TODO: use a safer method to store it
 let self_ID = getCookie("username");
 
-if(window.location.hash) {
-    updatePage();
+if(self_ID != "null") {
+    // use GET method to get self info
+    const url = '/user/' + self_ID;
+    fetch(url)
+    .then((res) => { 
+        if (res.status === 200) {
+        return res.json() 
+    } else {
+            console.log('Could not get user')
+            console.log(res)
+    }                
+    })
+    // then save public data into self_profile
+    .then((json) => { 
+        self_profile = {
+            level: json.level,
+            userID: json.userID,
+            displayName: json.displayName,
+            gold: json.gold,
+            exp: json.exp,
+            profilePicImg: json.profilePicImg
+        }
+        document.getElementById("nav_user_profile").src = json.profilePicImg;
+        document.getElementById("nav_username").innerText = json.displayName;
+        document.getElementById("nav_username").href = "profile.html#" + self_ID;
+    })
+} else {  // user is not logged in
+    err_message = "Please login to view the questions";
+    go_to_error_page(err_message);
 }
 
-// use GET method to get self info
-const url = '/user/' + self_ID;
-fetch(url)
-.then((res) => { 
-    if (res.status === 200) {
-       return res.json() 
-   } else {
-        console.log('Could not get user')
-        console.log(res)
-   }                
-})
-// then save public data into self_profile
-.then((json) => { 
-    self_profile = {
-        level: json.level,
-        userID: json.userID,
-        displayName: json.displayName,
-        gold: json.gold,
-        exp: json.exp,
-        profilePicImg: json.profilePicImg
-    }
-    document.getElementById("nav_user_profile").src = json.profilePicImg;
-    document.getElementById("nav_username").innerText = json.displayName;
-    document.getElementById("nav_username").href = "profile.html#" + self_ID;
-})
+if(window.location.hash && self_ID != "null") {
+    updatePage();
+}
 
 function updatePage() {
     let x = location.hash;

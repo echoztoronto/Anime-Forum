@@ -298,6 +298,15 @@ html, body {
     padding-top: 20%;
 }
 
+#error-page-return {
+    color: rgb(90, 84, 173);
+}
+
+#error-page-return:hover {
+    color: #000000;
+}
+
+
 .center-notif {
     position: fixed;
     width: 200px;
