@@ -68,7 +68,10 @@ function updatePage() {
             level: json.level,
             userID: json.userID,
             bannerImg: json.bannerImg,
-            profilePicImg: json.profilePicImg
+            profilePicImg: json.profilePicImg,
+            asked: json.asked,
+            answered: json.answered,
+            accepted: json.accepted
         }
 
         if(is_self){
@@ -102,9 +105,9 @@ function updatePage() {
             document.getElementById("interest").innerHTML = uProfile.interest;
 
             // push user post data
-            user_question = get_asked_question_for_user(uID);
-            user_answer = get_answered_question_for_user(uID);
-            user_accept_answer = get_accepted_question_for_user(uID);
+            user_question = uProfile.asked;
+            user_answer = uProfile.answered;
+            user_accept_answer = uProfile.accepted;
 
             // by default, display asked question
             asked_question();
@@ -155,11 +158,9 @@ function updatePage() {
             }  
         }
     })
-    
     .catch((error) => {
         console.log(error)
     })
-
 }
 
 // onclick events for post selector buttons
@@ -211,7 +212,7 @@ function insert_post_by_question_list(list) {
     } else {
         for (let i = 0; i < list.length; i++) {
             let post_element = document.createElement("a");
-            post_element.href = "question.html#" + list[i].ID;
+            post_element.href = "question.html#" + list[i].qid;
             post_element.target = "_blank";
             post_element.innerHTML =  list[i].summary + "<span style = 'color: green; margin-left: 10px;'> [" + list[i].status + "] </span>";
             post_element.className = "post-single";
@@ -219,58 +220,6 @@ function insert_post_by_question_list(list) {
         }
     }
 }
-
-// get desired question list
-function get_asked_question_for_user(uID) {
-    let result = [];
-    for(let i = 0; i < questions.length; i++) {
-        if(questions[i].asker == uID) {
-            result.push(questions[i]);
-        }
-    }
-    return result;
-}
-
-// get desired question list
-function get_answered_question_for_user(uID) {
-    let qIDs = [];
-    let result = [];
-    for(let i = 0; i < answers.length; i++) {
-        if(answers[i].answerer == uID) {
-            qIDs.push(answers[i].questionID);
-        }
-    }
-
-    for(let i = 0; i < qIDs.length; i++) {
-        for(let j = 0; j < questions.length; j++) {
-            if(qIDs[i] == questions[j].ID) {
-                result.push(questions[j]);
-            }           
-        }    
-    }
-    return result;
-}
-
-// get desired question list
-function get_accepted_question_for_user(uID) {
-    let qIDs = [];
-    let result = [];
-    for(let i = 0; i < answers.length; i++) {
-        if(answers[i].answerer == uID && answers[i].accepted) {
-            qIDs.push(answers[i].questionID);
-        }
-    }
-
-    for(let i = 0; i < qIDs.length; i++) {
-        for(let j = 0; j < questions.length; j++) {
-            if(qIDs[i] == questions[j].ID) {
-                result.push(questions[j]);
-            }           
-        }    
-    }
-    return result;
-}
-
 
 //  Check In --------------------------------------------------------
 function checkin_click() {

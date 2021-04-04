@@ -135,7 +135,8 @@ app.patch('/user/:id', async (req, res) => {
 request body expects:
 {
 	"summary": String,
-    "qid": Number
+    "qid": Number,
+	"status": String
 }
 */
 app.post('/userQuestion/:type/:id', async(req, res) => {
@@ -156,7 +157,8 @@ app.post('/userQuestion/:type/:id', async(req, res) => {
 
 			user[type].push({
 				summary: req.body.summary,
-    			qid: req.body.qid
+    			qid: req.body.qid,
+				status: req.body.status
 			})
 
 			const result = await user.save()
@@ -251,7 +253,11 @@ app.post('/question', async (req, res) => {
 			status: "Ongoing",
 		});
 		const result = await question.save();	
-		res.send(result);
+		res.send({
+			questionID: new_ID,
+			summary: req.body.summary,
+			asker: req.body.asker,
+		});
 	} catch(error) {
 		log(error);
 		res.status(500).send('Internal Server Error');
@@ -555,9 +561,7 @@ app.post('/signup', async (req, res) => {
 			response.message = "No Duplicate Application";
 		} else {
 			const credential = new Credential(body)
-			log("credential", credential);
 			const result2 = await credential.save();
-			log("result2", result2);
 			response.data = { id: ObjectID(result2._id), userID: body.userID }
 			response.code = 0;
 			response.message = "Successfully Signup";

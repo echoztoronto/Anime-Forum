@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const UQuestionSchema = new mongoose.Schema({
     summary: String,
-    qid: Number
+    qid: Number,
+    status: String
 });
 
 const UserSchema = new mongoose.Schema({
