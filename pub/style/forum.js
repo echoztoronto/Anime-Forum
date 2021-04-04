@@ -138,7 +138,6 @@ function add_new_question(title, description) {
         // add to user collection "asked" array
         const user_question_info = {
             summary: title,
-            status: "Ongoing",
             qid: json.questionID
         }
         const url = '/userQuestion/asked/' + self_profile.userID;

@@ -157,8 +157,7 @@ app.post('/userQuestion/:type/:id', async(req, res) => {
 
 			user[type].push({
 				summary: req.body.summary,
-    			qid: req.body.qid,
-				status: req.body.status
+    			qid: req.body.qid
 			})
 
 			const result = await user.save()

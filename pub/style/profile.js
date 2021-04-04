@@ -212,7 +212,7 @@ function insert_post_by_question_list(list) {
             let post_element = document.createElement("a");
             post_element.href = "question.html#" + list[i].qid;
             post_element.target = "_blank";
-            post_element.innerHTML =  list[i].summary + "<span style = 'color: green; margin-left: 10px;'> [" + list[i].status + "] </span>";
+            post_element.innerHTML =  list[i].summary;
             post_element.className = "post-single";
             document.getElementById("post-list").appendChild(post_element);
         }
