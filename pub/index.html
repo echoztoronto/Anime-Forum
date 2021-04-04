@@ -17,12 +17,12 @@
 
 <body>
     <div class="navbar">
-        <div class="navbar-page"> 
+        <div class="navbar-page">
             <div class="navbar-block"><a href="index.html"> <b>Home </b></a></div>
             <div class="navbar-block"><a href="forum.html"><b> Q&amp;A Forum</b> </a></div>
             <div class="navbar-block"><a href="ranking.html"><b>Ranking</b></a></div>
         </div>
-        <div class="navbar-block navbar-user hide" id="user_logout_content"  onclick="log_out()"><a href="index.html"><b>
+        <div class="navbar-block navbar-user hide" id="user_logout_content" onclick="log_out()"><a href="index.html"><b>
                     Logout </b></a></div>
         <div class="navbar-block-logged navbar-user hide" id="user_info_content">
             <img src="images/profilepic/1.jpg" id="nav_user_profile">
@@ -78,17 +78,17 @@
     </div>
 
     <div class="footer-home">
-        Powered By 
-        <br/>
+        Powered By
+        <br />
         <div class="contributor">
-            Songheng Yin 
+            Songheng Yin
             <a href="https://github.com/ReinaKousaka" target="_blank">
                 <img class="footer-icon" src="images/others/github.jpg">
             </a>
             <a href="mailto:songheng.yin@mail.utoronto.ca" target="_blank">
                 <img class="footer-icon" src="images/others/email.jpg">
             </a>
-        </div>   
+        </div>
         <div class="contributor">
             Echo Zheng
             <a href="https://github.com/echoztoronto" target="_blank">
@@ -97,7 +97,7 @@
             <a href="mailto:echo.zheng@mail.utoronto.ca" target="_blank">
                 <img class="footer-icon" src="images/others/email.jpg">
             </a>
-        </div>   
+        </div>
         <div class="contributor">
             Ziang Zhang
             <a href="https://github.com/Ziang-Zhang" target="_blank">
@@ -106,16 +106,22 @@
             <a href="mailto:ziang.zhang@mail.utoronto.ca" target="_blank">
                 <img class="footer-icon" src="images/others/email.jpg">
             </a>
-        </div>   
+        </div>
     </div>
 
     <script src="style/index.js"></script>
-    
+
     <div id="login-window">
         <div id="login-container">
             <!-- generate close button -->
             <div class="Xcontainer">
                 <div class="close" onclick="login_cancel()">&times;</div>
+            </div>
+            <!-- generate the unknown image -->
+            <div class="image-container">
+                <img id='profilePicCircle' src="images/profilepic/user.jpg" />
+                <br />
+                <div> <b> MEMBER LOGIN </b></div>
             </div>
             <div class="content-container">
                 <!-- requied for username -->
@@ -144,6 +150,12 @@
             <div class="Xcontainer">
                 <div class="close" onclick="signup_cancel()">&times;</div>
             </div>
+            <!-- generate the unknown image -->
+            <div class="image-container">
+                <img id='profilePicCircle' src="images/profilepic/user.jpg" />
+                <br />
+                <div> <b> MEMBER SIGNUP </b></div>
+            </div>
             <div class="content-container">
                 <!-- requied for username -->
                 <!-- use label-for -->
@@ -155,7 +167,7 @@
 
                 <label for="pswd"><b>Re-enter Password</b></label>
                 <input type="password" placeholder="Re-enter Your Password" id="sign_pwd2" name="pswd" required>
-
+                <div class="error-tips" id="signup-error-tips"></div>
                 <button type="button" onclick="sign_up()">Signup</button>
                 <div class="alreadyamember">
                     Already have an account?
@@ -166,4 +178,5 @@
         </div>
     </div>
 </body>
+
 </html>

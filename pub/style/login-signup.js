@@ -75,25 +75,27 @@ setTimeout(auto_login, 500);
 
 // set up information after login
 function set_login_info (username) {
-    let profile = get_user_profile(username);
-    if (profile == null) {
-        profile = get_user_profile("user")
-    }
-    // change icon
-    document.getElementById("nav_user_profile").setAttribute("src", "images/profilepic/" + profile.profilePic + ".jpg");
-    // insert display name
-    document.getElementById("nav_username").innerText = profile.displayName;
-    // change "#"
-    document.getElementById("nav_username").setAttribute("href", "profile.html#" + username);
-    // show userinfo and logout
-    document.getElementById("user_info_content").classList.remove('hide');
-    document.getElementById("user_logout_content").classList.remove('hide');
-    // hide login or signup content
-    document.getElementById("login_sign_content").classList.add('hide')
-    // // save to cookie (for local cookie)
-    let d = new Date();
-    d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
-    document.cookie = "username=" + username + ";expires=" + d.toUTCString() + ";path=/";
+    ajax({ url: "./user/" + username, method: "GET", data: {} }).then(function onSuccess (response) {
+        const userinfo = JSON.parse(response);
+        console.log("getuserinfo:", userinfo);
+        // change icon
+        document.getElementById("nav_user_profile").setAttribute("src", userinfo.profilePicImg);
+        // insert display name
+        document.getElementById("nav_username").innerText = userinfo.displayName;
+        // change "#"
+        document.getElementById("nav_username").setAttribute("href", "profile.html#" + userinfo.userID);
+        // show userinfo and logout
+        document.getElementById("user_info_content").classList.remove('hide');
+        document.getElementById("user_logout_content").classList.remove('hide');
+        // hide login or signup content
+        document.getElementById("login_sign_content").classList.add('hide')
+        // // save to cookie (for local cookie)
+        let d = new Date();
+        d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
+        document.cookie = "username=" + userinfo.userID + ";expires=" + d.toUTCString() + ";path=/";
+    }).catch(function onError (error) {
+        console.log('Error：' + error);
+    });
 }
 
 
@@ -108,11 +110,13 @@ function login () {
         const res = JSON.parse(response);
         if (res.code == 0) {
             login_cancel();
-            set_login_info(username);
+            // find user information
+            set_login_info(username)
         } else {
             document.getElementById('login-error-tips').innerText = "Invalid Username or Password"
         }
     }).catch(function onError (error) {
+        document.getElementById("login-error-tips").innerText = error;
         console.log('Error ：' + error);
     });
 }
@@ -123,21 +127,37 @@ function sign_up () {
     let pwd1 = document.getElementById("sign_pwd1").value;
     let pwd2 = document.getElementById("sign_pwd2").value;
     if (username == '') {
-        alert('Please Enter Username')
+        document.getElementById("signup-error-tips").innerText = 'Please Enter Username';
         return;
     }
     if (pwd1 != pwd2) {
-        alert('The password did not match the re-typed password')
+        document.getElementById("signup-error-tips").innerText = 'The password did not match the re-typed password';
         return;
     }
     let data = { userID: username, password: pwd1 };
     ajax({ url: "./signup", method: "POST", data: data }).then(function onSuccess (response) {
         const res = JSON.parse(response);
         if (res.code == 0) {
-            signup_cancel();
-            set_login_info(username)
+            // save user information
+            let userInfo = {
+                userID: username,
+                type: username == "admin" ? "admin" : "normal",
+                displayName: "Default",
+            }
+            ajax({ url: "./user", method: "POST", data: userInfo }).then(function onSuccess (response) {
+                // save successfully
+                signup_cancel();
+                set_login_info(username)
+            }).catch(function onError (error) {
+                // save failed
+                document.getElementById("signup-error-tips").innerText = error;
+                console.log('Error：' + error);
+            });
+        } else {
+            document.getElementById("signup-error-tips").innerText = res.message;
         }
     }).catch(function onError (error) {
+        document.getElementById("signup-error-tips").innerText = error;
         console.log('Error：' + error);
     });
 
