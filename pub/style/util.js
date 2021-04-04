@@ -109,7 +109,9 @@ function go_to_error_page(message) {
     if(document.getElementById("error-page") == null) {
         let error_element = document.createElement("div");
         error_element.id = "error-page";
-        error_element.innerHTML = message + `<br><br>`;
+        error_element.innerHTML = 
+            `<img id="sorry-img" src="images/others/sorry.jpg"> <br><br>
+            ${message}<br><br>`;
         document.body.appendChild(error_element);
         let return_element = document.createElement("a");
         return_element.id = "error-page-return";

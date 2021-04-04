@@ -295,15 +295,18 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    padding-top: 20%;
+    padding-top: 15%;
 }
 
 #error-page-return {
     color: rgb(90, 84, 173);
+    font-size: 25px;
+    text-decoration: none;
 }
 
 #error-page-return:hover {
     color: #000000;
+    text-decoration: underline;
 }
 
 
