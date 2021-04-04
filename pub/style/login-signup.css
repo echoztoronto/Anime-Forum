@@ -15,6 +15,7 @@
 }
 
 #login-container {
+  border-radius: 15px;
   background-color: white;
   position: fixed;
   top: calc(50% - 200px);
