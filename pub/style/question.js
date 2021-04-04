@@ -84,6 +84,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             document.querySelector('.dislike_button_question').addEventListener('click', dislike_question);
             document.querySelector('.like_button_question').id = `${qID}`;
             document.querySelector('.dislike_button_question').id = `${qID}`;
+            if (qObject.liked_user_list.includes(self_ID)){ document.querySelector('.like_button_question').style.color = 'pink'; }
+            if (qObject.disliked_user_list.includes(self_ID)){ document.querySelector('.dislike_button_question').style.color = 'pink'; }
 
             // route to get all answers of the question
             const answer_res = await fetch(`./answers-of-question/${qObject.questionID}`);
@@ -160,6 +162,11 @@ async function insert_answer_posts(answer_list) {
             const user_res = await fetch(`/user/${answer_list[i].answerer.userID}`);
             const aProfile = await user_res.json();
             
+            let like_color = 'silver';        // check if voted
+            let dislike_color = 'silver';
+            if (answer_list[i].liked_user_list.includes(self_ID)){ like_color = 'pink'; }
+            if (answer_list[i].disliked_user_list.includes(self_ID)){ dislike_color = 'pink'; }
+        
             // create the DOM for answer post
             let element = document.createElement("div");
             element.className = "post-container";
@@ -175,9 +182,9 @@ async function insert_answer_posts(answer_list) {
                 </div>
                 <div class='post-content'>
                     <div class="vote_container">
-                        <div class="like_button_answer" id="${answer_list[i].questionID}/${answer_list[i]._id}">&#9650</div>
+                        <div class="like_button_answer" id="${answer_list[i].questionID}/${answer_list[i]._id}" style="color:${like_color}">&#9650</div>
                         <div class="like_num">${answer_list[i].likeCount}</div>
-                        <div class="dislike_button_answer" id="${answer_list[i].questionID}/${answer_list[i]._id}">&#9660</div>
+                        <div class="dislike_button_answer" id="${answer_list[i].questionID}/${answer_list[i]._id}" style="color:${dislike_color}">&#9660</div>
                     </div>
                     <div class='post-description' id='answer-description-${i}'></div>
                     <div class ='accept-description' id='answer-accept-${i}'></div>
@@ -345,25 +352,30 @@ async function like_question(e){
     try{
         const res = await fetch(`/question/${e.target.id}`);        // e.target.id === questionID
         const question = await res.json();
-        let increment = 0;
+        const patch_object = {
+            "likeCount": question.likeCount,
+            "liked_user_list": question.liked_user_list,
+            "disliked_user_list": question.disliked_user_list
+        };
         if (e.target.style.color == 'pink'){        // already clicked, undo it
             e.target.style.color = 'silver';
-            increment = -1;
+            patch_object.likeCount -= 1;
+            patch_object.liked_user_list.remove(self_ID);
         }else{          // upvote is not clicked
             e.target.style.color = 'pink';
+            patch_object.liked_user_list.push(self_ID);
             if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
-                increment = 2;
+                patch_object.likeCount += 2;
+                patch_object.disliked_user_list.remove(self_ID);
             }else{
-                increment = 1;
+                patch_object.likeCount += 1;
             }
             e.target.parentElement.children[2].style.color = 'silver';
         }
         // PATCH the question
         const res_updated = await fetch(`/question/${e.target.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({
-                "likeCount": question.likeCount + increment
-            }),
+            body: JSON.stringify(patch_object),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -380,25 +392,30 @@ async function dislike_question(e){
     try{
         const res = await fetch(`/question/${e.target.id}`);        // e.target.id === questionID
         const question = await res.json();
-        let increment = 0;
+        const patch_object = {
+            "likeCount": question.likeCount,
+            "liked_user_list": question.liked_user_list,
+            "disliked_user_list": question.disliked_user_list
+        };
         if (e.target.style.color == 'pink'){        // already clicked, undo it
             e.target.style.color = 'silver';
-            increment = 1;  
+            patch_object.likeCount += 1;
+            patch_object.disliked_user_list.remove(self_ID);
         }else{
             e.target.style.color = 'pink';
+            patch_object.disliked_user_list.push(self_ID);
             if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
-                increment = -2;
+                patch_object.likeCount -= 2;
+                patch_object.liked_user_list.remove(self_ID);
             }else{  // like is un-clicked, decrease by 1
-                increment = -1;
+                patch_object.likeCount -= 1;
             }
             e.target.parentElement.children[0].style.color = 'silver';
         }
         // PATCH the question
         const res_updated = await fetch(`/question/${e.target.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({
-                "likeCount": question.likeCount + increment
-            }),
+            body: JSON.stringify(patch_object),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -426,25 +443,30 @@ async function like_answer(e){
     try{
         const res = await fetch(`/question/${e.target.id}`);
         const answer = await res.json();
-        let increment = 0;
+        const patch_object = {
+            "likeCount": answer.likeCount,
+            "liked_user_list": answer.liked_user_list,
+            "disliked_user_list": answer.disliked_user_list
+        };
         if (e.target.style.color == 'pink'){        // already clicked, undo it
             e.target.style.color = 'silver';
-            increment = -1;
+            patch_object.likeCount -= 1;
+            patch_object.liked_user_list.remove(self_ID);
         }else{
             e.target.style.color = 'pink';
+            patch_object.liked_user_list.push(self_ID);
             if (e.target.parentElement.children[2].style.color == 'pink'){      // the case dislike is clicked, increase by 2
-                increment = 2;
+                patch_object.likeCount += 2;
+                patch_object.disliked_user_list.remove(self_ID);
             }else{
-                increment = 1;
+                patch_object.likeCount += 1;
             }
             e.target.parentElement.children[2].style.color = 'silver';
         }
         // PATCH the answer
         const res_updated = await fetch(`/question/${e.target.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({
-                "likeCount": answer.likeCount + increment
-            }),
+            body: JSON.stringify(patch_object), 
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -462,24 +484,30 @@ async function dislike_answer(e){
         const res = await fetch(`/question/${e.target.id}`);
         const answer = await res.json();
         let increment = 0;
+        const patch_object = {
+            "likeCount": answer.likeCount,
+            "liked_user_list": answer.liked_user_list,
+            "disliked_user_list": answer.disliked_user_list
+        };
         if (e.target.style.color == 'pink'){        // already clicked, undo it
             e.target.style.color = 'silver';
-            increment = 1;
+            patch_object.likeCount += 1;
+            patch_object.disliked_user_list.remove(self_ID);
         }else{
             e.target.style.color = 'pink';
+            patch_object.disliked_user_list.push(self_ID);
             if (e.target.parentElement.children[0].style.color == 'pink'){      // the case like is clicked, decrease by 2
-                increment = -2;
+                patch_object.likeCount -= 2;
+                patch_object.liked_user_list.remove(self_ID);
             }else{  // like is un-clicked, decrease by 1
-                increment = -1;
+                patch_object.likeCount -= 1;
             }
             e.target.parentElement.children[0].style.color = 'silver';
         }
         // PATCH the answer
         const res_updated = await fetch(`/question/${e.target.id}`, {
             method: 'PATCH',
-            body: JSON.stringify({
-                "likeCount": answer.likeCount + increment
-            }),
+            body: JSON.stringify(patch_object),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }

@@ -10,7 +10,8 @@ const AnswerSchema = new mongoose.Schema({
     content: String,
     likeCount: {type: Number, default: 0},
     accepted: Boolean,
-    voted_user_list: [String]
+    liked_user_list: [String],
+    disliked_user_list: [String]
 });
 
 const QuestionSchema = new mongoose.Schema({
@@ -31,7 +32,8 @@ const QuestionSchema = new mongoose.Schema({
     reward: Number,
     levelLimit: Number,
     answer_list: [AnswerSchema],
-    voted_user_list: [String]
+    liked_user_list: [String],
+    disliked_user_list: [String]
 });
 
 const Question = mongoose.model('Question', QuestionSchema);
