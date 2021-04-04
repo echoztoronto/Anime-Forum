@@ -43,7 +43,7 @@ async function sort_by_time(e){
 }
 
 function update_forum_page(questions) {
-    if(self_ID != "null") {
+    if(self_ID != "") {
         let question_table = document.querySelector('#question_table');
         question_table.innerHTML = `
             <tbody>
@@ -138,7 +138,6 @@ function add_new_question(title, description) {
         // add to user collection "asked" array
         const user_question_info = {
             summary: title,
-            status: "Ongoing",
             qid: json.questionID
         }
         const url = '/userQuestion/asked/' + self_profile.userID;

@@ -7,10 +7,9 @@ let checked_in = false;
 let self_profile = null;
 
 // get self ID from cookie
-// TODO: use a safer method to store it
 let self_ID = getCookie("username");
 
-if(self_ID != "null") {
+if(self_ID != "") {
     // use GET method to get self info
     const url = '/user/' + self_ID;
     fetch(url)
@@ -33,15 +32,14 @@ if(self_ID != "null") {
             profilePicImg: json.profilePicImg
         }
         document.getElementById("nav_user_profile").src = json.profilePicImg;
-        document.getElementById("nav_username").innerText = json.displayName;
-        document.getElementById("nav_username").href = "profile.html#" + self_ID;
+        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
     })
 } else {  // user is not logged in
     err_message = "Please login to view the user profile";
     go_to_error_page(err_message);
 }
 
-if(window.location.hash && self_ID != "null") {
+if(window.location.hash && self_ID != "") {
     updatePage();
 }
 
@@ -212,7 +210,7 @@ function insert_post_by_question_list(list) {
             let post_element = document.createElement("a");
             post_element.href = "question.html#" + list[i].qid;
             post_element.target = "_blank";
-            post_element.innerHTML =  list[i].summary + "<span style = 'color: green; margin-left: 10px;'> [" + list[i].status + "] </span>";
+            post_element.innerHTML =  list[i].summary;
             post_element.className = "post-single";
             document.getElementById("post-list").appendChild(post_element);
         }

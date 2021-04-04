@@ -78,24 +78,28 @@ app.get('/allUsers', async (req, res) =>{
 
 // POST /user
 app.post('/user', async (req, res) => {
-	const user = new User(req.body)
-
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
 		res.status(500).send('Internal server error')
 		return;
 	}
 
-	try {
-		const result = await user.save()	
-		res.send(result)
-	} catch(error) {
-		log(error) 
-		if (isMongoError(error)) { 
-			res.status(500).send('Internal server error')
-		} else {
-			res.status(400).send('Bad Request') 
+	const existed = await User.findOne({ userID: req.params.userID}).exec()
+	if (!existed) {
+		const user = new User(req.body)
+		try {
+			const result = await user.save()	
+			res.send(result)
+		} catch(error) {
+			log(error) 
+			if (isMongoError(error)) { 
+				res.status(500).send('Internal server error')
+			} else {
+				res.status(400).send('Bad Request') 
+			}
 		}
+	} else {
+		res.status(450).send('User already exists')
 	}
 })
 
@@ -157,8 +161,7 @@ app.post('/userQuestion/:type/:id', async(req, res) => {
 
 			user[type].push({
 				summary: req.body.summary,
-    			qid: req.body.qid,
-				status: req.body.status
+    			qid: req.body.qid
 			})
 
 			const result = await user.save()
@@ -539,14 +542,9 @@ app.patch('/question/:qid/:aid', async (req, res) => {
 //////////////////////////////////   SIGNUP  ////////////////////////////////////
 // POST /signup
 app.post('/signup', async (req, res) => {
-	var body = req.body;
-	var response = { code: 500, data: [], message: "fail to signup" };
-	// distinguish between admin and other users' account
-	if (body.userID === "admin") {
-		body["admin"] = true;
-	} else {
-		body["admin"] = false;
-	}
+	const body = req.body;
+	let response = { code: 500, data: [], message: "fail to signup" };
+
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
 		response.message = "error with database connection";
@@ -557,7 +555,7 @@ app.post('/signup', async (req, res) => {
 		// to see if the account is exist
 		const result1 = await Credential.findOne({ userID: body.userID }).exec();
 		if (result1) {
-			response.message = "No Duplicate Application";
+			response.message = "User already exists, please try again";
 		} else {
 			const credential = new Credential(body)
 			const result2 = await credential.save();
@@ -578,8 +576,7 @@ app.post('/signup', async (req, res) => {
 // POST /login
 app.post('/login', async (req, res) => {
 	const body = req.body;
-	var response = { code: 500, data: [], message: "fail to login" };
-	log("body", body);
+	let response = { code: 500, data: [], message: "fail to login" };
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection');
 		res.json(response);

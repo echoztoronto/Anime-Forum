@@ -2,12 +2,13 @@ let quill = null;  //editor object
 let qID = 0;
 let qSummary = '';
 let already_answered = false;
+let am_asker = false;
 
 // get self ID from cookie
 let self_ID = getCookie("username");
 let self_profile = null;
 
-if(self_ID != "null") {
+if(self_ID != "") {
     // use GET method to get self info
     const url = '/user/' + self_ID;
     fetch(url)
@@ -33,15 +34,14 @@ if(self_ID != "null") {
             if(self_profile.answered[i].qid == qID) already_answered = true;
         }
         document.getElementById("nav_user_profile").src = json.profilePicImg;
-        document.getElementById("nav_username").innerText = json.displayName;
-        document.getElementById("nav_username").href = "profile.html#" + self_ID;
+        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
     })
 } else {  // user is not logged in
     err_message = "Please login to view the questions";
     go_to_error_page(err_message);
 }
 
-if(window.location.hash && self_ID != "null") {
+if(window.location.hash && self_ID != "") {
     updatePage();
 }
 
@@ -60,6 +60,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 location.reload();
             }
             qSummary = qObject.summary;
+            if(qObject.asker.userID == self_ID) am_asker = true;
     
             //get asker info
             // fetch to GET the asker
@@ -103,7 +104,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 add_event_listener();
             }
             //add text editor if question is not resolved
-            if(qObject.status != "Resolved" && !already_answered) {
+            if(qObject.status != "Resolved" && !already_answered && !am_asker) {
                 document.getElementById("add-answer-btn").style = "visibility: visible;";
                 if(quill == null) {
                     initiate_answer_editor();
