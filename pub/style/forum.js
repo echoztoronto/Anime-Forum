@@ -89,7 +89,7 @@ function initiate_question_editor() {
     });
 }
 
-function editor_submit_question() {
+async function editor_submit_question() {
     let quillHTML = forum_quill.root.innerHTML;
     let question_title = document.getElementById('title-field').value;
     const message_element = document.getElementById('editor-message');
@@ -100,6 +100,14 @@ function editor_submit_question() {
         // get reward, level limit
         const reward = document.querySelector(`#reward-input`).value;
         const level_limit = document.querySelector(`#level-input`).value;
+        const get_user_res = await fetch(`/user/${self_profile.userID}`);
+        const json = await get_user_res.json();     // json: user json
+        if (json.gold < reward){        // not enough gold
+            message_element.style = "color: red;";
+            message_element.innerHTML = "Not Enough Gold!!!";
+            return;
+        }
+        // check is done, then add new question
         add_new_question(question_title, quillHTML, reward, level_limit);
         document.getElementById("editor-window").style = "visibility: hidden;";
         message_element.style = "color: black;";
@@ -109,9 +117,7 @@ function editor_submit_question() {
     }
 }
 
-function add_new_question(title, description, reward, level_limit) {
-    // TODO: really decreases the user's gold if reward > 0
-    
+async function add_new_question(title, description, reward, level_limit) {
     // create POST request with updated user information
     const new_question_data = {
         "summary": title,
@@ -123,46 +129,56 @@ function add_new_question(title, description, reward, level_limit) {
             displayName: self_profile.displayName,
         },
     }
-    const url = '/question';
-    const request = new Request(url, {
-        method: 'POST', 
-        body: JSON.stringify(new_question_data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request)
-    .then(function(res) {
-        if (res.status === 200) {
-            console.log("added question")
-            return res.json()
-        } else console.log('Could not add question')           
-    })
-    .then(json => {
-        // add to user collection "asked" array
-        const user_question_info = {
-            summary: title,
-            qid: json.questionID
-        }
-        const url = '/userQuestion/asked/' + self_profile.userID;
-        const request_user = new Request(url, {
+    try{
+        // POST new question
+        const request = new Request(`/question`, {
             method: 'POST', 
-            body: JSON.stringify(user_question_info),
+            body: JSON.stringify(new_question_data),
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
         });
-        fetch(request_user)
-        .then(function(res) {
-            if (res.status === 200) {
-                console.log("added to user array")
-            } else console.log('Could not to user array')           
+        let res = await fetch(request);
+        if (res.status === 200) {
+            console.log("added question");
+        }else{
+            console.log('Could not add question');
+        }
+        const question_json = await res.json();         // question object
+        
+        // PATCH to decrease the user's gold
+        const get_user_res = await fetch(`/user/${self_profile.userID}`);
+        const user_json = await get_user_res.json();     // user object
+        res = await fetch(`/user/${self_profile.userID}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "gold": user_json.gold - reward
+            }),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // POST to add to user collection "asked" array
+        const user_question_info = {
+            summary: title,
+            qid: user_json.questionID
+        }
+        res = await fetch(`/userQuestion/asked/${self_profile.userID}`,{
+            method: 'POST', 
+            body: JSON.stringify(user_question_info),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        if (res.status === 200){
+            console.log("added to user array");
+        }else{
+            console.log('Could not to user array');
+        }
 
         // DOM: add a new row on forum
         const table_element = document.getElementById("question_table")
@@ -171,14 +187,10 @@ function add_new_question(title, description, reward, level_limit) {
         newRow.innerHTML = `<td class="c1">0</td>
                             <td class="c2">0</td>
                             <td class="c3">Ongoing</td>
-                            <td class="c4"><a href="question.html#${json.questionID}">${title}</a></td>
-                            <td class="c5"><a href="profile.html#${json.asker.userID}"> ${json.asker.displayName} </a></td>
+                            <td class="c4"><a href="question.html#${question_json.questionID}">${title}</a></td>
+                            <td class="c5"><a href="profile.html#${question_json.asker.userID}"> ${question_json.asker.displayName} </a></td>
                             <td class="c6"></td>`
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-    
-
-    
+    }catch(err){
+        console.log(err);
+    } 
 }
