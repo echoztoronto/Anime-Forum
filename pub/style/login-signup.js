@@ -77,11 +77,12 @@ setTimeout(auto_login, 500);
 function set_login_info (username) {
     ajax({ url: "./user/" + username, method: "GET", data: {} }).then(function onSuccess (response) {
         const userinfo = JSON.parse(response);
+        self_ID = username;
         remove_right_navbar();
         add_logged_navbar();
         // change icon
         document.getElementById("nav_user_profile").setAttribute("src", userinfo.profilePicImg);
-        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
+        document.getElementById("clickable_icon").href = "profile.html#" + username;
         // save to cookie (for local cookie)
         let d = new Date();
         d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
