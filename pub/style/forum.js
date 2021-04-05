@@ -100,13 +100,18 @@ async function editor_submit_question() {
         // get reward, level limit
         const reward = document.querySelector(`#reward-input`).value;
         const level_limit = document.querySelector(`#level-input`).value;
-        const get_user_res = await fetch(`/user/${self_profile.userID}`);
-        const json = await get_user_res.json();     // json: user json
-        if (json.gold < reward){        // not enough gold
-            message_element.style = "color: red;";
-            message_element.innerHTML = "Not Enough Gold!!!";
+        try{
+            const get_user_res = await fetch(`/user/${self_profile.userID}`);
+            const json = await get_user_res.json();     // json: user json
+            if (json.gold < reward){        // not enough gold
+                message_element.style = "color: red;";
+                message_element.innerHTML = "Not Enough Gold!!!";
+                throw "Not Enough Gold!!!";
+            }
+        }catch(err){
+            console.log(err);
             return;
-        }
+        } 
         // check is done, then add new question
         add_new_question(question_title, quillHTML, reward, level_limit);
         document.getElementById("editor-window").style = "visibility: hidden;";
