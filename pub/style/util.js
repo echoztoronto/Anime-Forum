@@ -95,7 +95,7 @@ function getCookie (cname) {
             return c.substring(name.length, c.length);
         }
     }
-    return null;
+    return "";
 }
 
 function log_out () {
