@@ -238,3 +238,27 @@
     background-color: rgb(223, 223, 223);
     cursor: pointer;
 }
+
+#reward-setter{
+    position: fixed;
+    top: calc(50% + 300px);
+    left: calc(50% - 200px);
+    display: inline;
+    font-size: 20px;
+}
+
+#level-limit-setter{
+    position: fixed;
+    top: calc(50% + 300px);
+    left: calc(50% + 50px);
+    display: inline;
+    font-size: 20px;
+}
+
+input[type=number]{
+    width: 50px;
+    height: 30px;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 30px;
+}

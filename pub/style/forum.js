@@ -97,7 +97,10 @@ function editor_submit_question() {
         message_element.style = "color: red;";
         message_element.innerHTML = "Question title must be greater than 10 characters!";
     } else {
-        add_new_question(question_title, quillHTML);
+        // get reward, level limit
+        const reward = document.querySelector(`#reward-input`).value;
+        const level_limit = document.querySelector(`#level-input`).value;
+        add_new_question(question_title, quillHTML, reward, level_limit);
         document.getElementById("editor-window").style = "visibility: hidden;";
         message_element.style = "color: black;";
         message_element.innerHTML = "Add a new question";
@@ -106,13 +109,15 @@ function editor_submit_question() {
     }
 }
 
-function add_new_question(title, description) {
+function add_new_question(title, description, reward, level_limit) {
+    // TODO: really decreases the user's gold if reward > 0
+    
     // create POST request with updated user information
     const new_question_data = {
         "summary": title,
         "description": description,
-        "reward": 0,
-        "levelLimit": 0,
+        "reward": reward,
+        "levelLimit": level_limit,
         "asker": {
             userID: self_profile.userID, 
             displayName: self_profile.displayName,
