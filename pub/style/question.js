@@ -36,6 +36,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 const self_res = await fetch(`/user/${self_ID}`);     
                 const uObject = await self_res.json();
                 self_profile = {
+                    type: uObject.type,
                     level: uObject.level,
                     userID: uObject.userID,
                     displayName: uObject.displayName,
@@ -51,7 +52,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 document.getElementById("nav_user_profile").src = uObject.profilePicImg;
             } else go_to_error_page("Please login to view the questions");
                
-            // check if I am asker or low level user
+            // check if I am admin or asker or low level user
+            if(self_profile.type == "admin") am_admin = true;
             if(qObject.asker.userID == self_ID) am_asker = true;
             if(qObject.levelLimit > self_profile.level) {
                 am_low = true;
@@ -87,12 +89,25 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             if (qObject.liked_user_list.includes(self_ID)){ document.querySelector('.like_button_question').style.color = 'pink'; }
             if (qObject.disliked_user_list.includes(self_ID)){ document.querySelector('.dislike_button_question').style.color = 'pink'; }
 
+            // If I am admin, add mute and delete buttons for asker container
+            if(am_admin){
+                // don't mute an admin
+                if(uProfile.type != "admin") {  
+                    let asker_mute_container = create_unique_element("div", "mute-user-asker", "mute-user-container", "asker-profile");
+                    asker_mute_container.innerHTML = `<button class="mute-user-btn" value="${uProfile.userID}">MUTE</button>`;
+                    //TODO: ADD MUTE FUNCTION
+                }
+                let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
+                asker_delete_container.innerHTML = `<button class="delete-post-btn">DELETE QUESTION</button>`;
+                //TODO: ADD DELETE FUNCTION
+            }
+            
             // remove previous answer posts
             remove_answer_posts();
 
             // if I'm low level user
             if(am_low) {
-                let limit_container = create_element("div", "limit-container", "", "question-container");
+                let limit_container = create_unique_element("div", "limit-container", "", "question-container");
                 gold_needed = qObject.levelLimit - self_profile.level;
                 if(self_profile.gold < gold_needed) not_enough_gold = true;
                 limit_container.innerHTML = `
@@ -126,8 +141,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     insert_answer_posts(answer_list);
                     add_event_listener();
                 }
-                //add text editor if question is not resolved
-                if(qObject.status != "Resolved" && !already_answered && !am_asker && !am_low) {
+                //add text editor
+                if(am_admin || (qObject.status != "Resolved" && !already_answered && !am_asker && !am_low)) {
                     document.getElementById("add-answer-btn").style = "visibility: visible;";
                     if(quill == null) {
                         initiate_answer_editor();
@@ -198,14 +213,14 @@ async function insert_answer_posts(answer_list) {
             element.id = "answer-post-"+i;
             document.getElementById("question-container").appendChild(element);
             element.innerHTML = `
-                <div class='post-profile-answerer'>
+                <div class='post-profile-answerer' id='answerer-profile-${i}'>
                     <img class='post-profile-icon' id='answerer-icon-${i}' src='//:0'/>
                     <div class='post-profile-info'>
                         <div class='display-name' id='answerer-name-${i}'></div> 
                         <div class='user-level' id='answerer-level-${i}'></div>
                     </div>
                 </div>
-                <div class='post-content'>
+                <div class='post-content' id='answerer-content-${i}'>
                     <div class="vote_container">
                         <div class="like_button_answer" id="${answer_list[i].questionID}/${answer_list[i]._id}" style="color:${like_color}">&#9650</div>
                         <div class="like_num">${answer_list[i].likeCount}</div>
@@ -227,6 +242,20 @@ async function insert_answer_posts(answer_list) {
             if(answer_list[i].accepted) {
                 document.getElementById("answer-accept-"+i).innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
             }  
+
+            // If I am admin, add mute and delete buttons
+            if(am_admin) {
+                // don't mute an admin
+                if(aProfile.type != "admin") { 
+                    let answerer_mute_container = create_unique_element("div", "mute-user-"+i, "mute-user-container", "answerer-profile-"+i);
+                    answerer_mute_container.innerHTML = `<button class="mute-user-btn" value="${aProfile.userID}"> MUTE </button>`;
+                    //TODO: ADD MUTE FUNCTION
+                }
+                let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
+                answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${i}"> DELETE QUESTION </button>`;
+                //TODO: ADD DELETE FUNCTION
+            }
+            
         }catch(err){
             console.log(err);
         }

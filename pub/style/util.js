@@ -14,6 +14,22 @@ function create_element(type, ID, cName, parentID) {
     return element;
 }
 
+// create an unique element (prevent repeated element)
+function create_unique_element(type, ID, cName, parentID) {
+    if(document.getElementById(ID) != null) remove_element_by_ID(ID);
+    let element = document.createElement(type);
+    console.log(parentID);
+    document.getElementById(parentID).appendChild(element);
+    if(ID != '') {
+        element.id = ID;
+    }
+    if(cName != '') {
+        element.className = cName;
+    }
+
+    return element;
+}
+
 // safely remove an element by its ID
 function remove_element_by_ID(ID) {
     if(document.getElementById(ID) != null) {

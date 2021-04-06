@@ -22,7 +22,6 @@
 		<div class="navbar-user">
 			<div class="navbar-block"><a href="question-admin.html"> Admin </a></div>
 			<div class="navbar-block"><a href="question-asker.html"> Asker </a></div>
-			<div class="navbar-block"><a href="question-low.html"> Low Level </a></div>
 			<div class="navbar-block-logged">
 				<a id="clickable_icon" target="_blank"> <img id="nav_user_profile"> </a>
 			</div>
@@ -43,8 +42,8 @@
 	
 	<div class="question-container" id="question-container">
 		<!-- Question Post -->
-		<div class='post-container'>
-			<div class='post-profile' >
+		<div class='post-container' id="asker-post">
+			<div class='post-profile' id="asker-profile">
 				<img class='post-profile-icon' id="asker-icon" src="//:0" />
 				<div class='post-profile-info'>
 					<div class="display-name" id="asker-name"> </div>
@@ -52,7 +51,7 @@
 				</div>
 			</div>
 			
-			<div class='post-content'>
+			<div class='post-content' id="asker-content">
 				<div class="vote_container">
 					<div class="like_button_question">&#9650</div>
 					<div class="like_num" id="question_vote_num">0</div>

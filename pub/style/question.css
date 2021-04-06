@@ -83,7 +83,7 @@ a {
 	vertical-align: top;
     margin-top: 20px;
     margin-bottom: 10px;
-    margin-left: 100px;
+    margin-left: 125px;
 }
 
 .post-profile-info{
@@ -187,6 +187,7 @@ a {
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 100px;
+    min-height: 170px;
 }
 
 .post-description img {
@@ -329,9 +330,6 @@ a {
     cursor: pointer;
 }
 
-
-
-
 /*-------- Low Level User View   ---------------*/
 #limit-container {
     background-color: rgb(245, 156, 156);
@@ -379,4 +377,50 @@ a {
     text-decoration: none;
     font-family:'Times New Roman', Times, serif;
     font-size: 20px;
+}
+
+/*-------- Admin View   ---------------*/
+.mute-user-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mute-user-btn {
+    height: 40px;
+    width: 80px;
+    color: rgb(223, 74, 74);
+    font-size: 20px;
+    border: solid 1px rgb(87, 87, 87);
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+    margin-left: calc(50% - 40px);
+}
+
+.mute-user-btn:hover{
+    background-color: rgb(238, 215, 245);
+    cursor: pointer;
+}
+
+.delete-post-container {
+    width: 100%;
+}
+
+.delete-post-btn{
+    float: right;
+    margin-right: 0;
+    height: 50px;
+    width: 180px;
+    text-align: center;
+    float: right;
+    color: rgb(223, 74, 74);
+    font-size: 20px;
+    border: solid 1px rgb(87, 87, 87);
+    border-radius: 5px;
+    background-color: white;
+}
+
+.delete-post-btn:hover{
+    background-color: rgb(238, 215, 245);
+    cursor: pointer;
 }
