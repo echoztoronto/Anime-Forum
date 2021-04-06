@@ -16,6 +16,8 @@ if(window.location.hash && self_ID != "") {
     updatePage();
 }
 
+if(self_ID == "") go_to_error_page("Please login to view the questions");
+
 // update page with updated question ID
 async function updatePage(sort="like") {     // sort range in {"like", "time"}
     let x = location.hash;
