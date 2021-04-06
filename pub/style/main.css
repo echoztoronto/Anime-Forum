@@ -181,8 +181,12 @@ html, body {
     top: 500px;
 }
 
-a {
+#brief_ranking a{
     text-decoration: none;
+}
+
+#brief_ranking a:hover {
+    color: rgb(155, 155, 240);
 }
 
 /*---------Top/Recent Question Part---------------------------*/
@@ -237,8 +241,7 @@ a {
 }
 
 .question_summary a:hover {
-    text-decoration: underline;
-    color:black;
+    color: rgb(155, 155, 240);
 }
 
 
