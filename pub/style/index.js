@@ -112,21 +112,6 @@ function Slides(index){
 }
 
 
-// function showSlides() {
-//     for (let i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";  
-//     }
-//     for (let i = 0; i < dots.length; i++) {
-//         dots[i].className = dots[i].className.replace("dot_on", "");
-//     }
-//     index++;
-//     if (index == slides.length){
-//         index = 0;
-//     }    
-//     slides[index].style.display = "block";  
-//     dots[index].className += " dot_on";
-//     setTimeout(showSlides, 3000);
-// }
 //  navbar manipulate
 
 function remove_right_navbar () {
