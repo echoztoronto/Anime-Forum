@@ -11,12 +11,13 @@ async function show_users_most_answers(e){
 
     user_list = user_list.filter(user => user.num_answers > 0);
     user_list = user_list.map(user => ({
+        "content": user.num_answers,
         "userID": user.userID,
         "displayName": user.displayName,
         "level": user.level   
     }));
     user_list.sort((a, b) => b.content - a.content);
-    update_ranking_page(user_list, table_left, 'left');
+    update_ranking_page(user_list.slice(0, 10), table_left, 'left');
 }
 
 async function show_users_most_accepted(e){
@@ -25,14 +26,14 @@ async function show_users_most_accepted(e){
     let user_list = await res.json();
 
     user_list = user_list.filter(user => user.num_answers > 0 && user.num_accepted > 0);
+    user_list.sort((a, b) => (b.num_accepted / b.num_answers) - (a.num_accepted / a.num_answers));
     user_list = user_list.map(user => ({
         "content": ((user.num_accepted / user.num_answers) * 100).toFixed(2) + '%',
         "userID": user.userID,
         "displayName": user.displayName,
         "level": user.level   
     }));
-    user_list.sort((a, b) => b.content - a.content);
-    update_ranking_page(user_list, table_right, 'right');
+    update_ranking_page(user_list.slice(0, 10), table_right, 'right');
 }
 
 function update_ranking_page(users, table, flag){

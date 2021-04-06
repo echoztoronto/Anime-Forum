@@ -54,19 +54,29 @@ async function show_recent_question(e){
     }
 }
 
-window.addEventListener('load', show_anime_schedule);
+window.addEventListener('load', show_brief_ranking);
 
-function show_anime_schedule(e){
+async function show_brief_ranking(e){
     e.preventDefault();
-    const schedule = document.querySelector('#schedule');
-    const lst = schedule_dict["Mon"];       // we use Monday as example
-    for (let i = 0; i < Math.min(6, lst.length); i++){        // show at most 6 animes
-        const c = document.createElement('div');
-        c.className = "schedule_container";
-        c.innerHTML = `
-        <div class="schedule_container_left">${lst[i].name}</div>
-        <div class="schedule_container_right">${lst[i].time}</div><br>`;
-        schedule.appendChild(c);
+    try{
+        const res = await fetch('/allUsers');       // GET all users
+        let user_list = await res.json();
+        user_list.sort((a, b) => b.level - a.level);
+        // manipulate DOM
+        const container_left = document.querySelector(`.ranking_container_left`);
+        const container_right = document.querySelector(`.ranking_container_right`);
+        for (let i = 0; i < Math.min(5, user_list.length); i++){
+            const new_left = document.createElement('div');
+            const new_right = document.createElement('div');
+            new_left.setAttribute("class", "ranking_body");
+            new_right.setAttribute("class", "ranking_body");
+            new_left.innerHTML = `<a target="_blank" href="profile.html#${user_list[i].userID}">${user_list[i].displayName}`;
+            new_right.innerHTML = `${user_list[i].level}`;
+            container_left.appendChild(new_left);
+            container_right.appendChild(new_right);
+        }
+    }catch(err){
+        console.log(err);
     }
 }
 
