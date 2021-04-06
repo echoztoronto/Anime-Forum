@@ -32,7 +32,7 @@ function add_fade(element) {
         element.style.opacity = op;
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op -= op * 0.1;
-    }, 200);
+    }, 150);
 }
 
 function calculate_exp_and_level(level, exp) {

@@ -239,11 +239,9 @@ function checkin_click() {
     let level = uProfile.level;
     exp += 5;
     gold += 1;
-    console.log(level,exp);
     const updated = calculate_exp_and_level(level, exp);
     level = updated[0];
     exp = updated[1];
-    console.log(level,exp);
     document.getElementById("user-exp").innerHTML = `EXP: ${exp}`;
     document.getElementById("user-gold").innerHTML = `Gold: ${gold}`;
     document.getElementById("user-level").innerHTML = `Level: ${level}`;

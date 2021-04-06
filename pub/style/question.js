@@ -3,43 +3,14 @@ let qID = 0;
 let qSummary = '';
 let already_answered = false;
 let am_asker = false;
+let am_low = false;
+let am_admin = false;
+let gold_needed = 0;
+let not_enough_gold = false;
 
 // get self ID from cookie
 let self_ID = getCookie("username");
 let self_profile = null;
-
-if(self_ID != "") {
-    // use GET method to get self info
-    const url = '/user/' + self_ID;
-    fetch(url)
-    .then((res) => { 
-        if (res.status === 200) {
-        return res.json() 
-    } else {
-            console.log('Could not get user')
-            console.log(res)
-    }                
-    })
-    .then((json) => { 
-        self_profile = {
-            level: json.level,
-            userID: json.userID,
-            displayName: json.displayName,
-            gold: json.gold,
-            exp: json.exp,
-            profilePicImg: json.profilePicImg,
-            answered: json.answered
-        }
-        for(let i = 0; i < self_profile.answered.length; i++) {
-            if(self_profile.answered[i].qid == qID) already_answered = true;
-        }
-        document.getElementById("nav_user_profile").src = json.profilePicImg;
-        document.getElementById("clickable_icon").href = "profile.html#" + self_ID;
-    })
-} else {  // user is not logged in
-    err_message = "Please login to view the questions";
-    go_to_error_page(err_message);
-}
 
 if(window.location.hash && self_ID != "") {
     updatePage();
@@ -60,7 +31,35 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 location.reload();
             }
             qSummary = qObject.summary;
+
+            if(self_ID != "") {
+                const self_res = await fetch(`/user/${self_ID}`);     
+                const uObject = await self_res.json();
+                self_profile = {
+                    level: uObject.level,
+                    userID: uObject.userID,
+                    displayName: uObject.displayName,
+                    gold: uObject.gold,
+                    exp: uObject.exp,
+                    profilePicImg: uObject.profilePicImg,
+                    answered: uObject.answered,
+                    unlocked: uObject.unlocked
+                }
+                for(let i = 0; i < self_profile.answered.length; i++) {
+                        if(self_profile.answered[i].qid == qID) already_answered = true;
+                    }
+                document.getElementById("nav_user_profile").src = uObject.profilePicImg;
+            } else go_to_error_page("Please login to view the questions");
+               
+            // check if I am asker or low level user
             if(qObject.asker.userID == self_ID) am_asker = true;
+            if(qObject.levelLimit > self_profile.level) {
+                am_low = true;
+                for(let i = 0; i < self_profile.unlocked.length; i++) {
+                    if(self_profile.unlocked[i] == qID) am_low = false;
+                }
+            } 
+            if(am_asker || am_admin) am_low = false;
     
             //get asker info
             // fetch to GET the asker
@@ -88,29 +87,54 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             if (qObject.liked_user_list.includes(self_ID)){ document.querySelector('.like_button_question').style.color = 'pink'; }
             if (qObject.disliked_user_list.includes(self_ID)){ document.querySelector('.dislike_button_question').style.color = 'pink'; }
 
-            // route to get all answers of the question
-            const answer_res = await fetch(`./answers-of-question/${qObject.questionID}`);
-            const answer_list = await answer_res.json();
-            if (sort == "like"){
-                answer_list.sort(function(a, b){ return b.likeCount - a.likeCount; });
-            }else{
-                answer_list.sort(function(a, b){ return b.answerID - a.answerID; });
-            }
             // remove previous answer posts
             remove_answer_posts();
-            // insert each answer
-            if(answer_list.length != 0) {
-                insert_answer_posts(answer_list);
-                add_event_listener();
-            }
-            //add text editor if question is not resolved
-            if(qObject.status != "Resolved" && !already_answered && !am_asker) {
-                document.getElementById("add-answer-btn").style = "visibility: visible;";
-                if(quill == null) {
-                    initiate_answer_editor();
-                }  
-            } else {
-                document.getElementById("add-answer-btn").style = "visibility: hidden;";
+
+            // if I'm low level user
+            if(am_low) {
+                let limit_container = create_element("div", "limit-container", "", "question-container");
+                gold_needed = qObject.levelLimit - self_profile.level;
+                if(self_profile.gold < gold_needed) not_enough_gold = true;
+                limit_container.innerHTML = `
+                    This question has a view/answer restriction: Level
+                    <span id="limit-level"> ${qObject.levelLimit} </span> 			
+                    <a id="user-rule" href="rule.html" target="_blank"> ? </a> 
+                    <br/>
+                    Level up or spend <span id="limit-gold"> ${gold_needed} </span> golds to unlock this question! <br/> <br/>
+                    Current Gold: <span id="limit-gold"> ${self_profile.gold} </span> <br/>
+                    <button id="limit-btn"> Unlock </button> 
+                `;
+                const limit_btn = document.getElementById("limit-btn");
+                if(not_enough_gold) {
+                    limit_btn.disabled = true;
+                } else {
+                    limit_btn.addEventListener("click",unlock_level_limit);
+                }
+
+            } else {  // if not low level, show all answers
+                // route to get all answers of the question
+                const answer_res = await fetch(`./answers-of-question/${qObject.questionID}`);
+                const answer_list = await answer_res.json();
+                if (sort == "like"){
+                    answer_list.sort(function(a, b){ return b.likeCount - a.likeCount; });
+                }else{
+                    answer_list.sort(function(a, b){ return b.answerID - a.answerID; });
+                }
+                
+                // insert each answer
+                if(answer_list.length != 0) {
+                    insert_answer_posts(answer_list);
+                    add_event_listener();
+                }
+                //add text editor if question is not resolved
+                if(qObject.status != "Resolved" && !already_answered && !am_asker && !am_low) {
+                    document.getElementById("add-answer-btn").style = "visibility: visible;";
+                    if(quill == null) {
+                        initiate_answer_editor();
+                    }  
+                } else {
+                    document.getElementById("add-answer-btn").style = "visibility: hidden;";
+                }
             }
         }
     }catch(err){
@@ -518,4 +542,51 @@ async function dislike_answer(e){
     }catch(err){
         console.log(err);
     }
+}
+
+
+///////////////////////////// low level //////////////////////////////////////
+function unlock_level_limit() {
+    // update user exp and gold info to server
+    const updated = calculate_exp_and_level(self_profile.level, self_profile.exp + 5);
+    self_profile.unlocked.push(qID);
+    const modified_profile = {
+        level: updated[0],
+        exp: updated[1],
+        gold: self_profile.gold - gold_needed,
+        unlocked: self_profile.unlocked
+    }
+    const url = '/user/' + self_profile.userID;
+    const request = new Request(url, {
+        method: 'PATCH', 
+        body: JSON.stringify(modified_profile),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log('unlocked question')
+            //DOM changes
+            remove_element_by_ID("limit-container");
+            //create a notif
+            let notif = document.createElement("div");
+            document.body.appendChild(notif);
+            notif.innerHTML = `
+                Unlocked<br/>
+                gold - <span id="gold-spent"> ${gold_needed} </span>
+                <br/>
+                exp + 10
+            `;
+            notif.className = "center-notif";
+            add_fade(notif);
+            am_low = false;
+            updatePage();
+        } else console.log('Could not unlock question')           
+    }).catch((error) => {
+        console.log(error)
+    })
 }

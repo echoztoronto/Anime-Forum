@@ -21,7 +21,8 @@ const UserSchema = new mongoose.Schema({
     asked: [UQuestionSchema],
     answered: [UQuestionSchema],
     accepted: [UQuestionSchema],
-    checkin: Array
+    checkin: Array,
+    unlocked: Array
 });
 
 const User = mongoose.model('User', UserSchema);
