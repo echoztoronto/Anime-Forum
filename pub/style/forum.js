@@ -42,8 +42,22 @@ async function sort_by_time(e){
     }
 }
 
-function update_forum_page(questions) {
+async function update_forum_page(questions) {
     if(self_ID != "") {
+        const self_res = await fetch(`/user/${self_ID}`);     
+        const uObject = await self_res.json();
+        self_profile = {
+            type: uObject.type,
+            level: uObject.level,
+            userID: uObject.userID,
+            displayName: uObject.displayName,
+            gold: uObject.gold,
+            exp: uObject.exp,
+            profilePicImg: uObject.profilePicImg,
+            answered: uObject.answered,
+            unlocked: uObject.unlocked
+        }
+        document.getElementById("nav_user_profile").src = self_profile.profilePicImg;
         let question_table = document.querySelector('#question_table');
         question_table.innerHTML = `
             <tbody>
