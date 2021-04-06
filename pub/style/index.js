@@ -85,24 +85,49 @@ async function show_brief_ranking(e){
 let index = 0;
 let slides = document.querySelectorAll(".slide");
 let dots = document.querySelectorAll(".dot");
-showSlides();
+let time_handler = null;
+showSlides(index);
 
-function showSlides() {
+function showSlides(index) {
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  
     }
     for (let i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace("dot_on", "");
     }
+    slides[index].style.display = "block";  
+    dots[index].className += " dot_on";
     index++;
     if (index == slides.length){
         index = 0;
     }    
-    slides[index].style.display = "block";  
-    dots[index].className += " dot_on";
-    setTimeout(showSlides, 3000);
+    time_handler = setTimeout(showSlides, 3000, index);      // arguments of setTimeout comes after time
 }
 
+function Slides(index){
+    if (time_handler){
+        clearTimeout(time_handler);
+    }
+    showSlides(index);
+}
+
+
+// function showSlides() {
+//     for (let i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";  
+//     }
+//     for (let i = 0; i < dots.length; i++) {
+//         dots[i].className = dots[i].className.replace("dot_on", "");
+//     }
+//     index++;
+//     if (index == slides.length){
+//         index = 0;
+//     }    
+//     slides[index].style.display = "block";  
+//     dots[index].className += " dot_on";
+//     setTimeout(showSlides, 3000);
+// }
+//  navbar manipulate
 
 function remove_right_navbar () {
     remove_element_by_ID("navbar-user");
