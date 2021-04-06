@@ -147,6 +147,8 @@ html, body {
 }
 
 #ranking_title {
+    margin-left: -20px;
+    height: 40px;
     font-size: 30px;
     text-align: center;
     padding-top: 30px;
@@ -154,6 +156,10 @@ html, body {
     border-bottom: double;
     text-shadow: 0 2px rgb(206, 213, 251), 0 3px #777;
     background-color: rgb(100, 171, 251);
+}
+
+#ranking_title_img {
+    width: 50px;
 }
 
 .ranking_container {
@@ -178,7 +184,7 @@ html, body {
 }
 
 .ranking_body a{
-    color: rgb(101, 65, 117);
+    color: rgb(253, 0, 0);
 }
 
 #ranking_page_link{
@@ -225,6 +231,7 @@ html, body {
 }
 
 .hot_title {
+    height: 40px;
     padding-top: 30px;
     padding-bottom: 20px;
     font-size: 30px;
@@ -235,6 +242,7 @@ html, body {
 }
 
 .recent_title {
+    height: 40px;
     padding-top: 30px;
     padding-bottom: 20px;
     font-size: 30px;
