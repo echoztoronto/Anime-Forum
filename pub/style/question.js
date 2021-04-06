@@ -378,21 +378,13 @@ function add_self_answer(HTMLcontent) {
                 </div>`
             add_event_listener();       // add eventlistener to the new answer buttons
 
-            // update answerer info DOM
-            document.getElementById("self-icon").src = self_profile.profilePicImg;
-            document.getElementById("self-name").innerHTML = '<a href="profile.html#' + self_profile.userID 
-                    + '" target="_blank">' +  self_profile.displayName + '</a>';
-            document.getElementById("self-level").innerHTML = "Level: " + self_profile.level;
-            
-            // update answer info DOM
-            document.getElementById("self-answer-description").innerHTML = HTMLcontent;
-
             //create a notif 
             let notif = document.createElement("div");
             document.body.appendChild(notif);
             notif.innerHTML = `exp + 10`;
             notif.className = "center-notif";
             add_fade(notif);
+            updatePage();
         } else {
             console.log('Could not add answer')
             console.log(res)
