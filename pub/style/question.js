@@ -664,9 +664,11 @@ async function admin_delete_confirm() {
         fetch(request)
         .then(function(res) {
             if (res.status === 200) {
-
-                // TODO: delete question/answer
-
+                // delete quesiton and answer from database
+                let delete_url = '';
+                if(object_name == "question") delete_url = '/question/' + qID;
+                else if(object_name == "answer") delete_url = '/question/' + qID + '/' + object_id;
+                await fetch(delete_url, {method: 'DELETE'});
                 delete_admin_confirmation();
                 updatePage();
             } else {
@@ -677,7 +679,4 @@ async function admin_delete_confirm() {
     }catch(err){
         console.log(err);
     }
-    
-
-    //TODO: update db
 }
