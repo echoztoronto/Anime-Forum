@@ -645,11 +645,39 @@ function delete_admin_confirmation() {
 }
 
 // onclick of confirm button
-function admin_delete_confirm() {
+async function admin_delete_confirm() {
     const object_name = document.getElementById('confirmation-confirm').getAttribute('data-name');
     const object_id = document.getElementById('confirmation-confirm').getAttribute('data-id');
-    console.log(object_name, object_id);
-    //TODO: verify admin's password
+    const entered_password = document.getElementById('confirmation-password').value;
+
+    // verify admin's password
+    try {
+        const my_admin_info = {uid:self_ID, password:entered_password};
+        const request = new Request('/verifyPsw', {
+            method: 'POST', 
+            body: JSON.stringify(my_admin_info),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });   
+        fetch(request)
+        .then(function(res) {
+            if (res.status === 200) {
+
+                // TODO: delete question/answer
+
+                delete_admin_confirmation();
+                updatePage();
+            } else {
+                document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
+            }        
+        })
+
+    }catch(err){
+        console.log(err);
+    }
+    
 
     //TODO: update db
 }

@@ -134,6 +134,38 @@ app.patch('/user/:id', async (req, res) => {
 	}
 })
 
+///////////////////////// Verify User Password ///////////////////////
+// POST /user/id
+/* 
+request body expects:
+{
+	"uid": Number,
+    "password": String
+}
+*/
+app.post('/verifyPsw', async (req, res) => {
+	const id = req.body.uid
+	const password = req.body.password
+
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	try {
+		const result = await Credential.findOne({ userID: id, password: password }).exec()
+		if (!result) {
+			res.status(404).send('Resource not found')  
+		} else {
+			res.send("verified")
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
+
 ///////////////////   Users' questions for profile page  /////////////////////////
 /* 
 request body expects:
