@@ -60,6 +60,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                         }
                     }
                 document.getElementById("nav_user_profile").src = uObject.profilePicImg;
+                document.getElementById("clickable_icon").href = "profile.html#" + uObject.userID;
             } else go_to_error_page("Please login to view the questions");
                
             // check if I am admin or asker or low level user

@@ -58,6 +58,7 @@ async function update_forum_page(questions) {
             unlocked: uObject.unlocked
         }
         document.getElementById("nav_user_profile").src = self_profile.profilePicImg;
+        document.getElementById("clickable_icon").href = "profile.html#" + uObject.userID;
         let question_table = document.querySelector('#question_table');
         question_table.innerHTML = `
             <tbody>
