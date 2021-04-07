@@ -100,8 +100,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     //TODO: ADD MUTE FUNCTION
                 }
                 let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
-                asker_delete_container.innerHTML = `<button class="delete-post-btn">DELETE QUESTION</button>`;
-                //TODO: ADD DELETE FUNCTION
+                asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="admin_delete_question(qID)">DELETE QUESTION</button>`;
             }
             
             // remove previous answer posts
@@ -254,7 +253,7 @@ async function insert_answer_posts(answer_list) {
                     //TODO: ADD MUTE FUNCTION
                 }
                 let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
-                answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${i}"> DELETE QUESTION </button>`;
+                answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${i}" onclick="admin_delete_answer(this.value)"> DELETE ANSWER </button>`;
                 //TODO: ADD DELETE FUNCTION
             }
             
@@ -612,4 +611,45 @@ function unlock_level_limit() {
     }).catch((error) => {
         console.log(error)
     })
+}
+
+///////////////////////////////////// Admin View /////////////////////////////////////
+
+// onclick function for delete question
+function admin_delete_question(qid) {
+    create_admin_confirmation("question",qid);
+}
+
+// onclick function for delete answer
+function admin_delete_answer(aid) {
+    create_admin_confirmation("answer",aid);
+}
+
+// create the confirmation window for admin
+function create_admin_confirmation(object_name, object_id) { // str = "question" or "answer"
+    const confirmation_container = create_unique_element("div", "confirmation-container", "", "body");
+    confirmation_container.innerHTML = `
+        <div id="confirmation-window">
+            <div id="confirmation-close" onclick="delete_admin_confirmation()"> x </div>
+            <div id="confirmation-message"> Confirm to delete ${object_name} </div>
+            <input id="confirmation-password" type="password" placeholder="Enter your password">
+            <div id="confirmation-wrong"> </div> 
+            <div id="confirmation-cancel" onclick="delete_admin_confirmation()"> CANCEL </div>
+            <div id="confirmation-confirm" data-name=${object_name} data-id=${object_id} onclick="admin_delete_confirm()"> CONFIRM </div>
+        </div>
+    `;
+}
+
+function delete_admin_confirmation() {
+    remove_element_by_ID("confirmation-container");
+}
+
+// onclick of confirm button
+function admin_delete_confirm() {
+    const object_name = document.getElementById('confirmation-confirm').getAttribute('data-name');
+    const object_id = document.getElementById('confirmation-confirm').getAttribute('data-id');
+    console.log(object_name, object_id);
+    //TODO: verify admin's password
+
+    //TODO: update db
 }

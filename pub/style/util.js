@@ -3,13 +3,14 @@
 // create an element, need to provide at least one of ID and class name
 function create_element(type, ID, cName, parentID) {
     let element = document.createElement(type);
-    document.getElementById(parentID).appendChild(element);
+    if(parentID == "body") document.body.appendChild(element);
+    else document.getElementById(parentID).appendChild(element);
     if(ID != '') {
         element.id = ID;
     }
     if(cName != '') {
         element.className = cName;
-    }
+    } 
 
     return element;
 }
@@ -18,8 +19,8 @@ function create_element(type, ID, cName, parentID) {
 function create_unique_element(type, ID, cName, parentID) {
     if(document.getElementById(ID) != null) remove_element_by_ID(ID);
     let element = document.createElement(type);
-    console.log(parentID);
-    document.getElementById(parentID).appendChild(element);
+    if(parentID == "body") document.body.appendChild(element);
+    else document.getElementById(parentID).appendChild(element);
     if(ID != '') {
         element.id = ID;
     }
