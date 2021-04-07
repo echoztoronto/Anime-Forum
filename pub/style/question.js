@@ -18,7 +18,7 @@ if(window.location.hash && self_ID != "") {
     updatePage();
 }
 
-if(self_ID == "") go_to_error_page("Please login to view the questions");
+if(self_ID == "") go_to_error_page("Please login to view the questions", false);
 
 // update page with updated question ID
 async function updatePage(sort="like") {     // sort range in {"like", "time"}
@@ -61,7 +61,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     }
                 document.getElementById("nav_user_profile").src = uObject.profilePicImg;
                 document.getElementById("clickable_icon").href = "profile.html#" + uObject.userID;
-            } else go_to_error_page("Please login to view the questions");
+            } else go_to_error_page("Please login to view the questions", false);
                
             // check if I am admin or asker or low level user
             if(self_profile.type == "admin") am_admin = true;
@@ -166,7 +166,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
         console.log('Could not get answers to the question');
         console.log(err);
         err_message = "The question page you are trying to visit does not exist";
-        go_to_error_page(err_message);
+        go_to_error_page(err_message, true);
     }
 
 }

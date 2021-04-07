@@ -122,7 +122,7 @@ function log_out () {
 }
 
 
-function go_to_error_page(message) {
+function go_to_error_page(message, show_forum) {
     if(document.getElementById("error-page") == null) {
         let error_element = document.createElement("div");
         error_element.id = "error-page";
@@ -135,6 +135,16 @@ function go_to_error_page(message) {
         return_element.innerHTML = `Back to Home`;
         return_element.href = "index.html";
         error_element.appendChild(return_element);
+        
+        if(show_forum) {
+            let br = document.createElement("br");
+            error_element.appendChild(br);
+            let return_element_forum = document.createElement("a");
+            return_element_forum.id = "error-page-return-forum";
+            return_element_forum.innerHTML = `Back to Forum`;
+            return_element_forum.href = "forum.html";
+            error_element.appendChild(return_element_forum);
+        }
     } else error_element.innerHTML = message;
 }
 

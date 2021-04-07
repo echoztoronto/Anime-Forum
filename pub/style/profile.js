@@ -36,7 +36,7 @@ if(self_ID != "") {
     })
 } else {  // user is not logged in
     err_message = "Please login to view the user profile";
-    go_to_error_page(err_message);
+    go_to_error_page(err_message, false);
 }
 
 if(window.location.hash && self_ID != "") {
@@ -154,7 +154,7 @@ function updatePage() {
     .catch((error) => {
         console.log(error)
         err_message = "This user account does not exist";
-        go_to_error_page(err_message);
+        go_to_error_page(err_message, true);
     })
 }
 
