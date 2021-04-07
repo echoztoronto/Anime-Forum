@@ -128,11 +128,6 @@ async function editor_submit_question() {
         } 
         // check is done, then add new question
         add_new_question(question_title, quillHTML, reward, level_limit);
-        document.getElementById("editor-window").style = "visibility: hidden;";
-        message_element.style = "color: black;";
-        message_element.innerHTML = "Add a new question";
-        forum_quill.setContents([{ insert: '\n' }]);
-        document.getElementById('title-field').value = '';
     }
 }
 
@@ -161,6 +156,12 @@ async function add_new_question(title, description, reward, level_limit) {
         let res = await fetch(request);
         if (res.status === 200) {
             console.log("added question");
+            document.getElementById("editor-window").style = "visibility: hidden;";
+            const message_element = document.getElementById('editor-message');
+            message_element.style = "color: black;";
+            message_element.innerHTML = "Add a new question";
+            forum_quill.setContents([{ insert: '\n' }]);
+            document.getElementById('title-field').value = '';
         }else{
             console.log('Could not add question');
         }
@@ -183,7 +184,7 @@ async function add_new_question(title, description, reward, level_limit) {
         // POST to add to user collection "asked" array
         const user_question_info = {
             summary: title,
-            qid: user_json.questionID
+            qid: question_json.questionID
         }
         res = await fetch(`/userQuestion/asked/${self_profile.userID}`,{
             method: 'POST', 

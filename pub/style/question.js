@@ -1,12 +1,14 @@
 let quill = null;  //editor object
 let qID = 0;
-let qSummary = '';
+let qObject = null;
 let already_answered = false;
+let answered_count = 0;
 let am_asker = false;
 let am_low = false;
 let am_admin = false;
 let gold_needed = 0;
 let not_enough_gold = false;
+let deleted_answer_user = null;
 
 // get self ID from cookie
 let self_ID = getCookie("username");
@@ -25,14 +27,18 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
     
     try{
         const res = await fetch(`/question/${qID}`);      // use GET route to get the question
-        const qObject = await res.json();
+        qObject = await res.json();
         if(qObject != null) {
-            //remove error page if it's there
+            // remove error page if it's there
             if(document.getElementById("error-page") != null) {
                 document.getElementById("error-page").remove;
                 location.reload();
             }
-            qSummary = qObject.summary;
+            // get the count of my answers to this question
+            answered_count =0;
+            for(let i=0; i<qObject.answer_list.length;i++) {
+                if(qObject.answer_list[i].answerer.userID == self_ID) answered_count ++;
+            }
 
             if(self_ID != "") {
                 const self_res = await fetch(`/user/${self_ID}`);     
@@ -49,7 +55,9 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     unlocked: uObject.unlocked
                 }
                 for(let i = 0; i < self_profile.answered.length; i++) {
-                        if(self_profile.answered[i].qid == qID) already_answered = true;
+                        if(self_profile.answered[i].qid == qID) {
+                            already_answered = true;
+                        }
                     }
                 document.getElementById("nav_user_profile").src = uObject.profilePicImg;
             } else go_to_error_page("Please login to view the questions");
@@ -143,7 +151,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     add_event_listener();
                 }
                 //add text editor
-                if(am_admin || (qObject.status != "Resolved" && !already_answered && !am_asker && !am_low)) {
+                if(qObject.status != "Resolved") {
                     document.getElementById("add-answer-btn").style = "visibility: visible;";
                     if(quill == null) {
                         initiate_answer_editor();
@@ -253,8 +261,7 @@ async function insert_answer_posts(answer_list) {
                     //TODO: ADD MUTE FUNCTION
                 }
                 let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
-                answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${i}" onclick="admin_delete_answer(this.value)"> DELETE ANSWER </button>`;
-                //TODO: ADD DELETE FUNCTION
+                answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${answer_list[i].answerID}" onclick="admin_delete_answer(this.value);deleted_answer_user='${answer_list[i].answerer.userID}';"> DELETE ANSWER </button>`;
             }
             
         }catch(err){
@@ -297,9 +304,6 @@ function editor_submit() {
         message_element.style = "color: red;";
         message_element.innerHTML = "Your answer must be greater than 10 characters!";
     } else {
-        // TODO: add a new answer, update to server
-        // TODO: add 10 exp to user, update to server
-
         add_self_answer(quillHTML);
         document.getElementById("editor-window").style = "visibility: hidden;";
         document.getElementById("add-answer-btn").style = "visibility: hidden;";
@@ -331,57 +335,38 @@ function add_self_answer(HTMLcontent) {
     fetch(request)
     .then(function(res) {
         if (res.status === 200) {
-            // add to user collection "answered" array
-            const user_answer_info = {
-                summary: qSummary,
-                qid: qID
+            if(!already_answered) {
+                // add to user collection answered[]
+                const user_answer_info = {
+                    summary: qObject.summary,
+                    qid: qID
+                }
+                const url = '/userQuestion/answered/' + self_profile.userID;
+                const request_user = new Request(url, {
+                    method: 'POST', 
+                    body: JSON.stringify(user_answer_info),
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                });
+                fetch(request_user)
+                .then(function(res) {
+                    if (res.status === 200) {
+                        console.log("added to user array")
+                    } else console.log('Could not to user array')           
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
             }
-            const url = '/userQuestion/answered/' + self_profile.userID;
-            const request_user = new Request(url, {
-                method: 'POST', 
-                body: JSON.stringify(user_answer_info),
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-            });
-            fetch(request_user)
-            .then(function(res) {
-                if (res.status === 200) {
-                    console.log("added to user array")
-                } else console.log('Could not to user array')           
-            })
-            .catch((error) => {
-                console.log(error)
-            })
 
-            // create the DOM for answer post
-            let element = document.createElement("div");
-            element.className = "post-container";
-            element.id = "self-post";
-            document.getElementById("question-container").appendChild(element);
-            element.innerHTML = 
-                `<div class="post-profile-answerer">
-                    <img class="post-profile-icon" id="self-icon" src="//:0">
-                    <div class="post-profile-info">
-                        <div class="display-name" id="self-name"> </div> 
-                        <div class="user-level" id="self-level"> </div>
-                    </div>
-                </div>
-                <div class="post-content">
-                    <div class="vote_container">
-                            <div class="like_button_answer">&#9650</div>
-                            <div class="like_num">0</div>
-                            <div class="dislike_button_answer">&#9660</div>
-                    </div>
-                    <div class="post-description" id="self-answer-description">  </div>
-                    <div class="accept-description" id="self-answer-accept"> </div>
-                </div>`
-            add_event_listener();       // add eventlistener to the new answer buttons
+            // TODO: if(!already_answered)  add 10 exp
 
             //create a notif 
             let notif = document.createElement("div");
             document.body.appendChild(notif);
+            quill.setContents([{ insert: '\n' }]);
             notif.innerHTML = `exp + 10`;
             notif.className = "center-notif";
             add_fade(notif);
@@ -662,20 +647,29 @@ async function admin_delete_confirm() {
             },
         });   
         fetch(request)
-        .then(function(res) {
+        .then(async function(res) {
             if (res.status === 200) {
                 // delete quesiton and answer from database
-                let delete_url = '';
-                if(object_name == "question") delete_url = '/question/' + qID;
-                else if(object_name == "answer") delete_url = '/question/' + qID + '/' + object_id;
-
-                fetch(delete_url, {method: 'DELETE'})
-                .then(function(delete_res) {
-                    if (delete_res.status === 200) {
-                        delete_admin_confirmation();
-                        updatePage();
+                if(object_name == "question") {
+                    await fetch('/question/' + qID, {method: 'DELETE'});
+                    // asked[]
+                    const asker = qObject.asker.userID;
+                    await fetch('/userQuestion/asked/'+asker+'/'+qID, {method: 'DELETE'});
+                    // answered[]
+                    for(let i=0; i<qObject.answer_list.length;i++) {
+                        await fetch('/userQuestion/answered/'+qObject.answer_list[i].answerer.userID+'/'+qID, {method: 'DELETE'});
                     }
-                })
+                    // TODO: deal with accepted user
+                }
+                else if(object_name == "answer") {
+                    await fetch('/question/' + qID + '/' + object_id, {method: 'DELETE'});
+                    // answered 
+                    if(answered_count == 1) await fetch('/userQuestion/answered/'+deleted_answer_user+'/'+qID, {method: 'DELETE'});
+                    // TODO: deal with accepted user
+                }
+                delete_admin_confirmation();
+                updatePage();
+                 
             } else {
                 document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
             }        
