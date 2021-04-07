@@ -87,7 +87,7 @@ function calculate_exp_and_level(level, exp) {
             break;
 
         default:
-            exp = 0;
+            exp = exp;
     }
     return [updated_level, exp];
 }
@@ -158,3 +158,13 @@ Array.prototype.remove = function() {       // cite from: https://stackoverflow.
     }
     return this;
 };
+
+
+function get_today_date() {   // from https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+    
+    return  mm + '/' + dd + '/' + yyyy;
+}

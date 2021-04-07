@@ -400,7 +400,7 @@ app.patch('/question/:qid', async (req, res) => {
 				question[key] = value;
 			}
 			const result = await question.save();
-			res.send("question modified");
+			res.send(result);
 		}
 	} catch (error) {
 		log(error);

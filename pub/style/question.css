@@ -22,6 +22,7 @@ a {
     padding: 0;
     margin-right: 20px;
     font-size: 20px;
+    user-select: none;
 }
 
 .sort-container span {
@@ -130,6 +131,7 @@ a {
     height: 300px;
     float: left;
     margin-left: 0px;
+    user-select: none;
 }
 
 .like_button_question{
@@ -180,6 +182,7 @@ a {
     margin-left: 20px;
     font-size: 25px;
     color: gray;
+    user-select: none;
 }
 
 .post-description {
@@ -199,6 +202,7 @@ a {
     font-size: 20px;
     color:rgb(226, 107, 9);
     margin-left: 100px;
+    user-select: none;
 }
 
 
@@ -214,6 +218,7 @@ a {
 
 .user-level{
     color:grey;
+    user-select: none;
 }
 
 .display-name{

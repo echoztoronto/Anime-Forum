@@ -353,9 +353,7 @@ function add_self_answer(HTMLcontent) {
                 });
                 fetch(request_user)
                 .then(function(res) {
-                    if (res.status === 200) {
-                        console.log("added to user array")
-                    } else console.log('Could not to user array')           
+                    if (res.status !== 200) console.log('Could not add to user array')
                 })
                 .catch((error) => {
                     console.log(error)
@@ -577,7 +575,6 @@ function unlock_level_limit() {
     fetch(request)
     .then(function(res) {
         if (res.status === 200) {
-            console.log('unlocked question')
             //DOM changes
             remove_element_by_ID("limit-container");
             //create a notif

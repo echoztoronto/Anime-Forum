@@ -156,7 +156,6 @@ async function add_new_question(title, description, reward, level_limit) {
         });
         let res = await fetch(request);
         if (res.status === 200) {
-            console.log("added question");
             document.getElementById("editor-window").style = "visibility: hidden;";
             const message_element = document.getElementById('editor-message');
             message_element.style = "color: black;";
@@ -195,11 +194,8 @@ async function add_new_question(title, description, reward, level_limit) {
                 'Content-Type': 'application/json'
             }
         })
-        if (res.status === 200){
-            console.log("added to user array");
-        }else{
-            console.log('Could not to user array');
-        }
+        if (res.status !== 200) console.log('Could not add to user array');
+
 
         // DOM: add a new row on forum
         const table_element = document.getElementById("question_table")

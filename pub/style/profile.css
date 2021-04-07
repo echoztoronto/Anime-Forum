@@ -10,6 +10,7 @@
 .banner {
     margin-bottom: 0;
     height: 280px;
+    user-select: none;
 }
 
 #banner-pic {
@@ -140,6 +141,7 @@
     border-top: 0px;
     border-color: rgb(158, 158, 158);
     background-color: rgba(44, 44, 44, 0.767);
+    user-select: none;
 }
                 
 .info-panel div {

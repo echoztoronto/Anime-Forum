@@ -131,8 +131,9 @@ function updatePage() {
                 checkin.innerHTML = `Check In`;
                 
                 // verify if user already checked in today
+                checked_in = false;
                 for (let i = 0; i < uProfile.checkin.length; i++) {
-                    if(uProfile.checkin[i] = get_today_date()) checked_in = true;
+                    if(uProfile.checkin[i] == get_today_date()) checked_in = true;
                 }
                 if(checked_in) checkin_disable();
                 else {
@@ -246,13 +247,14 @@ function checkin_click() {
     document.getElementById("user-exp").innerHTML = `EXP: ${exp}`;
     document.getElementById("user-gold").innerHTML = `Gold: ${gold}`;
     document.getElementById("user-level").innerHTML = `Level: ${level}`;
+    uProfile.checkin.push(get_today_date());
 
     // update user exp and gold info to server
     const modified_profile = {
         exp: exp,
         gold: gold,
         level: level,
-        checkin: uProfile.checkin.push(get_today_date())
+        checkin: uProfile.checkin
     }
     const url = '/user/' + uProfile.userID;
     const request = new Request(url, {
@@ -267,9 +269,7 @@ function checkin_click() {
     // Send the request with fetch()
     fetch(request)
     .then(function(res) {
-        if (res.status === 200) {
-            console.log('updated profile')
-        } else console.log('Could not update profile')           
+        if (res.status !== 200) console.log('Could not update profile')
     }).catch((error) => {
         console.log(error)
     })
@@ -298,15 +298,6 @@ function checkin_unhover() {
     let checkin = document.getElementById("check-in-btn");
     checkin.style.color = "#FFFFFF";
     checkin.style.backgroundColor = "#c01baa";
-}
-
-function get_today_date() {   // from https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    let yyyy = today.getFullYear();
-    
-    return  mm + '/' + dd + '/' + yyyy;
 }
 
 // Edit Profile --------------------------------------------------------
@@ -406,7 +397,6 @@ function update_profile_request_and_fetch(modified_profile) {
     fetch(request)
     .then(function(res) {
         if (res.status === 200) {
-            console.log('updated profile')
             updatePage()
         } else console.log('Could not update profile')           
     }).catch((error) => {
