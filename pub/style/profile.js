@@ -100,7 +100,6 @@ function updatePage() {
             if(uProfile.profilePicImg ==  undefined) document.getElementById("profile-pic").src = "images/others/default.jpg";
             else document.getElementById("profile-pic").src = uProfile.profilePicImg;
 
-
             //info panel element
             document.getElementById("gender").innerHTML =  uProfile.gender;
             document.getElementById("birthday").innerHTML =  uProfile.birthday;
@@ -207,12 +206,14 @@ function insert_post_by_question_list(list) {
         }
     } else {
         for (let i = 0; i < list.length; i++) {
-            let post_element = document.createElement("a");
-            post_element.href = "question.html#" + list[i].qid;
-            post_element.target = "_blank";
-            post_element.innerHTML =  list[i].summary;
-            post_element.className = "post-single";
-            document.getElementById("post-list").appendChild(post_element);
+            if(list[i] != null) {
+                let post_element = document.createElement("a");
+                post_element.href = "question.html#" + list[i].qid;
+                post_element.target = "_blank";
+                post_element.innerHTML =  list[i].summary;
+                post_element.className = "post-single";
+                document.getElementById("post-list").appendChild(post_element);
+            }
         }
     }
 }

@@ -668,9 +668,14 @@ async function admin_delete_confirm() {
                 let delete_url = '';
                 if(object_name == "question") delete_url = '/question/' + qID;
                 else if(object_name == "answer") delete_url = '/question/' + qID + '/' + object_id;
-                await fetch(delete_url, {method: 'DELETE'});
-                delete_admin_confirmation();
-                updatePage();
+
+                fetch(delete_url, {method: 'DELETE'})
+                .then(function(delete_res) {
+                    if (delete_res.status === 200) {
+                        delete_admin_confirmation();
+                        updatePage();
+                    }
+                })
             } else {
                 document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
             }        
