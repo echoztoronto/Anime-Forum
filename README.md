@@ -181,12 +181,12 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | Method | URL        | Usage        | Request.body           | Response                    |
 | ------ | ---------- | ------------ | ----------------------------   | -------------------------------   |
 | GET    | /user/:id                     | get user info                                                               | n/a                                                               | the user object            |
-| POST   | /user                         | add user                                                                    | {<br>"userID": String, (required)<br>// and other attributes<br>} | the added user object      |
-| PATCH  | /user/:id                     | modify user                                                                 | {<br>// any attribute(s)<br>}                                     | the modified user object   |
-| POST   | /userQuestion/:type/:uid      | add to "asked" or "answered" or "accepted" array (as parameter "type")      | {<br>"summary": String,<br>"qid": Number<br>}                     | the modified array (:type) |
-| DELETE | /userQuestion/:type/:uid/:qid | delete from "asked" or "answered" or "accepted" array (as parameter "type") | n/a                                                               | the modified array (:type) |
+| POST   | /user                         | add user                                                                    | {<br>&nbsp;&nbsp;"userID": String, (required)<br>&nbsp;&nbsp;// and other attributes<br>} | the added user object      |
+| PATCH  | /user/:id                     | modify user                                                                 | {<br>&nbsp;&nbsp;// any attribute(s)<br>}                                     | the modified user object   |
+| POST   | /userQuestion<br>/:type/:uid      | add to <br>asked/answered/accepted array <br> (as parameter "type")      | {<br>&nbsp;&nbsp;"summary": String,<br>&nbsp;&nbsp;"qid": Number<br>}                     | the modified array (:type) |
+| DELETE | /userQuestion<br>/:type/:uid/:qid | delete from <br>asked/answered/accepted array <br> (as parameter "type") | n/a                                                               | the modified array (:type) |
 | GET    | /allUsers                     | get all users                                                               | n/a                                                               | the array of users object  |
-| POST   | /verifyPsw                    | verify password                                                             | {<br>"uid": Number,<br>"password": String<br>}                    | status only                |
+| POST   | /verifyPsw                    | verify password                                                             | {<br>&nbsp;&nbsp;"uid": Number,<br>&nbsp;&nbsp;"password": String<br>}                    | status only                |
 
 
 
@@ -195,8 +195,8 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | Method | URL            | Usage                                                         | Request.body                                                                                                                                       | Response              |
 | ------ | -------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | GET    | /question/:qid | get question                                                  | n/a                                                                                                                                                | the question object   |
-| POST   | /question      | add question                                                  | {"summary": String,<br>"description": String,<br>"reward": Number,<br>"levelLimit": Number,<br>"asker": {"userID": String, "displayName": String}} | status only           |
-| DELETE | /question/:qid | delete question and all arrays which stored the question info | n/a                                                                                                                                                | status only           |
+| POST   | /question      | add question                                                  | {<br>&nbsp;&nbsp;"summary": String,<br>&nbsp;&nbsp;"description": String,<br>&nbsp;&nbsp;"reward": Number,<br>&nbsp;&nbsp;"levelLimit": Number,<br>&nbsp;&nbsp;"asker": {"userID": String, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"displayName": String}<br>} | status only           |
+| DELETE | /question/:qid | delete question| n/a                                                                                                                                                | status only           |
 | PATCH  | /question/:qid | modify question                                               | object-value pairs                                                                                                                                 | modified question     |
 | GET    | /allQuestions  | get all questions                                             | n/a                                                                                                                                                | \[questions\] (array) |
 
@@ -206,8 +206,8 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | Method | URL                       | Usage                                                     | Request.body                                                                                     | Response          |
 | ------ | ------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
 | GET    | /question/:qid/:aid       | get answer                                                | n/a                                                                                              | the answer object |
-| POST   | /question/:qid            | add answer                                                | {"answerer": {userID: String, displayName: String},<br>"content": String,<br>questionID: Number} | status only       |
-| DELETE | /question/:qid/:aid       | delete answer and all arrays which stored the answer info | n/a                                                                                              | status only       |
+| POST   | /question/:qid            | add answer                                                | {<br>&nbsp;&nbsp;"answerer": {userID: String, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayName: String},<br>&nbsp;&nbsp;"content": String,<br>&nbsp;&nbsp;"questionID": Number<br>} | status only       |
+| DELETE | /question/:qid/:aid       | delete answer  | n/a                                                                                              | status only       |
 | PATCH  | /question/:qid/:aid       | modify answer                                             | object-value pairs                                                                               | modified answer   |
 | GET    | /answers-of-question/:qid | get all answers of a given question                       | n/a                                                                                              | \[answers\]       |
 
