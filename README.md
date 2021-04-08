@@ -10,7 +10,25 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 ### Libraries Used 
 * [Quill](https://quilljs.com/) Text Editor
 
-
+### Table of Contents
+- [Phrase 2 Instruction](#phrase-2-instruction)
+  * [1. Home Page](#1-home-page)
+  * [2. Forum Page](#2-forum-page)
+  * [3. Question Page](#3-question-page)
+    + [3.1 Normal View](#31-normal-view)
+    + [3.2 Admin View](#32-admin-view)
+    + [3.3 Question Asker View](#33-question-asker-view)
+    + [3.4 Low Level User View](#34-low-level-user-view)
+  * [4. Profile Page](#4-profile-page)
+    + [4.1 Normal View](#41-normal-view)
+    + [4.2 Self View](#42-self-view)
+  * [5. Level and Gold Explanation Page](#5-level-and-gold-explanation-page)
+  * [6. Ranking Page](#6-ranking-page)
+- [Server Routes](#server-routes)
+  * [users](#users)
+  * [questions](#questions)
+  * [answers (subdocument of questions)](#answers--subdocument-of-questions-)
+  * [credentials](#credentials)
 
 
 
@@ -18,19 +36,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 
 ## Phrase 2 Instruction
 
-### Table of Contents
-- [1. Home Page](#1-home-page)
-- [2. Forum Page](#2-forum-page)
-- [3. Question Page](#3-question-page)
-  * [3.1 Normal View](#31-normal-view)
-  * [3.2 Admin View](#32-admin-view)
-  * [3.3 Question Asker View](#33-question-asker-view)
-  * [3.4 Low Level User View](#34-low-level-user-view)
-- [4. Profile Page](#4-profile-page)
-  * [4.1 Normal View](#41-normal-view)
-  * [4.2 Self View](#42-self-view)
-- [5. Level and Gold Explanation Page](#5-level-and-gold-explanation-page)
-- [6. Ranking Page](#6-ranking-page)
+
 
 
 ### 1. Home Page
@@ -48,7 +54,7 @@ Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img
 | user                   | user     | normal              | general functionalities                     |
 | admin                  | admin    | admin               | can delete questions + mute non-admin users |
 | kano                   | kano     | normal              | high level + more gold                      |
-| any new signed up user | normal   | low level + no gold |
+| any new signed up user |          | normal              | low level + no gold                         |
 
 * Sign up by clicking __Sign Up__ button at top right corner
 * Click on any question title in __Hottest Questions__ or __Recent Questions__, will open the corresponding question page in a new tab. <br/>
@@ -170,31 +176,44 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 
 ## Server Routes
 
-| Collection | Method | URL                           | Usage                                                                       | Request.body                                                                                                                                       | Response                   |
-| ---------- | ------ | ----------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| Users      | GET    | /user/:id                     | get user info                                                               | n/a                                                                                                                                                | the user object            |
-|            | POST   | /user                         | add user                                                                    | {<br>"userID": String, (required)<br>// and other attributes<br>}                                                                                  | the added user object      |
-|            | PATCH  | /user/:id                     | modify user                                                                 | {<br>// any attribute(s)<br>}                                                                                                                      | the modified user object   |
-|            | POST   | /userQuestion/:type/:uid      | add to "asked" or "answered" or "accepted" array (as parameter "type")      | {<br>"summary": String,<br>"qid": Number<br>}                                                                                                      | the modified array (:type) |
-|            | DELETE | /userQuestion/:type/:uid/:qid | delete from "asked" or "answered" or "accepted" array (as parameter "type") | n/a                                                                                                                                                | the modified array (:type) |
-|            | GET    | /allUsers                     | get all users                                                               | n/a                                                                                                                                                | the array of users object  |
-|            | POST   | /verifyPsw                    | verify password                                                             | {<br>"uid": Number,<br>"password": String<br>}                                                                                                     | status only                |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-| Credential | GET    | /credential/id                |                                                                             |                                                                                                                                                    |                            |
-|            | POST   | /credential/id                |                                                                             |                                                                                                                                                    |                            |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-| Question   | GET    | /question/:qid                | get question                                                                | n/a                                                                                                                                                | the question object        |
-|            | POST   | /question                     | add question                                                                | {"summary": String,<br>"description": String,<br>"reward": Number,<br>"levelLimit": Number,<br>"asker": {"userID": String, "displayName": String}} | status only                |
-|            | DELETE | /question/:qid                | delete question and all arrays which stored the question info               | n/a                                                                                                                                                | status only                |
-|            | PATCH  | /question/:qid                | modify question                                                             | object-value pairs                                                                                                                                 | modified question          |
-|            | GET    | /allQuestions                 | get all questions                                                           | n/a                                                                                                                                                | \[questions\] (array)      |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-|            |        |                               |                                                                             |                                                                                                                                                    |                            |
-| Answers    | GET    | /question/:qid/:aid           | get answer                                                                  | n/a                                                                                                                                                | the answer object          |
-|            | POST   | /question/:qid                | add answer                                                                  | {"answerer": {userID: String, displayName: String},<br>"content": String,<br>questionID: Number}                                                   | status only                |
-|            | DELETE | /question/:qid/:aid           | delete answer and all arrays which stored the answer info                   | n/a                                                                                                                                                | status only                |
-|            | PATCH  | /question/:qid/:aid           | modify answer                                                               | object-value pairs                                                                                                                                 | modified answer            |
-|            | GET    | /answers-of-question/:qid     | get all answers of a given question                                         | n/a                                                                                                                                                | \[answers\]                |
+
+### users
+| Method | URL                           | Usage                                                                       | Request.body                                                      | Response                   |
+| ------ | ----------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------- |
+| GET    | /user/:id                     | get user info                                                               | n/a                                                               | the user object            |
+| POST   | /user                         | add user                                                                    | {<br>"userID": String, (required)<br>// and other attributes<br>} | the added user object      |
+| PATCH  | /user/:id                     | modify user                                                                 | {<br>// any attribute(s)<br>}                                     | the modified user object   |
+| POST   | /userQuestion/:type/:uid      | add to "asked" or "answered" or "accepted" array (as parameter "type")      | {<br>"summary": String,<br>"qid": Number<br>}                     | the modified array (:type) |
+| DELETE | /userQuestion/:type/:uid/:qid | delete from "asked" or "answered" or "accepted" array (as parameter "type") | n/a                                                               | the modified array (:type) |
+| GET    | /allUsers                     | get all users                                                               | n/a                                                               | the array of users object  |
+| POST   | /verifyPsw                    | verify password                                                             | {<br>"uid": Number,<br>"password": String<br>}                    | status only                |
+
+
+
+
+### questions
+| Method | URL            | Usage                                                         | Request.body                                                                                                                                       | Response              |
+| ------ | -------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| GET    | /question/:qid | get question                                                  | n/a                                                                                                                                                | the question object   |
+| POST   | /question      | add question                                                  | {"summary": String,<br>"description": String,<br>"reward": Number,<br>"levelLimit": Number,<br>"asker": {"userID": String, "displayName": String}} | status only           |
+| DELETE | /question/:qid | delete question and all arrays which stored the question info | n/a                                                                                                                                                | status only           |
+| PATCH  | /question/:qid | modify question                                               | object-value pairs                                                                                                                                 | modified question     |
+| GET    | /allQuestions  | get all questions                                             | n/a                                                                                                                                                | \[questions\] (array) |
+
+
+
+### answers (subdocument of questions)
+| Method | URL                       | Usage                                                     | Request.body                                                                                     | Response          |
+| ------ | ------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
+| GET    | /question/:qid/:aid       | get answer                                                | n/a                                                                                              | the answer object |
+| POST   | /question/:qid            | add answer                                                | {"answerer": {userID: String, displayName: String},<br>"content": String,<br>questionID: Number} | status only       |
+| DELETE | /question/:qid/:aid       | delete answer and all arrays which stored the answer info | n/a                                                                                              | status only       |
+| PATCH  | /question/:qid/:aid       | modify answer                                             | object-value pairs                                                                               | modified answer   |
+| GET    | /answers-of-question/:qid | get all answers of a given question                       | n/a                                                                                              | \[answers\]       |
+
+
+
+### credentials
+
+
+
