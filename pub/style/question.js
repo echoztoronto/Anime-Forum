@@ -294,7 +294,7 @@ async function insert_answer_posts(answer_list) {
 
 
             // asker begin
-            if (am_asker && qObject.status == "Ongoing") {
+            if (am_asker && qObject.status == "Ongoing" && answer_list[i].answerer.userID!= self_ID) {
                 let accept_container = create_unique_element("div", "accept-post-" + i, "delete-post-container", "answerer-content-" + i);
                 accept_container.innerHTML = `<button onclick="accept_the_answer('${answer_list[i]._id}')" class="delete-post-btn" value="${i}"> Accept The Answer </button>`;
             }
