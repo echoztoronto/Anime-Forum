@@ -107,6 +107,12 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             if (qObject.liked_user_list.includes(self_ID)){ document.querySelector('.like_button_question').style.color = 'pink'; }
             if (qObject.disliked_user_list.includes(self_ID)){ document.querySelector('.dislike_button_question').style.color = 'pink'; }
 
+            // asker begin
+            if (am_asker) {
+                let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
+                asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="delete_my_question()">DELETE QUESTION</button>`;
+            }
+            
             // If I am admin, add mute and delete buttons for asker container
             if(am_admin){
                 // don't mute an admin
@@ -118,15 +124,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
                 asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="admin_delete_question(qID)">DELETE QUESTION</button>`;
             }
-            
-             // asker begin
-             if (am_asker) {
-                let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
-                asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="delete_my_question()">DELETE QUESTION</button>`;
-            }
-            // asker end
 
-            
             // remove previous answer posts
             remove_answer_posts();
 
@@ -280,6 +278,12 @@ async function insert_answer_posts(answer_list) {
                 document.getElementById("answer-accept-"+i).innerHTML = "~~  This Answer Has Been Accepted By The Asker  ~~" ;
             }  
 
+            // asker begin
+            if (am_asker && qObject.status == "Ongoing" && answer_list[i].answerer.userID!= self_ID) {
+                let accept_container = create_unique_element("div", "accept-post-" + i, "delete-post-container", "answerer-content-" + i);
+                accept_container.innerHTML = `<button onclick="accept_the_answer('${answer_list[i]._id}')" class="delete-post-btn" value="${i}"> Accept The Answer </button>`;
+            }
+
             // If I am admin, add mute and delete buttons
             if(am_admin) {
                 // don't mute an admin
@@ -291,15 +295,7 @@ async function insert_answer_posts(answer_list) {
                 let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
                 answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${answer_list[i].answerID}" onclick="admin_delete_answer(this.value);deleted_answer_user='${answer_list[i].answerer.userID}';"> DELETE ANSWER </button>`;
             }
-
-
-            // asker begin
-            if (am_asker && qObject.status == "Ongoing" && answer_list[i].answerer.userID!= self_ID) {
-                let accept_container = create_unique_element("div", "accept-post-" + i, "delete-post-container", "answerer-content-" + i);
-                accept_container.innerHTML = `<button onclick="accept_the_answer('${answer_list[i]._id}')" class="delete-post-btn" value="${i}"> Accept The Answer </button>`;
-            }
-            // asker end
-            
+      
         }catch(err){
             console.log(err);
         }
