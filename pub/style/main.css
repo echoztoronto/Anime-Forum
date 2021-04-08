@@ -338,11 +338,21 @@ html, body {
     text-decoration: none;
 }
 
+#error-page-return-forum {
+    color: rgb(90, 84, 173);
+    font-size: 25px;
+    text-decoration: none;
+}
+
 #error-page-return:hover {
     color: #000000;
     text-decoration: underline;
 }
 
+#error-page-return-forum:hover {
+    color: #000000;
+    text-decoration: underline;
+}
 
 .center-notif {
     position: fixed;

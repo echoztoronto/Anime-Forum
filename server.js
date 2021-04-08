@@ -134,6 +134,38 @@ app.patch('/user/:id', async (req, res) => {
 	}
 })
 
+///////////////////////// Verify User Password ///////////////////////
+// POST /user/id
+/* 
+request body expects:
+{
+	"uid": Number,
+    "password": String
+}
+*/
+app.post('/verifyPsw', async (req, res) => {
+	const id = req.body.uid
+	const password = req.body.password
+
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	try {
+		const result = await Credential.findOne({ userID: id, password: password }).exec()
+		if (!result) {
+			res.status(404).send('Resource not found')  
+		} else {
+			res.send("verified")
+		}
+	} catch(error) {
+		log(error)
+		res.status(500).send('Internal Server Error') 
+	}
+})
+
 ///////////////////   Users' questions for profile page  /////////////////////////
 /* 
 request body expects:
@@ -342,7 +374,7 @@ app.delete('/question/:qid', async (req, res) =>{
 			if (!result){
 				res.status(404).send();
 			}else{
-				res.send(question);
+				res.send("question deleted");
 			}
 		}
 	} catch(error) {
@@ -417,7 +449,7 @@ app.post('/question/:qid', async (req, res) => {
 		question.answer_list.push(answer);
 		question.lastAnswerer = req.body.answerer;		// modify question lastAnswerer
 		const result = await question.save();	
-		res.send(result);
+		res.send("question added");
 	} catch(error) {
 		log(error);
 		res.status(500).send('Internal Server Error');
@@ -486,16 +518,15 @@ app.delete('/question/:qid/:aid', async (req, res) =>{
 		if (!question) {
 			res.status(404).send('Resource not found');
 		} else {
-			const item = question.answer_list.id(aid);
-			question.answer_list.id(aid).remove();
+			for(let i=0; i<question.answer_list.length;i++){
+				if(question.answer_list[i].answerID == aid) question.answer_list[i].remove();
+			}
+			
 			const result = await question.save();
 			if (!result){
 				res.status(404).send();
 			}else{
-				res.send({
-					"answer": item,
-					"question": question
-				});
+				res.send("answer deleted");
 			}
 		}
 	} catch(error) {

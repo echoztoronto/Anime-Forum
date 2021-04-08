@@ -58,6 +58,7 @@ async function update_forum_page(questions) {
             unlocked: uObject.unlocked
         }
         document.getElementById("nav_user_profile").src = self_profile.profilePicImg;
+        document.getElementById("clickable_icon").href = "profile.html#" + uObject.userID;
         let question_table = document.querySelector('#question_table');
         question_table.innerHTML = `
             <tbody>
@@ -128,11 +129,6 @@ async function editor_submit_question() {
         } 
         // check is done, then add new question
         add_new_question(question_title, quillHTML, reward, level_limit);
-        document.getElementById("editor-window").style = "visibility: hidden;";
-        message_element.style = "color: black;";
-        message_element.innerHTML = "Add a new question";
-        forum_quill.setContents([{ insert: '\n' }]);
-        document.getElementById('title-field').value = '';
     }
 }
 
@@ -160,7 +156,12 @@ async function add_new_question(title, description, reward, level_limit) {
         });
         let res = await fetch(request);
         if (res.status === 200) {
-            console.log("added question");
+            document.getElementById("editor-window").style = "visibility: hidden;";
+            const message_element = document.getElementById('editor-message');
+            message_element.style = "color: black;";
+            message_element.innerHTML = "Add a new question";
+            forum_quill.setContents([{ insert: '\n' }]);
+            document.getElementById('title-field').value = '';
         }else{
             console.log('Could not add question');
         }
@@ -183,7 +184,7 @@ async function add_new_question(title, description, reward, level_limit) {
         // POST to add to user collection "asked" array
         const user_question_info = {
             summary: title,
-            qid: user_json.questionID
+            qid: question_json.questionID
         }
         res = await fetch(`/userQuestion/asked/${self_profile.userID}`,{
             method: 'POST', 
@@ -193,11 +194,8 @@ async function add_new_question(title, description, reward, level_limit) {
                 'Content-Type': 'application/json'
             }
         })
-        if (res.status === 200){
-            console.log("added to user array");
-        }else{
-            console.log('Could not to user array');
-        }
+        if (res.status !== 200) console.log('Could not add to user array');
+
 
         // DOM: add a new row on forum
         const table_element = document.getElementById("question_table")

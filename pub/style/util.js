@@ -3,13 +3,14 @@
 // create an element, need to provide at least one of ID and class name
 function create_element(type, ID, cName, parentID) {
     let element = document.createElement(type);
-    document.getElementById(parentID).appendChild(element);
+    if(parentID == "body") document.body.appendChild(element);
+    else document.getElementById(parentID).appendChild(element);
     if(ID != '') {
         element.id = ID;
     }
     if(cName != '') {
         element.className = cName;
-    }
+    } 
 
     return element;
 }
@@ -18,8 +19,8 @@ function create_element(type, ID, cName, parentID) {
 function create_unique_element(type, ID, cName, parentID) {
     if(document.getElementById(ID) != null) remove_element_by_ID(ID);
     let element = document.createElement(type);
-    console.log(parentID);
-    document.getElementById(parentID).appendChild(element);
+    if(parentID == "body") document.body.appendChild(element);
+    else document.getElementById(parentID).appendChild(element);
     if(ID != '') {
         element.id = ID;
     }
@@ -86,7 +87,7 @@ function calculate_exp_and_level(level, exp) {
             break;
 
         default:
-            exp = 0;
+            exp = exp;
     }
     return [updated_level, exp];
 }
@@ -121,7 +122,7 @@ function log_out () {
 }
 
 
-function go_to_error_page(message) {
+function go_to_error_page(message, show_forum) {
     if(document.getElementById("error-page") == null) {
         let error_element = document.createElement("div");
         error_element.id = "error-page";
@@ -134,6 +135,16 @@ function go_to_error_page(message) {
         return_element.innerHTML = `Back to Home`;
         return_element.href = "index.html";
         error_element.appendChild(return_element);
+        
+        if(show_forum) {
+            let br = document.createElement("br");
+            error_element.appendChild(br);
+            let return_element_forum = document.createElement("a");
+            return_element_forum.id = "error-page-return-forum";
+            return_element_forum.innerHTML = `Back to Forum`;
+            return_element_forum.href = "forum.html";
+            error_element.appendChild(return_element_forum);
+        }
     } else error_element.innerHTML = message;
 }
 
@@ -147,3 +158,25 @@ Array.prototype.remove = function() {       // cite from: https://stackoverflow.
     }
     return this;
 };
+
+
+function get_today_date() {   // from https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+    
+    return  yyyy + '/' + mm + '/' + dd;
+}
+
+function get_future_date(days) {
+    let today = new Date();
+    let future = new Date();
+    future.setDate(today.getDate() + Number(days));
+    let dd = String(future.getDate()).padStart(2, '0');
+    let mm = String(future.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = future.getFullYear();
+    
+    return  yyyy + '/' + mm + '/' + dd;
+}
+
