@@ -854,8 +854,8 @@ async function admin_unmute_confirm() {
 // delete my question
 async function delete_my_question () {
     try{
-        // DELETE the question in the user's asked field
-        const res = await fetch(`/userQuestion/asked/${self_ID}/${qID}`, {
+        // DELETE asked of user
+        let res = await fetch(`/userQuestion/asked/${self_ID}/${qID}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -863,6 +863,25 @@ async function delete_my_question () {
             }
         });
         
+        // GET all answers
+        const res_a = await fetch(`/answers-of-question/${qObject.questionID}`);
+        const answer_list = await res_a.json();
+
+        // DELETE accepted of user
+        if (qObject.status === 'Resolved'){           // if some answer is accepeted
+            for (let i = 0; i < answer_list.length; i++){
+                if (answer_list[i].accepted){ 
+                    await fetch(`/userQuestion/accepted/${answer_list[i].answerer.userID}/${qObject.questionID}`, {method: 'DELETE'});
+                    break;
+                }
+            }
+        }
+
+        // DELETE answered of user
+        for (let i = 0; i < answer_list.length; i++){
+            await fetch(`/userQuestion/answered/${answer_list[i].answerer.userID}/${qObject.questionID}`, {method: 'DELETE'});
+        }
+
         // DELETE the question object
         const res_q = await fetch(`/question/${qID}`, {
             method: 'DELETE',
@@ -871,7 +890,7 @@ async function delete_my_question () {
                 'Content-Type': 'application/json'
             }
         });
-
+        
         location.reload();
     }catch(err){
         console.log(err);
@@ -885,7 +904,7 @@ async function accept_the_answer (answerObjID) {
         const res_q = await fetch(`/question/${qID}`,{
             method: 'PATCH',
             body: JSON.stringify(
-                {"status": "Solved"}
+                {"status": "Resolved"}
             ),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
