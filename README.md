@@ -178,8 +178,8 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 
 
 ### users
-| Method | URL                           | Usage                                                                       | Request.body                                                      | Response                   |
-| ------ | ----------------------------- | --------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------- |
+| Method | URL        | Usage        | Request.body           | Response                    |
+| ------ | ---------- | ------------ | ----------------------------   | -------------------------------   |
 | GET    | /user/:id                     | get user info                                                               | n/a                                                               | the user object            |
 | POST   | /user                         | add user                                                                    | {<br>"userID": String, (required)<br>// and other attributes<br>} | the added user object      |
 | PATCH  | /user/:id                     | modify user                                                                 | {<br>// any attribute(s)<br>}                                     | the modified user object   |
