@@ -158,7 +158,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 if (sort == "like"){
                     answer_list.sort(function(a, b){ return b.likeCount - a.likeCount; });
                 }else{
-                    answer_list.sort(function(a, b){ return a.answerID - b.answerID; });
+                    answer_list.sort(function(a, b){ return b.answerID - a.answerID; });
                 }
                 
                 // insert each answer
