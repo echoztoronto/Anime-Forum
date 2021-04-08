@@ -871,9 +871,6 @@ function delete_my_question () {
 
 // accept others' answer
 async function accept_the_answer (answerObjID) {
-    console.log("quersionID", qID, "answerID", answerObjID);
-
-    // ongoing to solved
     try{
         // PATCH to update question status
         const res_q = await fetch(`/question/${qID}`,{
@@ -900,8 +897,8 @@ async function accept_the_answer (answerObjID) {
         const answer = await res_answer.json();
         const answerer_id = answer.answerer.userID;
         
-        // POST to update user's accpeted field
-        const res_user = await fetch(`/userQuestion/accepted/${answerer_id}`, {
+        // POST to update answerer's accpeted field
+        let res_user = await fetch(`/userQuestion/accepted/${answerer_id}`, {
             method: 'POST',
             body: JSON.stringify({
                 "summary": question.summary,
@@ -910,8 +907,23 @@ async function accept_the_answer (answerObjID) {
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        })
+        });
         
+        // GET answerer
+        res_user = await fetch(`/user/${answerer_id}`);
+        const answerer = await res_user.json();
+
+        // PATCH to update answerer's gold
+        res_user = await fetch(`/user/${answerer_id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "gold": answerer.gold + question.reward
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+
         location.reload();
     }catch(err){
         console.log(err);
