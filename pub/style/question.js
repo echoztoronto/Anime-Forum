@@ -360,7 +360,7 @@ async function add_self_answer(HTMLcontent) {
         "content": HTMLcontent
     }
     try{
-        const res = await fetch(`/question/${qID}`, {
+        await fetch(`/question/${qID}`, {
             method: 'POST', 
             body: JSON.stringify(new_answer_data),
             headers: {
@@ -404,12 +404,9 @@ async function add_self_answer(HTMLcontent) {
             document.body.appendChild(notif);
             notif.innerHTML = `exp + 10`;
             notif.className = "center-notif";
-            add_fade(notif);
-            updatePage();
-        }else{
-            console.log('Could not add answer');
-            console.log(res);
+            add_fade(notif); 
         }
+        updatePage();
     }catch(err){
         console.log(err);
     }
@@ -694,13 +691,29 @@ async function admin_delete_confirm() {
                     for(let i=0; i<qObject.answer_list.length;i++) {
                         await fetch('/userQuestion/answered/'+qObject.answer_list[i].answerer.userID+'/'+qID, {method: 'DELETE'});
                     }
-                    // TODO: deal with accepted user
+                    // accepted[]
+                    if (qObject.status === 'Resolved'){           
+                        for (let i = 0; i < qObject.answer_list.length; i++){
+                            if (qObject.answer_list[i].accepted){ 
+                                await fetch(`/userQuestion/accepted/${qObject.answer_list[i].answerer.userID}/${qObject.questionID}`, {method: 'DELETE'});
+                                break;
+                            }
+                        }
+                    }
                 }
                 else if(object_name == "answer") {
                     await fetch('/question/' + qID + '/' + object_id, {method: 'DELETE'});
-                    // answered 
+                    // answered[]
                     if(answered_count == 1) await fetch('/userQuestion/answered/'+deleted_answer_user+'/'+qID, {method: 'DELETE'});
-                    // TODO: deal with accepted user
+                    // accepted[]
+                    if (qObject.status === 'Resolved'){           
+                        for (let i = 0; i < qObject.answer_list.length; i++){
+                            if (qObject.answer_list[i].accepted && qObject.answer_list[i].answerID == object_id){ 
+                                await fetch(`/userQuestion/accepted/${qObject.answer_list[i].answerer.userID}/${qObject.questionID}`, {method: 'DELETE'});
+                                break;
+                            }
+                        }
+                    }
                 }
                 delete_admin_confirmation();
                 updatePage();
