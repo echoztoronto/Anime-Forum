@@ -16,9 +16,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 
 
 
-## Phrase 1 Instruction
-Note: We indicated the places that require server calls by using comment __"TODO"__. </br>
-__e.g.__ // TODO: update user exp and gold info to server
+## Phrase 2 Instruction
 
 ### Table of Contents
 - [1. Home Page](#1-home-page)
@@ -39,14 +37,19 @@ __e.g.__ // TODO: update user exp and gold info to server
 Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
 ![](/images/readme/phase1/home.jpg?raw=true) <br/> <br/>
 
-Note: We will not save user login/sign up information for phase 1, so you can only try login/sign up UI interactions on home page. And on other pages, we assume you are logged in as user "Pikachu" (with ID "user").  <br/>
-
 
 <img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
 
 * Login by clicking __Login__ button at top right corner
-  * valid credentials: "user" "user" and "admin" "admin" 
-  * note: admin only have authorities on question pages(we will provide an admin view page later), so logging "admin" in here will make no difference for now
+  * valid credentials: "user" "user" and "admin" "admin"
+     | userID                 | password | type                | note                                        |
+| ---------------------- | -------- | ------------------- | ------------------------------------------- |
+| user                   | user     | normal              | general functionalities                     |
+| admin                  | admin    | admin               | can delete questions + mute non-admin users |
+| kano                   | kano     | normal              | high level + more gold                      |
+| any new signed up user | normal   | low level + no gold |
+
+
 * Sign up by clicking __Sign Up__ button at top right corner
 * Click on any question title in __Hottest Questions__ or __Recent Questions__, will open the corresponding question page in a new tab. <br/>
 
@@ -162,3 +165,35 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 ![](/images/readme/phase1/ranking.jpg?raw=true) <br/>
 
 * Click on any user name, it will open the profile page of corresponding user. 
+
+
+
+## Server Routes
+| Collection | Method | URL                           | Usage                                                                 | Request.body                                                                                                                                       | Response                   |
+| ---------- | ------ | ----------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| Users      | GET    | /user/:id                     | get user info                                                         | n/a                                                                                                                                                | the user object            |
+|            | POST   | /user                         | add user                                                              | {<br>"userID": "newUser",<br>"displayName": "aUser",<br>"type": "normal",<br>"birthday": "Dec.24",<br>"address": "secret"<br>}                     | the added user object      |
+|            | PATCH  | /user/:id                     | modify user                                                           | {<br>"exp": 100,<br>"level": 4,<br>"gold": 1000,<br>"birthday": "Dec.24"<br>}                                                                      | the modified user object   |
+|            | POST   | /userQuestion/:type/:uid      | add to "asked" or "answered" or "accepted" (as parameter "type")      | {<br>"summary": String,<br>"qid": Number<br>}                                                                                                      | the modified array (:type) |
+|            | DELETE | /userQuestion/:type/:uid/:qid | delete from "asked" or "answered" or "accepted" (as parameter "type") | n/a                                                                                                                                                | the modified array (:type) |
+|            | GET    | /allUsers                     | get all users                                                         | N/A                                                                                                                                                | the array of users object  |
+|            | POST   | /verifyPsw                    | verify password                                                       | {<br>"uid": Number,<br>"password": String<br>}                                                                                                     | status only                |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+| Credential | GET    | /credential/id                |                                                                       |                                                                                                                                                    |                            |
+|            | POST   | /credential/id                |                                                                       |                                                                                                                                                    |                            |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+| Question   | GET    | /question/:qid                | get question                                                          | N/A                                                                                                                                                | the question with the id   |
+|            | POST   | /question                     | add question                                                          | {"summary": String,<br>"description": String,<br>"reward": Number,<br>"levelLimit": Number,<br>"asker": {"userID": String, "displayName": String}} | status only                |
+|            | DELETE | /question/:qid                | delete question and all arrays which stored the question info         | N/A                                                                                                                                                | status only                |
+|            | PATCH  | /question/:qid                | modify question                                                       | object-value pairs                                                                                                                                 | status only                |
+|            | GET    | /allQuestions                 | get all questions                                                     | N/A                                                                                                                                                | \[questions\]              |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+|            |        |                               |                                                                       |                                                                                                                                                    |                            |
+| Answers    | GET    | /question/:qid/:aid           | get answer                                                            | N/A                                                                                                                                                | the answer with the aid    |
+|            | POST   | /question/:qid                | add answer                                                            | {"answerer": {userID: String, displayName: String},<br>"content": String,<br>questionID: Number}                                                   | status only                |
+|            | DELETE | /question/:qid/:aid           | delete answer and all arrays which stored the answer info             | N/A                                                                                                                                                | status only                |
+|            | PATCH  | /question/:qid/:aid           | modify answer                                                         | object-value pairs                                                                                                                                 | status only                |
+|            | GET    | /answers-of-question/:qid     | get all answers of a given question                                   | N/A                                                                                                                                                | \[answers\]                |
