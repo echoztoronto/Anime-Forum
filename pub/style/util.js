@@ -166,5 +166,17 @@ function get_today_date() {   // from https://stackoverflow.com/questions/153109
     let mm = String(today.getMonth() + 1).padStart(2, '0'); 
     let yyyy = today.getFullYear();
     
-    return  mm + '/' + dd + '/' + yyyy;
+    return  yyyy + '/' + mm + '/' + dd;
 }
+
+function get_future_date(days) {
+    let today = new Date();
+    let future = new Date();
+    future.setDate(today.getDate() + Number(days));
+    let dd = String(future.getDate()).padStart(2, '0');
+    let mm = String(future.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = future.getFullYear();
+    
+    return  yyyy + '/' + mm + '/' + dd;
+}
+

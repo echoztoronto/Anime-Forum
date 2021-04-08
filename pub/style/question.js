@@ -6,6 +6,7 @@ let answered_count = 0;
 let am_asker = false;
 let am_low = false;
 let am_admin = false;
+let am_muted = false;
 let gold_needed = 0;
 let not_enough_gold = false;
 let deleted_answer_user = null;
@@ -52,7 +53,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     exp: uObject.exp,
                     profilePicImg: uObject.profilePicImg,
                     answered: uObject.answered,
-                    unlocked: uObject.unlocked
+                    unlocked: uObject.unlocked,
+                    mute: uObject.mute
                 }
                 for(let i = 0; i < self_profile.answered.length; i++) {
                         if(self_profile.answered[i].qid == qID) {
@@ -73,6 +75,9 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 }
             } 
             if(am_asker || am_admin) am_low = false;
+
+            // check if I am muted
+            am_muted = check_muted(self_profile);
     
             //get asker info
             // fetch to GET the asker
@@ -84,6 +89,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             document.getElementById("asker-name").innerHTML = '<a href="profile.html#' + uProfile.userID 
                     + '" target="_blank">' +  uProfile.displayName + '</a>';
             document.getElementById("asker-level").innerHTML = "Level: " + uProfile.level;
+            if(check_muted(uProfile))  document.getElementById("asker-mute").innerHTML = `[muted until: ${uProfile.mute}]`;
+            else document.getElementById("asker-mute").innerHTML = ``;
             
             // update question info DOM
             document.getElementById("question-title").innerHTML = '<b>' + qObject.summary + '</b>';
@@ -105,8 +112,8 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 // don't mute an admin
                 if(uProfile.type != "admin") {  
                     let asker_mute_container = create_unique_element("div", "mute-user-asker", "mute-user-container", "asker-profile");
-                    asker_mute_container.innerHTML = `<button class="mute-user-btn" value="${uProfile.userID}">MUTE</button>`;
-                    //TODO: ADD MUTE FUNCTION
+                    if(!check_muted(uProfile)) asker_mute_container.innerHTML = `<button class="mute-user-btn" value="${uProfile.userID}" onclick="create_admin_mute_window(this.value)">MUTE</button>`;
+                    else  asker_mute_container.innerHTML = `<button class="mute-user-btn" value="${uProfile.userID}" onclick="create_admin_unmute_window(this.value)">UNMUTE</button>`;
                 }
                 let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
                 asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="admin_delete_question(qID)">DELETE QUESTION</button>`;
@@ -151,14 +158,23 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     insert_answer_posts(answer_list);
                     add_event_listener();
                 }
-                //add text editor
-                if(qObject.status != "Resolved") {
+                // add answer button
+                if(qObject.status != "Resolved" && !am_muted && !am_low) {
                     document.getElementById("add-answer-btn").style = "visibility: visible;";
                     if(quill == null) {
                         initiate_answer_editor();
                     }  
                 } else {
                     document.getElementById("add-answer-btn").style = "visibility: hidden;";
+                }
+                // muted notif
+                if(am_muted) {
+                    let notif = document.createElement("div");
+                    document.body.appendChild(notif);
+                    notif.innerHTML = `You are muted by the admin!`;
+                    notif.className = "center-notif";
+                    notif.style = "margin-left: -150px; width: 500px";
+                    add_fade(notif);
                 }
             }
         }
@@ -228,6 +244,7 @@ async function insert_answer_posts(answer_list) {
                     <div class='post-profile-info'>
                         <div class='display-name' id='answerer-name-${i}'></div> 
                         <div class='user-level' id='answerer-level-${i}'></div>
+                        <div class='mute-message' id='answerer-mute-${i}'> </div>
                     </div>
                 </div>
                 <div class='post-content' id='answerer-content-${i}'>
@@ -246,6 +263,8 @@ async function insert_answer_posts(answer_list) {
             document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
                     + '" target="_blank">' +  aProfile.displayName + '</a>';
             document.getElementById("answerer-level-"+i).innerHTML = "Level: " + aProfile.level;
+            if(check_muted(aProfile))  document.getElementById("answerer-mute-"+i).innerHTML = `[muted until: ${aProfile.mute}]`;
+            else document.getElementById("answerer-mute-"+i).innerHTML = ``;
             
             // update answer info DOM
             document.getElementById("answer-description-"+i).innerHTML = answer_list[i].content;
@@ -258,8 +277,8 @@ async function insert_answer_posts(answer_list) {
                 // don't mute an admin
                 if(aProfile.type != "admin") { 
                     let answerer_mute_container = create_unique_element("div", "mute-user-"+i, "mute-user-container", "answerer-profile-"+i);
-                    answerer_mute_container.innerHTML = `<button class="mute-user-btn" value="${aProfile.userID}"> MUTE </button>`;
-                    //TODO: ADD MUTE FUNCTION
+                    if(!check_muted(aProfile)) answerer_mute_container.innerHTML = `<button class="mute-user-btn" value="${aProfile.userID}" onclick="create_admin_mute_window(this.value)">MUTE</button>`;
+                    else  answerer_mute_container.innerHTML = `<button class="mute-user-btn" value="${aProfile.userID}" onclick="create_admin_unmute_window(this.value)">UNMUTE</button>`;
                 }
                 let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
                 answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${answer_list[i].answerID}" onclick="admin_delete_answer(this.value);deleted_answer_user='${answer_list[i].answerer.userID}';"> DELETE ANSWER </button>`;
@@ -363,9 +382,9 @@ function add_self_answer(HTMLcontent) {
             // TODO: if(!already_answered)  add 10 exp
 
             //create a notif 
+            quill.setContents([{ insert: '\n' }]);
             let notif = document.createElement("div");
             document.body.appendChild(notif);
-            quill.setContents([{ insert: '\n' }]);
             notif.innerHTML = `exp + 10`;
             notif.className = "center-notif";
             add_fade(notif);
@@ -596,7 +615,7 @@ function unlock_level_limit() {
     })
 }
 
-///////////////////////////////////// Admin View /////////////////////////////////////
+///////////////////////////////////// Admin Delete /////////////////////////////////////
 
 // onclick function for delete question
 function admin_delete_question(qid) {
@@ -609,7 +628,7 @@ function admin_delete_answer(aid) {
 }
 
 // create the confirmation window for admin
-function create_admin_confirmation(object_name, object_id) { // str = "question" or "answer"
+function create_admin_confirmation(object_name, object_id) { 
     const confirmation_container = create_unique_element("div", "confirmation-container", "", "body");
     confirmation_container.innerHTML = `
         <div id="confirmation-window">
@@ -617,7 +636,6 @@ function create_admin_confirmation(object_name, object_id) { // str = "question"
             <div id="confirmation-message"> Confirm to delete ${object_name} </div>
             <input id="confirmation-password" type="password" placeholder="Enter your password">
             <div id="confirmation-wrong"> </div> 
-            <div id="confirmation-cancel" onclick="delete_admin_confirmation()"> CANCEL </div>
             <div id="confirmation-confirm" data-name=${object_name} data-id=${object_id} onclick="admin_delete_confirm()"> CONFIRM </div>
         </div>
     `;
@@ -668,6 +686,140 @@ async function admin_delete_confirm() {
                 delete_admin_confirmation();
                 updatePage();
                  
+            } else {
+                document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
+            }        
+        })
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+////////////////////////////////// Admin Mute ////////////////////////////////
+// create the confirmation window for admin
+function create_admin_mute_window(uid) { 
+    const mute_container = create_unique_element("div", "confirmation-container", "", "body");
+    mute_container.innerHTML = `
+        <div id="confirmation-window">
+            <div id="confirmation-close" onclick="delete_admin_confirmation()"> x </div>
+            <div id="confirmation-message"> 
+                Mute for
+                <select id="mute-duration" >
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="7">7</option>
+                    <option value="30">30</option>
+                    <option value="forever">∞</option>
+                </select>
+                Days
+            </div>
+            <input id="confirmation-password" type="password" placeholder="Enter your password">
+            <div id="confirmation-wrong"> </div> 
+            <div id="confirmation-confirm" data-id=${uid} onclick="admin_mute_confirm()"> CONFIRM </div>
+        </div>
+    `;
+}
+
+async function admin_mute_confirm() {
+    const uid = document.getElementById('confirmation-confirm').getAttribute('data-id');
+    const entered_password = document.getElementById('confirmation-password').value;
+    const mute_days = document.getElementById("mute-duration").value;
+
+    // verify admin's password
+    try {
+        const my_admin_info = {uid:self_ID, password:entered_password};
+        const request = new Request('/verifyPsw', {
+            method: 'POST', 
+            body: JSON.stringify(my_admin_info),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });   
+        fetch(request)
+        .then(async function(res) {
+            if (res.status === 200) {
+                // update mute time
+                if(mute_days == 'forever') updated_mute = 'forever';
+                else updated_mute =  get_future_date(mute_days);
+                const mute_request = new Request('/user/'+uid, {
+                    method: 'PATCH', 
+                    body: JSON.stringify({mute: updated_mute}),
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                });  
+                
+                await fetch(mute_request);
+                delete_admin_confirmation();
+                updatePage();         
+            } else {
+                document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
+            }        
+        })
+
+    }catch(err){
+        console.log(err);
+    }
+}
+
+function check_muted(profile) {
+    let muted = false;
+    if(profile.mute != '' && profile.mute != undefined){
+        if(profile.mute == 'forever') muted = true;
+        else if(profile.mute >= get_today_date()) muted = true;
+    }
+    return muted;
+}
+
+
+////////////////////////////////// Admin Unmute ////////////////////////////////
+// create the confirmation window for admin
+function create_admin_unmute_window(uid) { 
+    const mute_container = create_unique_element("div", "confirmation-container", "", "body");
+    mute_container.innerHTML = `
+        <div id="confirmation-window">
+            <div id="confirmation-close" onclick="delete_admin_confirmation()"> x </div>
+            <div id="confirmation-message"> Confirm to Unmute</div>
+            <input id="confirmation-password" type="password" placeholder="Enter your password">
+            <div id="confirmation-wrong"> </div> 
+            <div id="confirmation-confirm" data-id=${uid} onclick="admin_unmute_confirm()"> CONFIRM </div>
+        </div>
+    `;
+}
+
+async function admin_unmute_confirm() {
+    const uid = document.getElementById('confirmation-confirm').getAttribute('data-id');
+    const entered_password = document.getElementById('confirmation-password').value;
+
+    // verify admin's password
+    try {
+        const my_admin_info = {uid:self_ID, password:entered_password};
+        const request = new Request('/verifyPsw', {
+            method: 'POST', 
+            body: JSON.stringify(my_admin_info),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });   
+        fetch(request)
+        .then(async function(res) {
+            if (res.status === 200) {
+                // update mute time
+                const mute_request = new Request('/user/'+uid, {
+                    method: 'PATCH', 
+                    body: JSON.stringify({mute: ''}),
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                });  
+                await fetch(mute_request);
+                delete_admin_confirmation();
+                updatePage();         
             } else {
                 document.getElementById("confirmation-wrong").innerHTML = `Incorrect Password`;
             }        

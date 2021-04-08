@@ -22,7 +22,8 @@ const UserSchema = new mongoose.Schema({
     answered: [UQuestionSchema],
     accepted: [UQuestionSchema],
     checkin: Array,
-    unlocked: Array
+    unlocked: Array,
+    mute: {type: String, default: ""}
 });
 
 const User = mongoose.model('User', UserSchema);

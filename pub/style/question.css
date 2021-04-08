@@ -230,6 +230,10 @@ a {
     text-decoration: underline;
 }
 
+.mute-message {
+    color: red;
+}
+
 .accept-description{
     color:green; 
     text-align: center;
@@ -392,14 +396,14 @@ a {
 
 .mute-user-btn {
     height: 40px;
-    width: 80px;
+    width: 110px;
     color: rgb(223, 74, 74);
     font-size: 20px;
     border: solid 1px rgb(87, 87, 87);
     border-radius: 5px;
     background-color: white;
     text-align: center;
-    margin-left: calc(50% - 40px);
+    margin-left: calc(50% - 55px);
 }
 
 .mute-user-btn:hover{
@@ -471,7 +475,7 @@ a {
 
 #confirmation-message {
     position: fixed;
-    top: calc(50% - 45px);
+    top: calc(50% - 50px);
     left: calc(50% - 150px);
     width: 300px;
     font-size: 25px;
@@ -500,36 +504,25 @@ a {
     color: red;
 }
 
-#confirmation-cancel{
-    position: fixed;
-    top: calc(50% + 90px);
-    left: calc(50% - 180px);
-    color:  rgb(175, 6, 6) ;
-    border-radius: 5px;
-    width: 70px;
-    height: 25px;
-    font-size: 20px;
-    text-align: center;
-}
 
 #confirmation-confirm{
     position: fixed;
-    top: calc(50% + 90px);
-    left: calc(50% + 95px);
-    color:  rgb(13, 144, 3);
+    top: calc(50% + 70px);
+    left: calc(50% - 50px);
+    color:  rgb(170, 7, 7);
     border-radius: 5px;
-    width: 70px;
+    width: 100px;
     height: 20px;
     font-size: 20px;
     text-align: center;
 }
 
-#confirmation-cancel:hover {
-    cursor: pointer;
-    color: rgb(255, 12, 12);
-}
-
 #confirmation-confirm:hover {
     cursor: pointer;
-    color: rgb(21, 255, 0);
+    color: rgb(255, 74, 74);
 }
+
+#mute-duration {
+    font-size: 20px;
+}
+
