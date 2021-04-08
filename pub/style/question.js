@@ -349,7 +349,7 @@ function editor_submit() {
 }
 
 
-function add_self_answer(HTMLcontent) {
+async function add_self_answer(HTMLcontent) {
     // push new answer info to database
     const new_answer_data = {
         "questionID": qID,
@@ -359,44 +359,43 @@ function add_self_answer(HTMLcontent) {
         },
         "content": HTMLcontent
     }
-    const url = '/question/' + qID;
-    const request = new Request(url, {
-        method: 'POST', 
-        body: JSON.stringify(new_answer_data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request)
-    .then(function(res) {
-        if (res.status === 200) {
-            if(!already_answered) {
-                // add to user collection answered[]
-                const user_answer_info = {
-                    summary: qObject.summary,
-                    qid: qID
-                }
-                const url = '/userQuestion/answered/' + self_profile.userID;
-                const request_user = new Request(url, {
-                    method: 'POST', 
-                    body: JSON.stringify(user_answer_info),
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                });
-                fetch(request_user)
-                .then(function(res) {
-                    if (res.status !== 200) console.log('Could not add to user array')
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+    try{
+        const res = await fetch(`/question/${qID}`, {
+            method: 'POST', 
+            body: JSON.stringify(new_answer_data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
             }
+        });
 
-            // TODO: if(!already_answered)  add 10 exp
-
+        if(!already_answered){
+            // add to user collection answered[]
+            const user_answer_info = {
+                summary: qObject.summary,
+                qid: qID
+            }
+            let res_user = await fetch(`/userQuestion/answered/${self_profile.userID}`,{
+                method: 'POST', 
+                body: JSON.stringify(user_answer_info),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (res_user.status !== 200) { console.log('Could not add to user array'); }
+            
+            // PATCH to add 10 exp
+            res_user = await fetch(`/user/${self_profile.userID}`, {
+                method: 'PATCH', 
+                body: JSON.stringify({
+                    "exp": self_profile.exp + 10
+                }),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            });
             //create a notif 
             quill.setContents([{ insert: '\n' }]);
             let notif = document.createElement("div");
@@ -405,11 +404,13 @@ function add_self_answer(HTMLcontent) {
             notif.className = "center-notif";
             add_fade(notif);
             updatePage();
-        } else {
-            console.log('Could not add answer')
-            console.log(res)
+        }else{
+            console.log('Could not add answer');
+            console.log(res);
         }
-    })
+    }catch(err){
+        console.log(err);
+    }
 }
 
 // like & dislike for question
