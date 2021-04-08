@@ -167,7 +167,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     add_event_listener();
                 }
                 // add answer button
-                if(qObject.status != "Solved" && !am_muted && !am_low) {
+                if(qObject.status != "Resolved" && !am_muted && !am_low) {
                     document.getElementById("add-answer-btn").style = "visibility: visible;";
                     if(quill == null) {
                         initiate_answer_editor();
