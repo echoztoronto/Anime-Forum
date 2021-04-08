@@ -172,7 +172,6 @@ request body expects:
 {
 	"summary": String,
     "qid": Number,
-	"status": String
 }
 */
 app.post('/userQuestion/:type/:id', async(req, res) => {

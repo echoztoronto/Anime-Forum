@@ -870,53 +870,52 @@ function delete_my_question () {
 }
 
 // accept others' answer
-function accept_the_answer (answerObjID) {
+async function accept_the_answer (answerObjID) {
     console.log("quersionID", qID, "answerID", answerObjID);
 
     // ongoing to solved
-    const updateData = {
-        "status": "Solved",
-    };
-    const request = new Request("/question/" + qID, {
-        method: 'PATCH',
-        body: JSON.stringify(updateData),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    fetch(request)
-        .then(function (res) {
-            if (res.status === 200) {
-                console.log("更新问题状态", res);
-                // accpected = true
-                const updateData2 = {
-                    "accepted": "true",
-                };
-                const request2 = new Request("/question/" + qID + "/" + answerObjID, {
-                    method: 'PATCH',
-                    body: JSON.stringify(updateData2),
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                    }
-                });
-                fetch(request2)
-                    .then(function (res) {
-                        if (res.status === 200) {
-                            console.log("status", res);
-                            location.reload();
-                        } else {
-                            console.log('update answer error');
-                        }
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-            } else {
-                console.log('update question error');
+    try{
+        // PATCH to update question status
+        const res_q = await fetch(`/question/${qID}`,{
+            method: 'PATCH',
+            body: JSON.stringify(
+                {"status": "Solved"}
+            ),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
             }
-        }).catch((error) => {
-            console.log(error);
         });
+        const question = await res_q.json();
 
+        // PATCH to update answer accepted
+        const res_answer = await fetch(`/question/${qID}/${answerObjID}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "accepted": "true",
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        const answer = await res_answer.json();
+        const answerer_id = answer.answerer.userID;
+        
+        // POST to update user's accpeted field
+        const res_user = await fetch(`/userQuestion/accepted/${answerer_id}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                "summary": question.summary,
+                "qid": question.questionID,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        
+        location.reload();
+    }catch(err){
+        console.log(err);
+    }
 }
 
 // asker end
