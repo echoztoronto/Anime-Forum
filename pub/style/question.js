@@ -845,28 +845,34 @@ async function admin_unmute_confirm() {
         console.log(err);
     }
 }
-// asker begin
+
+
+// ----------------------- Asker View -----------------------------
 // delete my question
-function delete_my_question () {
-    const request = new Request("/question/" + qID, {
-        method: 'DELETE',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request)
-        .then(function (res) {
-            if (res.status === 200) {
-                console.log('delete question success')
-                location.href = "./forum.html";
-            } else {
-                console.log('delete question error');
+async function delete_my_question () {
+    try{
+        // DELETE the question in the user's asked field
+        const res = await fetch(`/userQuestion/asked/${self_ID}/${qID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
             }
-        }).catch((error) => {
-            console.log(error);
+        });
+        
+        // DELETE the question object
+        const res_q = await fetch(`/question/${qID}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
         });
 
+        location.reload();
+    }catch(err){
+        console.log(err);
+    }
 }
 
 // accept others' answer
