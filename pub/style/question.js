@@ -386,10 +386,12 @@ async function add_self_answer(HTMLcontent) {
             if (res_user.status !== 200) { console.log('Could not add to user array'); }
             
             // PATCH to add 10 exp
+            const [new_level, new_exp] = calculate_exp_and_level(self_profile.level, self_profile.exp + 10);
             res_user = await fetch(`/user/${self_profile.userID}`, {
                 method: 'PATCH', 
                 body: JSON.stringify({
-                    "exp": self_profile.exp + 10
+                    "level": new_level,
+                    "exp": new_exp
                 }),
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
