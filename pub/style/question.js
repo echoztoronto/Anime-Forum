@@ -119,6 +119,14 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="admin_delete_question(qID)">DELETE QUESTION</button>`;
             }
             
+             // asker begin
+             if (am_asker) {
+                let asker_delete_container = create_unique_element("div", "delete-post-asker", "delete-post-container", "asker-content");
+                asker_delete_container.innerHTML = `<button class="delete-post-btn" onclick="delete_my_question()">DELETE QUESTION</button>`;
+            }
+            // asker end
+
+            
             // remove previous answer posts
             remove_answer_posts();
 
@@ -159,7 +167,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                     add_event_listener();
                 }
                 // add answer button
-                if(qObject.status != "Resolved" && !am_muted && !am_low) {
+                if(qObject.status != "Solved" && !am_muted && !am_low) {
                     document.getElementById("add-answer-btn").style = "visibility: visible;";
                     if(quill == null) {
                         initiate_answer_editor();
@@ -283,6 +291,14 @@ async function insert_answer_posts(answer_list) {
                 let answerer_delete_container = create_unique_element("div", "delete-post-"+i, "delete-post-container", "answerer-content-"+i);
                 answerer_delete_container.innerHTML = `<button class="delete-post-btn" value="${answer_list[i].answerID}" onclick="admin_delete_answer(this.value);deleted_answer_user='${answer_list[i].answerer.userID}';"> DELETE ANSWER </button>`;
             }
+
+
+            // asker begin
+            if (am_asker && qObject.status == "Ongoing") {
+                let accept_container = create_unique_element("div", "accept-post-" + i, "delete-post-container", "answerer-content-" + i);
+                accept_container.innerHTML = `<button onclick="accept_the_answer('${answer_list[i]._id}')" class="delete-post-btn" value="${i}"> Accept The Answer </button>`;
+            }
+            // asker end
             
         }catch(err){
             console.log(err);
@@ -829,3 +845,78 @@ async function admin_unmute_confirm() {
         console.log(err);
     }
 }
+// asker begin
+// delete my question
+function delete_my_question () {
+    const request = new Request("/question/" + qID, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+        .then(function (res) {
+            if (res.status === 200) {
+                console.log('delete question success')
+                location.href = "./forum.html";
+            } else {
+                console.log('delete question error');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+
+}
+
+// accept others' answer
+function accept_the_answer (answerObjID) {
+    console.log("quersionID", qID, "answerID", answerObjID);
+
+    // ongoing to solved
+    const updateData = {
+        "status": "Solved",
+    };
+    const request = new Request("/question/" + qID, {
+        method: 'PATCH',
+        body: JSON.stringify(updateData),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    fetch(request)
+        .then(function (res) {
+            if (res.status === 200) {
+                console.log("更新问题状态", res);
+                // accpected = true
+                const updateData2 = {
+                    "accepted": "true",
+                };
+                const request2 = new Request("/question/" + qID + "/" + answerObjID, {
+                    method: 'PATCH',
+                    body: JSON.stringify(updateData2),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                });
+                fetch(request2)
+                    .then(function (res) {
+                        if (res.status === 200) {
+                            console.log("status", res);
+                            location.reload();
+                        } else {
+                            console.log('update answer error');
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                console.log('update question error');
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+
+}
+
+// asker end
