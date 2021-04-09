@@ -402,6 +402,7 @@ async function add_self_answer(HTMLcontent) {
             notif.className = "center-notif";
             add_fade(notif); 
         }
+        quill.setContents([{ insert: '\n' }]);
         updatePage();
     }catch(err){
         console.log(err);
