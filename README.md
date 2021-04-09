@@ -47,7 +47,7 @@ https://anime-qa-forum.herokuapp.com/
   * [users](#users)
   * [questions](#questions)
   * [answers (subdocument of questions)](#answers--subdocument-of-questions-)
-  * [credentials](#credentials)
+
 
 
 
@@ -129,7 +129,6 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 
 #### 3.2 Admin View
-Entrance: On any question page, click on __Admin__ in the nav bar <img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/><br/>
 
 <img src="/images/readme/phase1/admin.jpg"> <br/>
 
@@ -141,7 +140,6 @@ Entrance: On any question page, click on __Admin__ in the nav bar <img src="/ima
 
 
 #### 3.3 Question Asker View
-Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 <img src="/images/readme/phase1/asker.jpg"> <br/>
 
 * The __Delete the question__ button works exactly the same as that on *Admin* page.
@@ -153,7 +151,6 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 
 
 #### 3.4 Low Level User View
-Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
 <img src="/images/readme/phase1/low.jpg"> <br/>
 * The answers are hidden as you do not meet the level restriction for this question. Clicking on __Unlock__ will allow you to see the answers.
 * Click on the question mark besides level limit, it will open the [Level and Gold Explanation Page](#5-level-and-gold-explanation-page) 
@@ -162,7 +159,6 @@ Entrance: On any question page, click on __Low Level__ button in the nav bar <br
 
 ### 4. Profile Page
 #### 4.1 Normal View
-Entrance: On any page, click on any username.<br/> <br/> 
 ![](/images/readme/phase1/profile.jpg?raw=true "User Profile Page") <br/> 
 * Click on __Asked Questions__ or __Answered Questions__ or __Accepted Questions__, a list of question posts will be displayed.<br/> 
 * Click on any question post, it will open the corresponding question page on a new tab.<br/>  
@@ -173,7 +169,6 @@ Entrance: On any page, click on any username.<br/> <br/>
 
 
 #### 4.2 Self View
-Entrance: On any of the Forum page, Question page (normal view), Profile page, click on the username "Pikachu" ![](/images/readme/phase1/user_pikachu.jpg?raw=true "Entrance" ) at top right corner. <br/><br/> 
 * Check In <br/> <img src="/images/readme/phase1/checkin_before.jpg" width="250px"> <img src="/images/readme/phase1/checkin_after.jpg" width="250px"><br/>  
 * Edit Profile (note: the only requirement is that the display name should be at least 4 characters)  <br/> 
 
@@ -234,7 +229,7 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 
 
 
-### credentials
+
 
 
 
