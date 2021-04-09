@@ -322,8 +322,8 @@ function edit_reset() {
 function edit_submit() {
     let new_name = document.getElementById('edit-name').value;
 
-    if(new_name.length < 4) {
-        document.getElementById('edit-message').innerHTML = `Display Name should have at least 4 characters!`;
+    if(new_name.length < 3) {
+        document.getElementById('edit-message').innerHTML = `Display Name should have at least 3 characters!`;
     } else {
         // update new profile info to server
         const modified_profile = {

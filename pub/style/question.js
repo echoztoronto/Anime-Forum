@@ -332,9 +332,9 @@ function editor_cancel() {
 function editor_submit() {
     let quillHTML = quill.root.innerHTML;
     const message_element = document.getElementById('editor-message');
-    if(quillHTML.length < 10) {
+    if(quillHTML.length < 5) {
         message_element.style = "color: red;";
-        message_element.innerHTML = "Your answer must be greater than 10 characters!";
+        message_element.innerHTML = "Your answer must be greater than 5 characters!";
     } else {
         add_self_answer(quillHTML);
         document.getElementById("editor-window").style = "visibility: hidden;";
