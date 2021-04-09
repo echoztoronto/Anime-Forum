@@ -7,6 +7,9 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 * [Echo (Yuwen) Zheng](https://github.com/echoztoronto)
 * [Ziang Zhang](https://github.com/Ziang-Zhang)
 
+### Deployed App Link
+https://anime-qa-forum.herokuapp.com/
+
 ### Libraries Used 
 * [Quill](https://quilljs.com/) Text Editor
 
