@@ -47,6 +47,7 @@ https://anime-qa-forum.herokuapp.com/
   * [users](#users)
   * [questions](#questions)
   * [answers](#answers)
+  * [credentials](#credentials)
 
 
 
@@ -201,7 +202,7 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | POST   | /userQuestion<br>/:type/:uid      | add to <br>asked/answered/accepted array <br> (as parameter "type")      | {<br>&nbsp;&nbsp;"summary": String,<br>&nbsp;&nbsp;"qid": Number<br>}                     | the modified array (:type) |
 | DELETE | /userQuestion<br>/:type/:uid/:qid | delete from <br>asked/answered/accepted array <br> (as parameter "type") | n/a                                                               | the modified array (:type) |
 | GET    | /allUsers                     | get all users                                                               | n/a                                                               | the array of users object  |
-| POST   | /verifyPsw                    | verify password                                                             | {<br>&nbsp;&nbsp;"uid": Number,<br>&nbsp;&nbsp;"password": String<br>}                    | status only                |
+             |
 
 
 
@@ -228,9 +229,10 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | PATCH  | /question/:qid/:aid       | modify answer                                             | object-value pairs                                                                               | modified answer   |
 | GET    | /answers-of-question/:qid | get all answers of a given question                       | n/a                                                                                              | \[answers\]       |
 
-
-
-
+### credentials
+| Method | URL                       | Usage                                                     | Request.body                                                                                     | Response          |
+| ------ | ------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
+| POST   | /verifyPsw                    | verify password                                                             | {<br>&nbsp;&nbsp;"uid": Number,<br>&nbsp;&nbsp;"password": String<br>}                    | status only   
 
 
 
