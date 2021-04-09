@@ -1,11 +1,30 @@
 # Anime Forum
 The goal of this project is to build a Question and Answer (Q&A) forum for people to communicate anime related questions. 
 
+#### Feature Summary:
+* Sign up and Login 
+* Check in to earn exp and gold everyday
+* Edit your profile and images
+* See some users' rankings 
+* Like or dislike any quesiton or answer
+* View questions and answers by time order or like count order
+* Post questions, with options to add reward and level limit
+   * choose an answer as the best answer to the question. The answerer will receive your reward.
+   * users who don't meet the level limit will not be able to answer or view your question's answers, unless they spend golds to unlock the question.
+   * you can delete your questions any time, but you will lose some experience.
+* Answer ongoing questions
+   * earn exp at the first time your answer a question
+   * earn reward if your answer is accepted
+
+
 ## Project Info
 ### Team 28
 * [Songheng Yin](https://github.com/ReinaKousaka)
 * [Echo (Yuwen) Zheng](https://github.com/echoztoronto)
 * [Ziang Zhang](https://github.com/Ziang-Zhang)
+
+### Deployed App Link
+https://anime-qa-forum.herokuapp.com/
 
 ### Libraries Used 
 * [Quill](https://quilljs.com/) Text Editor
@@ -28,7 +47,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
   * [users](#users)
   * [questions](#questions)
   * [answers (subdocument of questions)](#answers--subdocument-of-questions-)
-  * [credentials](#credentials)
+
 
 
 
@@ -36,8 +55,7 @@ The goal of this project is to build a Question and Answer (Q&A) forum for peopl
 
 ## Phrase 2 Instruction
 
-
-
+Feature removed (compared to phase 1): Anime schedule on the home page.
 
 ### 1. Home Page
 Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
@@ -47,7 +65,7 @@ Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img
 <img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
 
 * Login by clicking __Login__ button at top right corner
-  * valid credentials: "user" "user" and "admin" "admin"
+  * valid credentials
  
 | userID                 | password | type                | note                                        |
 | ---------------------- | -------- | ------------------- | ------------------------------------------- |
@@ -72,7 +90,7 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 * Click on any question title, it will open the corresponding question page in a new tab.
 * Click on any user name, it will open the profile page of the corresponding user in a new tab.
 * Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new question. <br/>
-  * note: for now we do not save the new question infomation, so you will not be able to open the new question link.
+* 
 ![](/images/readme/phase1/new_question.jpg?raw=true) <br/><br/><br/>
 
 <img src="/images/readme/phase1/sort.jpg" width="140px"> <br/>
@@ -85,9 +103,12 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 
 ### 3. Question Page
 There are 4 views for question page, 1 normal view + 3 special views. <br/>
-For all 3 special views, we provide an extra html for each view, the entrances are in the navbar on any question page. <br/>
-<img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/>
-Note: These entrances are temporary, we will remove them and display all views on one single page in later phases. <br/>
+| view      | how to see it                                                                               |
+| --------- | ------------------------------------------------------------------------------------------- |
+| normal    | general view                                                                                |
+| admin     | login an admin user                                                                         |
+| asker     | add a question, then open that question                                                     |
+| low level | add a question with high level limit, then use another user with lower level than the limit |
 
 #### 3.1 Normal View
 Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
@@ -108,7 +129,6 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 
 #### 3.2 Admin View
-Entrance: On any question page, click on __Admin__ in the nav bar <img src="/images/readme/phase1/question_view.jpg" width="350px"> <br/><br/>
 
 <img src="/images/readme/phase1/admin.jpg"> <br/>
 
@@ -120,7 +140,6 @@ Entrance: On any question page, click on __Admin__ in the nav bar <img src="/ima
 
 
 #### 3.3 Question Asker View
-Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 <img src="/images/readme/phase1/asker.jpg"> <br/>
 
 * The __Delete the question__ button works exactly the same as that on *Admin* page.
@@ -132,7 +151,6 @@ Entrance: On any question page, click on __Asker__ in the nav bar <br/><br/>
 
 
 #### 3.4 Low Level User View
-Entrance: On any question page, click on __Low Level__ button in the nav bar <br/><br/>
 <img src="/images/readme/phase1/low.jpg"> <br/>
 * The answers are hidden as you do not meet the level restriction for this question. Clicking on __Unlock__ will allow you to see the answers.
 * Click on the question mark besides level limit, it will open the [Level and Gold Explanation Page](#5-level-and-gold-explanation-page) 
@@ -141,7 +159,6 @@ Entrance: On any question page, click on __Low Level__ button in the nav bar <br
 
 ### 4. Profile Page
 #### 4.1 Normal View
-Entrance: On any page, click on any username.<br/> <br/> 
 ![](/images/readme/phase1/profile.jpg?raw=true "User Profile Page") <br/> 
 * Click on __Asked Questions__ or __Answered Questions__ or __Accepted Questions__, a list of question posts will be displayed.<br/> 
 * Click on any question post, it will open the corresponding question page on a new tab.<br/>  
@@ -152,7 +169,6 @@ Entrance: On any page, click on any username.<br/> <br/>
 
 
 #### 4.2 Self View
-Entrance: On any of the Forum page, Question page (normal view), Profile page, click on the username "Pikachu" ![](/images/readme/phase1/user_pikachu.jpg?raw=true "Entrance" ) at top right corner. <br/><br/> 
 * Check In <br/> <img src="/images/readme/phase1/checkin_before.jpg" width="250px"> <img src="/images/readme/phase1/checkin_after.jpg" width="250px"><br/>  
 * Edit Profile (note: the only requirement is that the display name should be at least 4 characters)  <br/> 
 
@@ -213,7 +229,7 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 
 
 
-### credentials
+
 
 
 
