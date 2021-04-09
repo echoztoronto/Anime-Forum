@@ -89,7 +89,7 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 
 * Click on any question title, it will open the corresponding question page in a new tab.
 * Click on any user name, it will open the profile page of the corresponding user in a new tab.
-* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new question. You can also set the level threshold and reward amount for this question.<br/>
+* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new question. You can also set the level threshold and reward amount for this question. <br/>
 * 
 ![](/images/readme/phase2/new_question.jpg?raw=true) <br/><br/><br/>
 
@@ -158,7 +158,7 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 ### 4. Profile Page
 #### 4.1 Normal View
-![](/images/readme/phase1/profile.jpg?raw=true "User Profile Page") <br/> 
+![](/images/readme/phase2/profile.jpg?raw=true "User Profile Page") <br/> 
 * Click on __Asked Questions__ or __Answered Questions__ or __Accepted Questions__, a list of question posts will be displayed.<br/> 
 * Click on any question post, it will open the corresponding question page on a new tab.<br/>  
 
@@ -182,8 +182,8 @@ Entrance: On any Profile Page, click on the question mark besides user level. <b
 
 
 ### 6. Ranking Page
-Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
-![](/images/readme/phase1/ranking.jpg?raw=true) <br/>
+Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/readme/phase2/navbar.jpg" width="250px"><br/> <br/> 
+![](/images/readme/phase2/ranking.jpg?raw=true) <br/>
 
 * Click on any user name, it will open the profile page of corresponding user. 
 
