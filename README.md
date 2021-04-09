@@ -89,7 +89,7 @@ Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/r
 
 * Click on any question title, it will open the corresponding question page in a new tab.
 * Click on any user name, it will open the profile page of the corresponding user in a new tab.
-* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new question. <br/>
+* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new question. You can also set the level threshold and reward amount for this question.<br/>
 * 
 ![](/images/readme/phase2/new_question.jpg?raw=true) <br/><br/><br/>
 
@@ -112,7 +112,7 @@ There are 4 views for question page, 1 normal view + 3 special views. <br/>
 
 #### 3.1 Normal View
 Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
-![](/images/readme/phase1/question.jpg?raw=true) <br/>
+![](/images/readme/phase2/question.jpg?raw=true) <br/>
 
 
 <img src="/images/readme/phase2/sort.jpg" width="140px"> <br/>
@@ -133,7 +133,7 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 <img src="/images/readme/phase2/admin.jpg"> <br/>
 
 * Click on __mute__ button, and enter the password in the confirmation window, then the user will be muted in the forum.<br/>
-<img src="/images/readme/phase2/mute_confirm.jpg"><br/>
+<img src="/images/readme/phase2/mute_confirm.jpg" width="200px"><br/>
 <img src="/images/readme/phase2/mute_button.jpg" width="200px"> <img src="/images/readme/phase2/after_mute.jpg" width="200px">
 
 * Click on __Delete the answer__ button, the answer will be deleted and disappear. So does the __Delete the question__ button.<br/>
@@ -141,18 +141,16 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 
 
 #### 3.3 Question Asker View
-<img src="/images/readme/phase1/asker.jpg"> <br/>
+<img src="/images/readme/phase2/asker.jpg"> <br/>
 
-* The __Delete the question__ button works exactly the same as that on *Admin* page.
-* Enter the reward number and click on the __confirm__ button, then the reward for this question is made.
-<img src="/images/readme/phase1/reward.jpg" width="200px"> <br/>
+* The __Delete the question__ button works exactly the same as that on *Admin* page. <br/>
 
 * Click on the __Accept the answer__ button, this answer will be accepted.
-<img src="/images/readme/phase1/after_accepted.jpg" width="450px"> <br/><br/><br/>
+<img src="/images/readme/phase2/after_accepted.jpg" width="450px"> <br/><br/><br/>
 
 
 #### 3.4 Low Level User View
-<img src="/images/readme/phase1/low.jpg"> <br/>
+<img src="/images/readme/phase2/low.jpg"> <br/>
 * The answers are hidden as you do not meet the level restriction for this question. Clicking on __Unlock__ will allow you to see the answers.
 * Click on the question mark besides level limit, it will open the [Level and Gold Explanation Page](#5-level-and-gold-explanation-page) 
 
