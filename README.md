@@ -46,7 +46,7 @@ https://anime-qa-forum.herokuapp.com/
 - [Server Routes](#server-routes)
   * [users](#users)
   * [questions](#questions)
-  * [answers (subdocument of questions)](#answers--subdocument-of-questions-)
+  * [answers](#answers)
 
 
 
@@ -217,7 +217,9 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 
 
 
-### answers (subdocument of questions)
+### answers 
+(subdocument of questions)
+
 | Method | URL                       | Usage                                                     | Request.body                                                                                     | Response          |
 | ------ | ------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------- |
 | GET    | /question/:qid/:aid       | get answer                                                | n/a                                                                                              | the answer object |
