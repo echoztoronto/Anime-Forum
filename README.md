@@ -133,17 +133,17 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 <img src="/images/readme/phase2/admin.jpg"> <br/>
 
 * Click on __mute__ button, and enter the password in the confirmation window, then the user will be muted in the forum.<br/>
-<img src="/images/readme/phase2/mute_confirm.jpg" width="200px"><br/>
-<img src="/images/readme/phase2/mute_button.jpg" width="200px"> <img src="/images/readme/phase2/after_mute.jpg" width="200px">
+<img src="/images/readme/phase2/mute_button.jpg" width="150px"><img src="/images/readme/phase2/mute_confirm.jpg" width="200px"><br/>
+ <img src="/images/readme/phase2/after_mute.jpg" width="180px">
 
-* Click on __Delete the answer__ button, the answer will be deleted and disappear. So does the __Delete the question__ button.<br/>
+* Click on __Delete the answer__ button, the answer will be deleted after the confirmation window. So does the __Delete the question__ button.<br/>
 <img src="/images/readme/phase2/delete.jpg" width="450px"> <br/><br/><br/>
 
 
 #### 3.3 Question Asker View
 <img src="/images/readme/phase2/asker.jpg"> <br/>
 
-* The __Delete the question__ button works exactly the same as that on *Admin* page. <br/>
+* Click on __Delete the question__ button will delete the question. <br/>
 
 * Click on the __Accept the answer__ button, this answer will be accepted.
 <img src="/images/readme/phase2/after_accepted.jpg" width="450px"> <br/><br/><br/>
