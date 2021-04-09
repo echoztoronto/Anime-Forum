@@ -108,9 +108,9 @@ async function editor_submit_question() {
     let quillHTML = forum_quill.root.innerHTML;
     let question_title = document.getElementById('title-field').value;
     const message_element = document.getElementById('editor-message');
-    if(question_title.length < 10) {
+    if(question_title.length < 5) {
         message_element.style = "color: red;";
-        message_element.innerHTML = "Question title must be greater than 10 characters!";
+        message_element.innerHTML = "Question title must be greater than 5 characters!";
     } else {
         // get reward, level limit
         const reward = document.querySelector(`#reward-input`).value;
