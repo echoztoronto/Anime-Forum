@@ -58,11 +58,11 @@ https://anime-qa-forum.herokuapp.com/
 Feature removed (compared to phase 1): Anime schedule on the home page.
 
 ### 1. Home Page
-Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"> <br/><br/> 
-![](/images/readme/phase1/home.jpg?raw=true) <br/> <br/>
+Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img src="/images/readme/phase2/navbar.jpg" width="250px"> <br/><br/> 
+![](/images/readme/phase2/home.jpg?raw=true) <br/> <br/>
 
 
-<img src="/images/readme/phase1/login_signup.jpg" width="180px"><br/>
+<img src="/images/readme/phase2/login_signup.jpg" width="180px"><br/>
 
 * Login by clicking __Login__ button at top right corner
   * valid credentials
@@ -83,15 +83,15 @@ Entrance: Open index.html, or click on the __Home__ in the top left navbar. <img
 
 
 ### 2. Forum Page
-Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/readme/phase1/navbar.jpg" width="250px"><br/> <br/> 
+Entrance: Click on the __Q&A Forum__ in the top left navbar. <img src="/images/readme/phase2/navbar.jpg" width="250px"><br/> <br/> 
 
 ![](/images/readme/phase1/forum.jpg?raw=true) <br/>
 
 * Click on any question title, it will open the corresponding question page in a new tab.
 * Click on any user name, it will open the profile page of the corresponding user in a new tab.
-* Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new question. <br/>
+* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new question. <br/>
 * 
-![](/images/readme/phase1/new_question.jpg?raw=true) <br/><br/><br/>
+![](/images/readme/phase2/new_question.jpg?raw=true) <br/><br/><br/>
 
 <img src="/images/readme/phase1/sort.jpg" width="140px"> <br/>
 * Click on __Time__, it will display the question list by creation time .
@@ -115,28 +115,29 @@ Entrance: Click on any question title on Home/Forum/Profile page. <br/> <br/>
 ![](/images/readme/phase1/question.jpg?raw=true) <br/>
 
 
-<img src="/images/readme/phase1/sort.jpg" width="140px"> <br/>
+<img src="/images/readme/phase2/sort.jpg" width="140px"> <br/>
 * Click on __Time__, it will display the answer list by answer time .
 * Click on __Most Liked__, it will display the answer list by like count.
  <br/>
  
-<img src="/images/readme/phase1/like.jpg" width="300px"><br/>
+<img src="/images/readme/phase2/like.jpg" width="300px"><br/>
 
 * Click on __▲/▼__ button, you can like or dislike an question or answer.
-* Click on __+__ button <img src="/images/readme/phase1/add_btn.jpg" width="50">, you can add a new answer. <br/>
+* Click on __+__ button <img src="/images/readme/phase2/add_btn.jpg" width="50">, you can add a new answer. <br/>
 
 ![](/images/readme/phase1/new_answer.jpg?raw=true) <br/><br/><br/>
 
 
 #### 3.2 Admin View
 
-<img src="/images/readme/phase1/admin.jpg"> <br/>
+<img src="/images/readme/phase2/admin.jpg"> <br/>
 
-* Click on __mute__ button, the user will be muted in the forum.<br/>
-<img src="/images/readme/phase1/mute_button.jpg" width="200px"> <img src="/images/readme/phase1/after_mute.jpg" width="200px">
+* Click on __mute__ button, and enter the password in the confirmation window, then the user will be muted in the forum.<br/>
+<img src="/images/readme/phase2/mute_confirm.jpg"><br/>
+<img src="/images/readme/phase2/mute_button.jpg" width="200px"> <img src="/images/readme/phase2/after_mute.jpg" width="200px">
 
 * Click on __Delete the answer__ button, the answer will be deleted and disappear. So does the __Delete the question__ button.<br/>
-<img src="/images/readme/phase1/delete.jpg" width="450px"> <br/><br/><br/>
+<img src="/images/readme/phase2/delete.jpg" width="450px"> <br/><br/><br/>
 
 
 #### 3.3 Question Asker View
