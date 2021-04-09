@@ -202,7 +202,6 @@ Entrance: Click on the __Ranking__ in the top left navbar. <img src="/images/rea
 | POST   | /userQuestion<br>/:type/:uid      | add to <br>asked/answered/accepted array <br> (as parameter "type")      | {<br>&nbsp;&nbsp;"summary": String,<br>&nbsp;&nbsp;"qid": Number<br>}                     | the modified array (:type) |
 | DELETE | /userQuestion<br>/:type/:uid/:qid | delete from <br>asked/answered/accepted array <br> (as parameter "type") | n/a                                                               | the modified array (:type) |
 | GET    | /allUsers                     | get all users                                                               | n/a                                                               | the array of users object  |
-             |
 
 
 
