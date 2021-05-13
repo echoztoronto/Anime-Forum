@@ -73,12 +73,10 @@ async function update_forum_page(questions) {
             </tbody>`;      // add the header
         for (let i = 0; i < questions.length; i++){
             let tb = document.createElement('TBODY');
-            let reply_count = 0;
-            if(questions[i].answer_list !== undefined) reply_count = questions[i].answer_list.length;
             tb.innerHTML = `
                 <tr class="tr">
                     <td class="c1">${questions[i].likeCount}</td>
-                    <td class="c2">${reply_count}</td>
+                    <td class="c2">${questions[i].replyCount}</td>
                     <td class="c3">${questions[i].status}</td>
                     <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
                     <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName }</a></td>

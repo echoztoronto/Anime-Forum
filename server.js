@@ -317,10 +317,10 @@ app.get('/allQuestions', async (req, res) =>{
 					"questionID": question.questionID,
     				"summary": question.summary,
 					"likeCount": question.likeCount,
-					"replyCount": question.replyCount,
+					"replyCount": question.answer_list.length,
 					"status": question.status,
 					"asker": question.asker,
-					"lastAnswerer": question.lastAnswerer
+					"lastAnswerer": question.lastAnswerer,
 				})
 			})
 			res.json(lst);
