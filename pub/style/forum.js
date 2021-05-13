@@ -76,7 +76,7 @@ async function update_forum_page(questions) {
             tb.innerHTML = `
                 <tr class="tr">
                     <td class="c1">${questions[i].likeCount}</td>
-                    <td class="c2">${questions[i].replyCount}</td>
+                    <td class="c2">${questions[i].answer_list.length}</td>
                     <td class="c3">${questions[i].status}</td>
                     <td class="c4"><a target="_blank" href="question.html#${questions[i].questionID}">${questions[i].summary}</a></td>
                     <td class="c5"><a target="_blank" href="profile.html#${questions[i].asker.userID}">${questions[i].asker.displayName }</a></td>

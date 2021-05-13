@@ -19,7 +19,6 @@ const QuestionSchema = new mongoose.Schema({
     summary: String,
     description: String,
     likeCount: {type: Number, default: 0},
-    replyCount: {type: Number, default: 0},
     status: String,
     asker: {
         userID: {type: String, default: ""}, 
