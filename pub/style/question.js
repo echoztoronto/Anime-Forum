@@ -87,7 +87,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
             // update asker info DOM
             document.getElementById("asker-icon").src = uProfile.profilePicImg;
             document.getElementById("asker-name").innerHTML = '<a href="profile.html#' + uProfile.userID 
-                    + '" target="_blank">' +  uProfile.displayName + '</a>';
+                    + '" >' +  uProfile.displayName + '</a>';
             document.getElementById("asker-level").innerHTML = "Level: " + uProfile.level;
             if(check_muted(uProfile))  document.getElementById("asker-mute").innerHTML = `[muted until: ${uProfile.mute}]`;
             else document.getElementById("asker-mute").innerHTML = ``;
@@ -136,7 +136,7 @@ async function updatePage(sort="like") {     // sort range in {"like", "time"}
                 limit_container.innerHTML = `
                     This question has a view/answer restriction: Level
                     <span id="limit-level"> ${qObject.levelLimit} </span> 			
-                    <a id="user-rule" href="rule.html" target="_blank"> ? </a> 
+                    <a id="user-rule" href="rule.html" > ? </a> 
                     <br/>
                     Level up or spend <span id="limit-gold"> ${gold_needed} </span> golds to unlock this question! <br/> <br/>
                     Current Gold: <span id="limit-gold"> ${self_profile.gold} </span> <br/>
@@ -267,7 +267,7 @@ async function insert_answer_posts(answer_list) {
             // update answerer info DOM
             document.getElementById("answerer-icon-"+i).src = aProfile.profilePicImg;
             document.getElementById("answerer-name-"+i).innerHTML = '<a href="profile.html#' + aProfile.userID 
-                    + '" target="_blank">' +  aProfile.displayName + '</a>';
+                    + '">' +  aProfile.displayName + '</a>';
             document.getElementById("answerer-level-"+i).innerHTML = "Level: " + aProfile.level;
             if(check_muted(aProfile))  document.getElementById("answerer-mute-"+i).innerHTML = `[muted until: ${aProfile.mute}]`;
             else document.getElementById("answerer-mute-"+i).innerHTML = ``;

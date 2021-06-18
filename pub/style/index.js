@@ -23,7 +23,7 @@ async function show_top_question(e){
         for (let i = 0; i < Math.min(5, question_list.length); i++){        // top 5 
             const c = document.createElement('div');
             c.className = "question_summary";
-            c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
+            c.innerHTML = `Top ${i + 1}: <a href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
             top_question.appendChild(c);
         }
     }catch(err){
@@ -45,7 +45,7 @@ async function show_recent_question(e){
         for (let i = 0; i < Math.min(5, question_list.length); i++){        // top 5 
             const c = document.createElement('div');
             c.className = "question_summary";
-            c.innerHTML = `Top ${i + 1}: <a target="_blank" href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
+            c.innerHTML = `Top ${i + 1}: <a href="question.html#${question_list[i].questionID}">${question_list[i].summary}</a>`;
             top_question.appendChild(c);
         }
     }catch(err){
@@ -70,7 +70,7 @@ async function show_brief_ranking(e){
             const new_right = document.createElement('div');
             new_left.setAttribute("class", "ranking_body");
             new_right.setAttribute("class", "ranking_body");
-            new_left.innerHTML = `<a target="_blank" href="profile.html#${user_list[i].userID}">${user_list[i].displayName}`;
+            new_left.innerHTML = `<a href="profile.html#${user_list[i].userID}">${user_list[i].displayName}`;
             new_right.innerHTML = `${user_list[i].level}`;
             container_left.appendChild(new_left);
             container_right.appendChild(new_right);
@@ -122,7 +122,7 @@ function add_logged_navbar() {
     const container = create_element("div", "navbar-user", "navbar-user", "navbar");
     container.innerHTML = `
         <div class="navbar-block-logged">
-            <a id="clickable_icon" target="_blank"> <img id="nav_user_profile"> </a>
+            <a id="clickable_icon"> <img id="nav_user_profile"> </a>
         </div>
         <div class="navbar-block" onclick="log_out()"><a href="index.html"><b> Logout </b></a></div>
     `;
